@@ -63,3 +63,4 @@
 		@endforeach
 	@endif
 @endforeach
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('bookmark') }}'><i class='nav-icon la la-question'></i> Bookmarks</a></li>

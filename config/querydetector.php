@@ -30,28 +30,6 @@ return [
         //    Post::class,
         //    'posts',
         //]
-
-
-        // * shiftDetails() method 
-        Employee::class => [
-            EmployeeShiftSchedule::class,
-            'employeeShiftSchedule',
-            ChangeShiftSchedule::class,
-            'changeShiftSchedules',
-        ],
-        
-        EmployeeShiftSchedule::class => [
-            ShiftSchedule::class,
-            'shiftSchedule',
-        ],
-        
-        ChangeShiftSchedule::class => [
-            ShiftSchedule::class,
-            'shiftSchedule',
-        ],
-        // * shiftDetails() method 
-
-        
     ],
 
     /*

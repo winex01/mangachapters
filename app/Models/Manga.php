@@ -27,6 +27,17 @@ class Manga extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public static function boot() 
+    {
+        parent::boot();
+
+        static::deleted(function($data) {
+            if ($data->photo) {
+                (new self)->deleteFileFromStorage($data, $data->photo);
+            }
+        });
+
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -45,10 +56,24 @@ class Manga extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    public function getPhotoAttribute($value)
+    {
+        return ($value != null) ? 'storage/'.$value : $value;
+    }
 
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setPhotoAttribute($value)
+    {
+        $attribute_name = 'photo';
+        // or use your own disk, defined in config/filesystems.php
+        $disk = 'public'; 
+        // destination path relative to the disk above
+        $destination_path = 'images/photo'; 
+
+        $this->uploadImageToDisk($value, $attribute_name, $disk, $destination_path);
+    }
 }

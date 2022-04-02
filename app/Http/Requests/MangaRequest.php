@@ -18,10 +18,9 @@ class MangaRequest extends FormRequest
      */
     public function rules()
     {
-
         $rules = [
             'photo' => 'required',
-            'title' => 'required',
+            'title' => 'required|min:1|max:255|unique:'.$this->getTable()
         ];
 
         return $rules;

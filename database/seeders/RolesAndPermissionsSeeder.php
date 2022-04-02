@@ -96,6 +96,19 @@ class RolesAndPermissionsSeeder extends Seeder
             'sources_force_bulk_delete',
             'sources_revise',
         ],
+
+        'chapters' => [
+            'chapters_list',
+            'chapters_create',
+            'chapters_show',
+            'chapters_update',
+            'chapters_delete',
+            'chapters_bulk_delete',
+            'chapters_export',
+            'chapters_force_delete',
+            'chapters_force_bulk_delete',
+            'chapters_revise',
+        ],
     ];
 
     /**

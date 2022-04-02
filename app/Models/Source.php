@@ -46,6 +46,10 @@ class Source extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+    public function scopePublished($query)
+    {
+        $query->where('published', true);
+    }
 
     /*
     |--------------------------------------------------------------------------

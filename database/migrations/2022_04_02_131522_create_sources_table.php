@@ -17,7 +17,7 @@ class CreateSourcesTable extends Migration
             $table->id();
 
             $table->foreignId('manga_id')->constrained();
-            $table->string('url');
+            $table->string('url')->nullable();
 
             $table->boolean('published')->default(false);// false
 

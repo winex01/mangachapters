@@ -23,6 +23,7 @@ class ChapterCrudController extends CrudController
     use \App\Http\Controllers\Admin\Operations\ForceBulkDeleteOperation;
     use \Backpack\ReviseOperation\ReviseOperation;
     use \App\Http\Controllers\Admin\Operations\ExportOperation;
+    use \App\Http\Controllers\Admin\Operations\Chapter\ScanOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
     /**
@@ -108,5 +109,6 @@ class ChapterCrudController extends CrudController
         $this->addRelationshipField('manga_id');
     }
 }
+// TODO:: make ScanOperation workable in schedule background process
 // TODO:: hide chapter button and instead use scan button
 

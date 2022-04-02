@@ -25,6 +25,9 @@ class SourceCrudController extends CrudController
     use \App\Http\Controllers\Admin\Operations\ExportOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+    use \App\Http\Controllers\Admin\Traits\Fetch\FetchMangaTrait;
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -105,7 +108,8 @@ class SourceCrudController extends CrudController
     private function customInputs()
     {
         $this->inputs();
-        $this->addRelationshipField('manga_id');
+        // $this->addRelationshipField('manga_id');
+        $this->addInlineCreateField('manga_id');
         $this->addRelationshipField('scan_filter_id');
     }
 }

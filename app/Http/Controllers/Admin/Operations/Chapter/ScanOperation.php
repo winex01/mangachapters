@@ -117,8 +117,9 @@ trait ScanOperation
                     }else {
                         Log::error($data);
                         $failMangas[] = $data;
+
+                        // TODO:: if not numeric find a way for comparison, check this: https://stackoverflow.com/questions/14288534/php-compare-alphabet-position
                     }
-                    
                 }// loop links
             }// loop sources
         }// loop manga

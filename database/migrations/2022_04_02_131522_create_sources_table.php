@@ -21,6 +21,8 @@ class CreateSourcesTable extends Migration
 
             $table->boolean('published')->default(false);// false
 
+            $table->string('crawler_filter')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

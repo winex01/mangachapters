@@ -4,15 +4,17 @@ namespace App\Models;
 
 use App\Models\Model;
 
-class Religion extends Model
+class Manga extends Model
 {
+    use \Illuminate\Database\Eloquent\SoftDeletes;
+
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'religions';
+    protected $table = 'mangas';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -25,9 +27,16 @@ class Religion extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    protected static function booted()
+    public static function boot() 
     {
-        static::addGlobalScope(new \App\Scopes\OrderByNameScope);
+        parent::boot();
+
+        static::deleted(function($data) {
+            if ($data->photo) {
+                (new self)->deleteFileFromStorage($data, $data->photo);
+            }
+        });
+
     }
 
     /*
@@ -35,10 +44,6 @@ class Religion extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function employees()
-    {
-        return $this->hasMany(\App\Models\Employee::class);
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -51,10 +56,24 @@ class Religion extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    public function getPhotoAttribute($value)
+    {
+        return ($value != null) ? 'storage/'.$value : $value;
+    }
 
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setPhotoAttribute($value)
+    {
+        $attribute_name = 'photo';
+        // or use your own disk, defined in config/filesystems.php
+        $disk = 'public'; 
+        // destination path relative to the disk above
+        $destination_path = 'images/photo'; 
+
+        $this->uploadImageToDisk($value, $attribute_name, $disk, $destination_path);
+    }
 }

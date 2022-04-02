@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\FormRequest;
 
-class WithholdingTaxBasisCreateRequest extends FormRequest
+class MangaRequest extends FormRequest
 {
     public function getTable()
     {
@@ -18,14 +18,11 @@ class WithholdingTaxBasisCreateRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = parent::rules();
 
-        $addRules = [
-            'name' => 'required',
-            'withholding_tax_version_id' => 'required|numeric',
+        $rules = [
+            'photo' => 'required',
+            'title' => 'required',
         ];
-
-        $rules = array_merge($rules, $addRules);
 
         return $rules;
     }

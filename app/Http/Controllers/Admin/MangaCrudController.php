@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\MenuRequest;
+use App\Http\Requests\MangaRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class MenuCrudController
+ * Class MangaCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class MenuCrudController extends CrudController
+class MangaCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
-    // use \App\Http\Controllers\Admin\Operations\ForceBulkDeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+    use \App\Http\Controllers\Admin\Operations\ForceDeleteOperation;
+    use \App\Http\Controllers\Admin\Operations\ForceBulkDeleteOperation;
+    use \Backpack\ReviseOperation\ReviseOperation;
+    use \App\Http\Controllers\Admin\Operations\ExportOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
     /**
@@ -28,8 +32,8 @@ class MenuCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Menu::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/menu');
+        CRUD::setModel(\App\Models\Manga::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/manga');
 
         $this->userPermissions();
     }
@@ -43,33 +47,27 @@ class MenuCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->showColumns();
-        
-        $this->crud->removeColumns(
-            array_merge(
-                $this->reorderFields(),
-                ['url', 'icon']
-            )
-        );
-        
-        $this->crud->addColumn([
-            'name'     => 'parent_id',
-            'label'    => 'Parent',
-            'type'     => 'closure',
-            'function' => function($entry) {
-                return $entry->parent;
-            } 
+
+        // photo
+        $this->crud->modifyColumn('photo', [
+            'type'   => 'image',
+            'height' => '50px',
+            'width'  => '40px',
+            'orderable' => false,
         ]);
 
-    
     }
 
-    protected function setupReorderOperation()
+    protected function setupShowOperation()
     {
-        // define which model attribute will be shown on draggable elements 
-        $this->crud->set('reorder.label', 'label');
-        // define how deep the admin is allowed to nest the items
-        // for infinite levels, set it to 0
-        $this->crud->set('reorder.max_level', 2); 
+        $this->crud->set('show.setFromDb', false); // remove fk column such as: gender_id
+        $this->setupListOperation();
+
+        // photo
+        $this->crud->modifyColumn('photo', [
+            'height' => '300px',
+            'width'  => '200px',
+        ]);
     }
 
     /**
@@ -80,18 +78,8 @@ class MenuCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(MenuRequest::class);
-
-        $this->inputs();
-        $this->crud->removeFields($this->reorderFields());
-
-        $array = \App\Models\Permission::select('name')->pluck('name', 'name');
-
-        $this->crud->modifyField('permission', [
-            'type'        => 'select2_from_array',
-            'allows_null' => true,
-            'options'     => $array,
-        ]);
+        CRUD::setValidation(MangaRequest::class);
+        $this->customInputs();
     }
 
     /**
@@ -103,5 +91,17 @@ class MenuCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    private function customInputs()
+    {
+        $this->inputs();
+
+        // photo
+        $this->crud->modifyField('photo', [
+            'type'         => 'image',
+            'crop'         => true,
+            'aspect_ratio' => 0,
+        ]);
     }
 }

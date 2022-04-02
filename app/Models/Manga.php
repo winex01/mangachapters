@@ -65,6 +65,11 @@ class Manga extends Model
         return ($value != null) ? 'storage/'.$value : $value;
     }
 
+    public function getNameAttribute()
+    {
+        return $this->attributes['title'];
+    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class Chapter extends Model
 {
-    use CrudTrait;
+    use \Illuminate\Database\Eloquent\SoftDeletes;
 
     /*
     |--------------------------------------------------------------------------
@@ -34,6 +33,10 @@ class Chapter extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function manga()
+    {
+        return $this->belongsTo(\App\Models\Manga::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

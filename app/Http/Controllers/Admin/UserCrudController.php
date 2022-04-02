@@ -99,9 +99,6 @@ class UserCrudController extends CrudController
             $this->crud->removeColumn('roles');
             $this->crud->removeColumn('permissions');
         }
-        
-        $this->crud->addColumn(['name' => 'employee_id'])->afterColumn('email');
-        $this->showEmployeeNameColumn();
     }
 
     public function setupCreateOperation()
@@ -217,14 +214,6 @@ class UserCrudController extends CrudController
                 ],
             ],
         ]);
-
-        $field = 'employee_id';
-        $this->crud->addField([
-            'name' => $field,
-            'hint' => trans('lang.users_employee_id_hint')
-        ])->afterField('password_confirmation');
-        $this->addRelationshipField($field);
-
     }
     
 }

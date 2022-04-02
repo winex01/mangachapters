@@ -123,6 +123,19 @@ class RolesAndPermissionsSeeder extends Seeder
             'scan_filters_force_bulk_delete',
             'scan_filters_revise',
         ],
+
+        'bookmarks' => [
+            'bookmarks_list',
+            'bookmarks_create',
+            'bookmarks_show',
+            'bookmarks_update',
+            'bookmarks_delete',
+            'bookmarks_bulk_delete',
+            'bookmarks_export',
+            'bookmarks_force_delete',
+            'bookmarks_force_bulk_delete',
+            'bookmarks_revise',
+        ],
     ];
 
     /**

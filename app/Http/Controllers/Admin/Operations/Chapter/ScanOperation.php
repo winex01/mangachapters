@@ -100,6 +100,8 @@ trait ScanOperation
                                 break; // add this break so i will exit the foreach if no latest chapters found
                             }
                         }
+
+                        // TODO:: add pivot bookmarks here
                     }else {
                         Log::error($data);
                         $failMangas[] = $data;

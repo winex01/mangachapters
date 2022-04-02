@@ -18,6 +18,12 @@ class MangaCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+    use \App\Http\Controllers\Admin\Operations\ForceDeleteOperation;
+    use \App\Http\Controllers\Admin\Operations\ForceBulkDeleteOperation;
+    use \Backpack\ReviseOperation\ReviseOperation;
+    use \App\Http\Controllers\Admin\Operations\ExportOperation;
+    use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -28,7 +34,8 @@ class MangaCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Manga::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/manga');
-        CRUD::setEntityNameStrings('manga', 'mangas');
+
+        $this->userPermissions();
     }
 
     /**
@@ -39,13 +46,28 @@ class MangaCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
+        $this->showColumns();
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+        // photo
+        $this->crud->modifyColumn('photo', [
+            'type'   => 'image',
+            'height' => '50px',
+            'width'  => '40px',
+            'orderable' => false,
+        ]);
+
+    }
+
+    protected function setupShowOperation()
+    {
+        $this->crud->set('show.setFromDb', false); // remove fk column such as: gender_id
+        $this->setupListOperation();
+
+        // photo
+        $this->crud->modifyColumn('photo', [
+            'height' => '300px',
+            'width'  => '200px',
+        ]);
     }
 
     /**
@@ -57,14 +79,7 @@ class MangaCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(MangaRequest::class);
-
-        CRUD::setFromDb(); // fields
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
+        $this->customInputs();
     }
 
     /**
@@ -76,5 +91,17 @@ class MangaCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    private function customInputs()
+    {
+        $this->inputs();
+
+        // photo
+        $this->crud->modifyField('photo', [
+            'type'         => 'image',
+            'crop'         => true,
+            'aspect_ratio' => 0,
+        ]);
     }
 }

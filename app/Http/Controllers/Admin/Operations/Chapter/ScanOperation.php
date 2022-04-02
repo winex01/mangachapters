@@ -59,7 +59,8 @@ trait ScanOperation
 
         // query selected manga
         if ($ids) {
-            $ids = modelInstance('Chapter')->whereIn('id', [7,2])->pluck('manga_id')->all();
+            // debug('if');
+            $ids = modelInstance('Chapter')->whereIn('id', $ids)->pluck('manga_id')->all();
             $mangas = modelInstance('Manga')
                         ->has('sources')
                         ->with(['sources' => function ($query) {
@@ -68,6 +69,7 @@ trait ScanOperation
                         ->whereIn('id', $ids)
                         ->get();
         }else { // query all manga
+            // debug('else');
             $mangas = modelInstance('Manga')
                         ->has('sources')
                         ->with(['sources' => function ($query) {
@@ -129,12 +131,26 @@ trait ScanOperation
         return compact('error', 'failMangas');
     }
 
-    private function prepareData($mangaId, $crawUrl, $sourceUrl)
+    private function prepareData($mangaId, $scrapUrl, $sourceUrl)
     {
-        if ( stringContains($sourceUrl, 'www.test.com') ) {
-            $test = '';
-        }else {
-            $chapter = str_replace($sourceUrl, '', $crawUrl);
+
+        // support mangaraw.pro
+        if ( stringContains($sourceUrl, 'mangaraw.pro') ) {
+            $chapter = explode('chapter-', $scrapUrl);
+
+            if ( is_array($chapter) && count($chapter) == 2 ) {
+                $chapter = $chapter[1];
+            }
+
+            $chapter = str_replace('/', '', $chapter);
+
+            // support decimal chapters ex. 1.1
+            $chapter = str_replace('-', '.', $chapter);
+
+            debug($chapter);
+
+        }else { // universal
+            $chapter = str_replace($sourceUrl, '', $scrapUrl);
             $chapter = str_replace('/', '', $chapter);
             $chapter = str_replace('chapter-', '', $chapter);
             
@@ -145,7 +161,7 @@ trait ScanOperation
         return [
             'manga_id' => $mangaId,
             'chapter' => $chapter,
-            'url' => $crawUrl,
+            'url' => $scrapUrl,
         ];
     }
 }

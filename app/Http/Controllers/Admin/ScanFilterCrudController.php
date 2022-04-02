@@ -18,6 +18,12 @@ class ScanFilterCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+    use \App\Http\Controllers\Admin\Operations\ForceDeleteOperation;
+    use \App\Http\Controllers\Admin\Operations\ForceBulkDeleteOperation;
+    use \Backpack\ReviseOperation\ReviseOperation;
+    use \App\Http\Controllers\Admin\Operations\ExportOperation;
+    use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -28,7 +34,8 @@ class ScanFilterCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\ScanFilter::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/scanfilter');
-        CRUD::setEntityNameStrings('scanfilter', 'scan_filters');
+
+        $this->userPermissions();
     }
 
     /**
@@ -39,13 +46,7 @@ class ScanFilterCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+        $this->showColumns();
     }
 
     /**
@@ -56,15 +57,8 @@ class ScanFilterCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(ScanFilterRequest::class);
-
-        CRUD::setFromDb(); // fields
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
+        CRUD::setValidation(ScanFilterRequest::class); // TODO:: fix validation must unique name
+        $this->customInputs();
     }
 
     /**
@@ -76,5 +70,10 @@ class ScanFilterCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    private function customInputs()
+    {
+        $this->inputs();
     }
 }

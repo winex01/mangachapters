@@ -74,4 +74,12 @@ return [
     |--------------------------------------------------------------------------
     */
     'scan_operation_button' => 'Scan',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Scan Filters Crud
+    |--------------------------------------------------------------------------
+    */
+    'scan_filters_name' => 'Website url / name. Eg: https://www.readmng.com/',
+    'scan_filters_filter' => 'Tag or class name. Eg: .chp_lst a'
 ];

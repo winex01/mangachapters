@@ -44,6 +44,10 @@ class Manga extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function sources()
+    {
+        return $this->hasMany(\App\Models\Source::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

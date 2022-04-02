@@ -106,6 +106,7 @@ class SourceCrudController extends CrudController
     {
         $this->inputs();
         $this->addRelationshipField('manga_id');
+        $this->addRelationshipField('scan_filter_id');
     }
 }
 // TODO:: add filter manga

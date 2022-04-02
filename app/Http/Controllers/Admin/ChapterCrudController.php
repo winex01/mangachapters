@@ -18,6 +18,12 @@ class ChapterCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+    use \App\Http\Controllers\Admin\Operations\ForceDeleteOperation;
+    use \App\Http\Controllers\Admin\Operations\ForceBulkDeleteOperation;
+    use \Backpack\ReviseOperation\ReviseOperation;
+    use \App\Http\Controllers\Admin\Operations\ExportOperation;
+    use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -28,7 +34,8 @@ class ChapterCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Chapter::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/chapter');
-        CRUD::setEntityNameStrings('chapter', 'chapters');
+
+        $this->userPermissions();
     }
 
     /**
@@ -39,13 +46,37 @@ class ChapterCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
+        $this->showColumns();
+        $this->showRelationshipColumn('manga_id');
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+        $this->crud->addColumn([
+            'name' => 'manga.photo',
+            'label' => 'Photo',
+            'type'   => 'image',
+            'height' => '50px',
+            'width'  => '40px',
+            'orderable' => false,
+        ])->beforeColumn('manga_id');
+
+        $this->crud->modifyColumn('url', [
+            'type'     => 'closure',
+            'function' => function($entry) {
+                $url = $entry->url;
+                return anchorNewTab($url, $url);
+            }
+        ]);       
+    }
+
+    protected function setupShowOperation()
+    {
+        $this->crud->set('show.setFromDb', false); // remove fk column such as: gender_id
+        $this->setupListOperation();
+
+        // photo
+        $this->crud->modifyColumn('manga.photo', [
+            'height' => '300px',
+            'width'  => '200px',
+        ]);
     }
 
     /**
@@ -56,15 +87,8 @@ class ChapterCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(ChapterRequest::class);
-
-        CRUD::setFromDb(); // fields
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
+        CRUD::setValidation(ChapterRequest::class); // TODO:: validation, make unique manga and chapter #/letter
+        $this->customInputs();
     }
 
     /**
@@ -77,4 +101,12 @@ class ChapterCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+
+    private function customInputs()
+    {
+        $this->inputs();
+        $this->addRelationshipField('manga_id');
+    }
 }
+// TODO:: hide chapter button and instead use scan button
+

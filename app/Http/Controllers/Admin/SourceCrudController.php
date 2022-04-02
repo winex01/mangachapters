@@ -77,7 +77,6 @@ class SourceCrudController extends CrudController
             'height' => '300px',
             'width'  => '200px',
         ]);
-
     }
 
     /**

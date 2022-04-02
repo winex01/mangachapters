@@ -37,6 +37,10 @@ class Source extends Model
         return $this->belongsTo(\App\Models\Manga::class);
     }
 
+    public function scanFilter()
+    {
+        return $this->belongsTo(\App\Models\ScanFilter::class);
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

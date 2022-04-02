@@ -51,6 +51,7 @@ class SourceCrudController extends CrudController
     {
         $this->showColumns();
         $this->showRelationshipColumn('manga_id');
+        $this->showRelationshipColumn('scan_filter_id');
 
         $this->crud->addColumn([
             'name' => 'manga.photo',

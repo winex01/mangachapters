@@ -24,7 +24,10 @@ class ChapterCrudController extends CrudController
     use \Backpack\ReviseOperation\ReviseOperation;
     use \App\Http\Controllers\Admin\Operations\ExportOperation;
     use \App\Http\Controllers\Admin\Operations\Chapter\ScanOperation;
+    use \App\Http\Controllers\Admin\Operations\Chapter\DismissOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
+
+    use \App\Http\Controllers\Admin\Traits\FilterTrait;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -66,6 +69,8 @@ class ChapterCrudController extends CrudController
                 return anchorNewTab($url, $url);
             }
         ]);       
+
+        $this->filters();
     }
 
     protected function setupShowOperation()
@@ -107,6 +112,11 @@ class ChapterCrudController extends CrudController
     {
         $this->inputs();
         $this->addRelationshipField('manga_id');
+    }
+
+    private function filters()
+    {
+        $this->booleanFilter('dismiss');
     }
 }
 // TODO:: make ScanOperation workable in schedule background process

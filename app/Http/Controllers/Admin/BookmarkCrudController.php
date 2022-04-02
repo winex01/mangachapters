@@ -18,6 +18,11 @@ class BookmarkCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+    use \Backpack\ReviseOperation\ReviseOperation;
+    use \App\Http\Controllers\Admin\Operations\ExportOperation;
+    use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
+    
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -28,7 +33,8 @@ class BookmarkCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Bookmark::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/bookmark');
-        CRUD::setEntityNameStrings('bookmark', 'bookmarks');
+
+        $this->userPermissions();
     }
 
     /**
@@ -39,13 +45,7 @@ class BookmarkCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+        CRUD::setFromDb(); 
     }
 
     /**
@@ -57,14 +57,7 @@ class BookmarkCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(BookmarkRequest::class);
-
-        CRUD::setFromDb(); // fields
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
+        CRUD::setFromDb(); 
     }
 
     /**

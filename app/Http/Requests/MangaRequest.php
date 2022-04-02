@@ -20,8 +20,8 @@ class MangaRequest extends FormRequest
     {
 
         $rules = [
-            'photo'                  => 'required',
-            'title'                  => 'required',
+            'photo' => 'required',
+            'title' => 'required',
         ];
 
         return $rules;

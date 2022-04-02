@@ -66,7 +66,9 @@ class SourceCrudController extends CrudController
             'type'     => 'closure',
             'function' => function($entry) {
                 $url = $entry->url;
-                return anchorNewTab($url, $url);
+                if ($url) {
+                    return anchorNewTab($url, $url);
+                }
             }
         ]);
     }

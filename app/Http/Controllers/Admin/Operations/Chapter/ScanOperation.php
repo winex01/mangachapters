@@ -55,6 +55,7 @@ trait ScanOperation
         $client = new Client();
         $error = false;
         $failMangas = [];
+        $newChapters = [];
         $ids = request()->ids;
 
         // query selected manga
@@ -89,6 +90,8 @@ trait ScanOperation
                                     ->orderBy('created_at', 'desc')
                                     ->first();
 
+                // debug($currentChapter);
+
                 $crawler = $client->request('GET', $source->url);
                 $links = $crawler->filter($source->scanFilter->filter)->links();
 
@@ -98,26 +101,19 @@ trait ScanOperation
                     if (is_numeric($data['chapter'])) {
                         // manga has no chapters yet, then after saving the latest chapter then exist loop.
                         if ($currentChapter == null) {
-                            modelInstance('Chapter')->create($data);
+                            $newChapters[] = modelInstance('Chapter')->create($data);
                             break;
                         }else {
                             if ($currentChapter->chapter < $data['chapter']) {
-                                $count = modelInstance('Chapter')
-                                    ->where('manga_id', $manga->id)
-                                    ->where('chapter', $data['chapter'])
-                                    ->count();
-
-                                // avoid duplicate
-                                if ($count == 0) {
-                                    modelInstance('Chapter')->firstOrCreate($data);
+                                $firstOrCreate = modelInstance('Chapter')->firstOrCreate($data);
+                                
+                                if($firstOrCreate->wasRecentlyCreated) {
+                                    $newChapters[] = $firstOrCreate;
                                 }
-
                             }else {
                                 break; // add this break so i will exit the foreach if no latest chapters found
                             }
                         }
-
-                        // TODO:: add pivot bookmarks here
                     }else {
                         Log::error($data);
                         $failMangas[] = $data;
@@ -128,12 +124,17 @@ trait ScanOperation
         }// loop manga
 
 
+        if (!empty($newChapters)) {
+            debug($newChapters);
+            // TODO:: insert bookmarks here
+        }
+
         return compact('error', 'failMangas');
     }
 
     private function prepareData($mangaId, $scrapUrl, $sourceUrl)
     {
-
+        
         // support mangaraw.pro
         if ( stringContains($sourceUrl, 'mangaraw.pro') ) {
             $chapter = explode('chapter-', $scrapUrl);
@@ -141,7 +142,7 @@ trait ScanOperation
             if ( is_array($chapter) && count($chapter) == 2 ) {
                 $chapter = $chapter[1];
             }
-
+            
             $chapter = str_replace('/', '', $chapter);
 
             // support decimal chapters ex. 1.1

@@ -38,6 +38,7 @@ trait ScanOperation
         });
 
         $this->crud->operation(['list', 'show'], function () {
+            $this->crud->enableBulkActions();
             $this->crud->addButtonFromView('top', 'scan', $this->scanButton);
         });
     }
@@ -51,19 +52,32 @@ trait ScanOperation
     {
         $this->crud->hasAccessOrFail('scan');
 
+        $client = new Client();
         $error = false;
         $failMangas = [];
-        $client = new Client();
+        $ids = request()->ids;
 
-        // loop all mangas
-        $mangas = modelInstance('Manga')
-                    ->has('sources')
-                    ->with(['sources' => function ($query) {
-                        $query->published();
-                    }])->get();
-
+        // query selected manga
+        if ($ids) {
+            $ids = modelInstance('Chapter')->whereIn('id', [7,2])->pluck('manga_id')->all();
+            $mangas = modelInstance('Manga')
+                        ->has('sources')
+                        ->with(['sources' => function ($query) {
+                            $query->published();
+                        }])
+                        ->whereIn('id', $ids)
+                        ->get();
+        }else { // query all manga
+            $mangas = modelInstance('Manga')
+                        ->has('sources')
+                        ->with(['sources' => function ($query) {
+                            $query->published();
+                        }])->get();
+        }
+        
         // debug($mangas);
-
+        
+        // loop all mangas
         foreach ($mangas as $manga) {
             foreach ($manga->sources as $source) {
                 // get my current chapter, check last chapter entries of that manga_id, if no data then save only the first links

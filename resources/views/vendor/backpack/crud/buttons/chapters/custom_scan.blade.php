@@ -1,4 +1,4 @@
-@if ($crud->hasAccess('scan'))
+@if ($crud->hasAccess('scan') && $crud->get('list.bulkActions'))
 	<a 
         href="javascript:void(0)" 
         onclick="scanEntries(this)" 
@@ -21,6 +21,7 @@
           $.ajax({
               type: "post",
               url: "{{ url($crud->route) }}/scan",
+              data: { ids: crud.checkedItems },
               success: function (response) {
                 console.log(response);
                 if (response.error) {

@@ -83,6 +83,19 @@ class RolesAndPermissionsSeeder extends Seeder
             'mangas_force_bulk_delete',
             'mangas_revise',
         ],
+
+        'sources' => [
+            'sources_list',
+            'sources_create',
+            'sources_show',
+            'sources_update',
+            'sources_delete',
+            'sources_bulk_delete',
+            'sources_export',
+            'sources_force_delete',
+            'sources_force_bulk_delete',
+            'sources_revise',
+        ],
     ];
 
     /**

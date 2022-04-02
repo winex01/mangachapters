@@ -18,6 +18,7 @@ class MenuCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
+    // use \App\Http\Controllers\Admin\Operations\ForceBulkDeleteOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
     /**

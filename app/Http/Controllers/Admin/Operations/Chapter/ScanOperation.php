@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Operations\Chapter;
 
 use Goutte\Client;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 trait ScanOperation
@@ -66,15 +67,16 @@ trait ScanOperation
         foreach ($mangas as $manga) {
             foreach ($manga->sources as $source) {
                 // get my current chapter, check last chapter entries of that manga_id, if no data then save only the first links
-                // reQuery every source to avoid duplicate
                 $currentChapter = modelInstance('Chapter')
-                                    ->withoutGlobalScope('CurrentChapterScope')
                                     ->where('manga_id', $manga->id)
+                                    ->orderBy('chapter', 'desc')
+                                    ->orderBy('created_at', 'desc')
                                     ->first();
-                
+
                 $crawler = $client->request('GET', $source->url);
                 $links = $crawler->filter($source->scanFilter->filter)->links();
 
+                // web crawled website links
                 foreach ($links as $link) {
                     $data = $this->prepareData($manga->id, $link->getUri(), $source->url);
                     if (is_numeric($data['chapter'])) {
@@ -85,7 +87,6 @@ trait ScanOperation
                         }else {
                             if ($currentChapter->chapter < $data['chapter']) {
                                 $count = modelInstance('Chapter')
-                                    ->withoutGlobalScope('CurrentChapterScope')
                                     ->where('manga_id', $manga->id)
                                     ->where('chapter', $data['chapter'])
                                     ->count();
@@ -100,6 +101,7 @@ trait ScanOperation
                             }
                         }
                     }else {
+                        Log::error($data);
                         $failMangas[] = $data;
                     }
                     

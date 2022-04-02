@@ -147,7 +147,7 @@ trait ScanOperation
             // support decimal chapters ex. 1.1
             $chapter = str_replace('-', '.', $chapter);
 
-            debug($chapter);
+            // debug($chapter);
 
         }else { // universal
             $chapter = str_replace($sourceUrl, '', $scrapUrl);

@@ -110,6 +110,19 @@ class RolesAndPermissionsSeeder extends Seeder
             'chapters_revise',
             'chapters_scan',
         ],
+
+        'scan_filters' => [
+            'scan_filters_list',
+            'scan_filters_create',
+            'scan_filters_show',
+            'scan_filters_update',
+            'scan_filters_delete',
+            'scan_filters_bulk_delete',
+            'scan_filters_export',
+            'scan_filters_force_delete',
+            'scan_filters_force_bulk_delete',
+            'scan_filters_revise',
+        ],
     ];
 
     /**

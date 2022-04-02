@@ -63,4 +63,3 @@
 		@endforeach
 	@endif
 @endforeach
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('scanfilter') }}'><i class='nav-icon la la-question'></i> ScanFilters</a></li>

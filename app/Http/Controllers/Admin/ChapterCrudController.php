@@ -127,6 +127,3 @@ class ChapterCrudController extends CrudController
     }
 }
 // TODO:: make ScanOperation workable in schedule background process
-// TODO:: fix search logic and order logic
-
-

@@ -83,6 +83,46 @@ class RolesAndPermissionsSeeder extends Seeder
             'mangas_force_bulk_delete',
             'mangas_revise',
         ],
+
+        'sources' => [
+            'sources_list',
+            'sources_create',
+            'sources_show',
+            'sources_update',
+            'sources_delete',
+            'sources_bulk_delete',
+            'sources_export',
+            'sources_force_delete',
+            'sources_force_bulk_delete',
+            'sources_revise',
+        ],
+
+        'chapters' => [
+            'chapters_list',
+            'chapters_create',
+            'chapters_show',
+            'chapters_update',
+            'chapters_delete',
+            'chapters_bulk_delete',
+            'chapters_export',
+            'chapters_force_delete',
+            'chapters_force_bulk_delete',
+            'chapters_revise',
+            'chapters_scan',
+        ],
+
+        'scan_filters' => [
+            'scan_filters_list',
+            'scan_filters_create',
+            'scan_filters_show',
+            'scan_filters_update',
+            'scan_filters_delete',
+            'scan_filters_bulk_delete',
+            'scan_filters_export',
+            'scan_filters_force_delete',
+            'scan_filters_force_bulk_delete',
+            'scan_filters_revise',
+        ],
     ];
 
     /**

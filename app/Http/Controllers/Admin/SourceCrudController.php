@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\MangaRequest;
+use App\Http\Requests\SourceRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class MangaCrudController
+ * Class SourceCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class MangaCrudController extends CrudController
+class SourceCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -23,8 +23,10 @@ class MangaCrudController extends CrudController
     use \App\Http\Controllers\Admin\Operations\ForceBulkDeleteOperation;
     use \Backpack\ReviseOperation\ReviseOperation;
     use \App\Http\Controllers\Admin\Operations\ExportOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
+
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+    use \App\Http\Controllers\Admin\Traits\Fetch\FetchMangaTrait;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -33,8 +35,8 @@ class MangaCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Manga::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/manga');
+        CRUD::setModel(\App\Models\Source::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/source');
 
         $this->userPermissions();
     }
@@ -48,15 +50,27 @@ class MangaCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->showColumns();
+        $this->showRelationshipColumn('manga_id');
+        $this->showRelationshipColumn('scan_filter_id');
 
-        // photo
-        $this->crud->modifyColumn('photo', [
+        $this->crud->addColumn([
+            'name' => 'manga.photo',
+            'label' => 'Photo',
             'type'   => 'image',
             'height' => '50px',
             'width'  => '40px',
             'orderable' => false,
-        ]);
+        ])->beforeColumn('manga_id');
 
+        $this->crud->modifyColumn('url', [
+            'type'     => 'closure',
+            'function' => function($entry) {
+                $url = $entry->url;
+                if ($url) {
+                    return anchorNewTab($url, $url);
+                }
+            }
+        ]);
     }
 
     protected function setupShowOperation()
@@ -65,7 +79,7 @@ class MangaCrudController extends CrudController
         $this->setupListOperation();
 
         // photo
-        $this->crud->modifyColumn('photo', [
+        $this->crud->modifyColumn('manga.photo', [
             'height' => '300px',
             'width'  => '200px',
         ]);
@@ -79,7 +93,7 @@ class MangaCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(MangaRequest::class);
+        CRUD::setValidation(SourceRequest::class); // TODO:: unique source and manga_id, required crawler_filter(should only accept yes)
         $this->customInputs();
     }
 
@@ -97,12 +111,10 @@ class MangaCrudController extends CrudController
     private function customInputs()
     {
         $this->inputs();
-
-        // photo
-        $this->crud->modifyField('photo', [
-            'type'         => 'image',
-            'crop'         => true,
-            'aspect_ratio' => 0,
-        ]);
+        // $this->addRelationshipField('manga_id');
+        $this->addInlineCreateField('manga_id');
+        $this->addRelationshipField('scan_filter_id');
     }
 }
+// TODO:: add filter manga
+// TODO:: addline create manga

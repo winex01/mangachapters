@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\MangaRequest;
+use App\Http\Requests\ScanFilterRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class MangaCrudController
+ * Class ScanFilterCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class MangaCrudController extends CrudController
+class ScanFilterCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -23,7 +23,6 @@ class MangaCrudController extends CrudController
     use \App\Http\Controllers\Admin\Operations\ForceBulkDeleteOperation;
     use \Backpack\ReviseOperation\ReviseOperation;
     use \App\Http\Controllers\Admin\Operations\ExportOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
     /**
@@ -33,8 +32,8 @@ class MangaCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Manga::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/manga');
+        CRUD::setModel(\App\Models\ScanFilter::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/scanfilter');
 
         $this->userPermissions();
     }
@@ -48,27 +47,6 @@ class MangaCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->showColumns();
-
-        // photo
-        $this->crud->modifyColumn('photo', [
-            'type'   => 'image',
-            'height' => '50px',
-            'width'  => '40px',
-            'orderable' => false,
-        ]);
-
-    }
-
-    protected function setupShowOperation()
-    {
-        $this->crud->set('show.setFromDb', false); // remove fk column such as: gender_id
-        $this->setupListOperation();
-
-        // photo
-        $this->crud->modifyColumn('photo', [
-            'height' => '300px',
-            'width'  => '200px',
-        ]);
     }
 
     /**
@@ -79,7 +57,7 @@ class MangaCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(MangaRequest::class);
+        CRUD::setValidation(ScanFilterRequest::class); // TODO:: fix validation must unique name
         $this->customInputs();
     }
 
@@ -97,12 +75,5 @@ class MangaCrudController extends CrudController
     private function customInputs()
     {
         $this->inputs();
-
-        // photo
-        $this->crud->modifyField('photo', [
-            'type'         => 'image',
-            'crop'         => true,
-            'aspect_ratio' => 0,
-        ]);
     }
 }

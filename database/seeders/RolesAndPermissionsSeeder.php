@@ -132,8 +132,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'bookmarks_delete',
             'bookmarks_bulk_delete',
             'bookmarks_export',
-            'bookmarks_force_delete',
-            'bookmarks_force_bulk_delete',
+            // 'bookmarks_force_delete',
+            // 'bookmarks_force_bulk_delete',
             'bookmarks_revise',
         ],
     ];

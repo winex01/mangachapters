@@ -50,7 +50,7 @@ class ChapterCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->showColumns();
+        $this->showColumns(null, ['url']);
         $this->showRelationshipColumn('manga_id', 'title');
 
         $this->crud->addColumn([
@@ -62,13 +62,20 @@ class ChapterCrudController extends CrudController
             'orderable' => false,
         ])->beforeColumn('manga_id');
 
-        $this->crud->modifyColumn('url', [
-            'type'     => 'closure',
+        $this->crud->modifyColumn('chapter', [
+            'type' => 'closure',
             'function' => function($entry) {
-                $url = $entry->url;
-                return anchorNewTab($url, $url);
+                return anchorNewTab($entry->url, $entry->chapter, $entry->url);
+            },
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhere('chapter', 'like', '%'.$searchTerm.'%');
+            },
+            'orderable'  => true,
+            'orderLogic' => function ($query, $column, $columnDirection) {
+                return $query->orderByRaw("CAST(chapter as UNSIGNED) ".$columnDirection);
             }
-        ]);       
+            
+        ]);
 
         $this->filters();
     }
@@ -120,6 +127,3 @@ class ChapterCrudController extends CrudController
     }
 }
 // TODO:: make ScanOperation workable in schedule background process
-// TODO:: fix search logic and order logic
-
-

@@ -7,6 +7,7 @@ use App\Models\Model;
 class Manga extends Model
 {
     use \Illuminate\Database\Eloquent\SoftDeletes;
+    use \LaravelInteraction\Bookmark\Concerns\Bookmarkable;
 
     /*
     |--------------------------------------------------------------------------

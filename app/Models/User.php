@@ -18,6 +18,7 @@ class User extends Authenticatable
     use \App\Models\Traits\RevisionableInitTrait;
     use \Illuminate\Database\Eloquent\SoftDeletes;
     use \App\Models\Traits\SoftDeletesInitTrait;
+    use \LaravelInteraction\Bookmark\Concerns\Bookmarker;
 
     /**
      * The attributes that are not assignable.
@@ -62,8 +63,5 @@ class User extends Authenticatable
     | RELATIONS 
     |--------------------------------------------------------------------------
     */
-    public function employee()
-    {
-        return $this->belongsTo(\App\Models\Employee::class);
-    }
+    
 }

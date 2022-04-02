@@ -48,7 +48,7 @@ class ChapterCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->showColumns();
-        $this->showRelationshipColumn('manga_id');
+        $this->showRelationshipColumn('manga_id', 'title');
 
         $this->crud->addColumn([
             'name' => 'manga.photo',
@@ -110,5 +110,6 @@ class ChapterCrudController extends CrudController
     }
 }
 // TODO:: make ScanOperation workable in schedule background process
-// TODO:: hide chapter button and instead use scan button
+// TODO:: fix search logic and order logic
+
 

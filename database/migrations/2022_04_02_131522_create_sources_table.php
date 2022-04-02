@@ -19,6 +19,8 @@ class CreateSourcesTable extends Migration
             $table->foreignId('manga_id')->constrained();
             $table->string('url');
 
+            $table->boolean('published')->default(false);// false
+
             $table->softDeletes();
             $table->timestamps();
         });

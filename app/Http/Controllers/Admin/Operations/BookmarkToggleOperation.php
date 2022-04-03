@@ -35,7 +35,7 @@ trait BookmarkToggleOperation
             $this->crud->loadDefaultOperationSettingsFromConfig();
         });
 
-        $this->crud->operation('list', function () {
+        $this->crud->operation(['list', 'show'], function () {
             $this->crud->addButtonFromView('line', 'bookmarkToggle', $this->bookmarkToggleButton, 'beginning');
         });
     }

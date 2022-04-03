@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ChapterRequest;
+use App\Http\Requests\ChapterCreateRequest;
+use App\Http\Requests\ChapterUpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -112,7 +113,7 @@ class ChapterCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(ChapterRequest::class); // TODO:: validation, make unique manga and chapter #/letter
+        CRUD::setValidation(ChapterCreateRequest::class); 
         $this->customInputs();
     }
 
@@ -124,7 +125,8 @@ class ChapterCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(ChapterUpdateRequest::class); 
+        $this->customInputs();
     }
 
     private function customInputs()

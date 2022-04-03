@@ -12,18 +12,13 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class BookmarkCrudController extends CrudController
-{
+{   
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
-    use \Backpack\ReviseOperation\ReviseOperation;
     use \App\Http\Controllers\Admin\Operations\ExportOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
-    
 
+    // TODO:: toggle bookmark operation
+    
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -31,7 +26,7 @@ class BookmarkCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Bookmark::class);
+        CRUD::setModel(\App\Models\Manga::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/bookmark');
 
         $this->userPermissions();
@@ -45,29 +40,18 @@ class BookmarkCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); 
-    }
+        // add on query, show only auth user his/her bookmark manga
+        $this->crud->query->whereBookmarkedBy(auth()->user());
 
-    /**
-     * Define what happens when the Create operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     * @return void
-     */
-    protected function setupCreateOperation()
-    {
-        CRUD::setValidation(BookmarkRequest::class);
-        CRUD::setFromDb(); 
-    }
+        $this->showColumns();
 
-    /**
-     * Define what happens when the Update operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
-    protected function setupUpdateOperation()
-    {
-        $this->setupCreateOperation();
+        // photo
+        $this->crud->modifyColumn('photo', [
+            'type'   => 'image',
+            'height' => '50px',
+            'width'  => '40px',
+            'orderable' => false,
+        ]);
+        
     }
 }

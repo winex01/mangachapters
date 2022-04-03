@@ -70,7 +70,7 @@ class ChapterCrudController extends CrudController
         $this->crud->modifyColumn('chapter', [
             'type' => 'closure',
             'function' => function($entry) {
-                return anchorNewTab($entry->url, $entry->chapter, $entry->url);
+                return $entry->chapterLink;
             },
             'searchLogic' => function ($query, $column, $searchTerm) {
                 $query->orWhere('chapter', 'like', '%'.$searchTerm.'%');
@@ -83,17 +83,7 @@ class ChapterCrudController extends CrudController
             'label'    => convertColumnToHumanReadable($col),
             'type'     => 'closure',
             'function' => function($entry) {
-                $textColor = '';
-
-                if (isTimestampLessThanHoursAgo($entry->created_at, 2)) {
-                    $textColor = 'text-danger';
-                }elseif (isTimestampLessThanHoursAgo($entry->created_at, 5)) {
-                    $textColor = 'text-success';
-                }else {
-                    // do nothing
-                }
-
-                return '<span class="'.$textColor.'">'.$entry->created_at->diffForHumans().'</span>';
+                return $entry->release;
             }
         ]);
 

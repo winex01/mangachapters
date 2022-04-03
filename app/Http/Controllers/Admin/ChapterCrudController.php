@@ -52,7 +52,10 @@ class ChapterCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->showColumns(null, ['url']);
+        // add on query
+        $this->crud->query->orderBy('created_at', 'desc');
+
+        $this->showColumns(null, ['url', 'dismiss']);
         $this->showRelationshipColumn('manga_id', 'title');
 
         $this->crud->addColumn([
@@ -71,13 +74,11 @@ class ChapterCrudController extends CrudController
             },
             'searchLogic' => function ($query, $column, $searchTerm) {
                 $query->orWhere('chapter', 'like', '%'.$searchTerm.'%');
-            },
-            'orderable'  => true,
-            'orderLogic' => function ($query, $column, $columnDirection) {
-                return $query->orderByRaw("CAST(chapter as UNSIGNED) ".$columnDirection);
             }
-            
         ]);
+
+        $this->disableSortColumn('manga_id');
+        $this->disableSortColumn('chapter');
 
         $this->filters();
     }

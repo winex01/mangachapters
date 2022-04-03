@@ -29,6 +29,8 @@ class ChapterCrudController extends CrudController
 
     use \App\Http\Controllers\Admin\Traits\FilterTrait;
 
+    // TODO:: add bookmark
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 

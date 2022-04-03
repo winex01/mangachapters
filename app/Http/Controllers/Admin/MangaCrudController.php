@@ -26,6 +26,8 @@ class MangaCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
+    // TODO:: add bookmark
+    
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 

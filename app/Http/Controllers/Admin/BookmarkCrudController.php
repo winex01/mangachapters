@@ -17,8 +17,6 @@ class BookmarkCrudController extends CrudController
     use \App\Http\Controllers\Admin\Operations\ExportOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
-    // TODO:: remove Bookmark operation
-    
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 

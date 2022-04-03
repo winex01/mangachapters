@@ -27,7 +27,6 @@ class MangaCrudController extends CrudController
     use \App\Http\Controllers\Admin\Operations\BookmarkToggleOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
-    // TODO:: add bookmark line
     // TODO:: add bookmark bulk
     
     /**
@@ -61,6 +60,7 @@ class MangaCrudController extends CrudController
             'orderable' => false,
         ]);
 
+        $this->filters();
     }
 
     protected function setupShowOperation()
@@ -109,4 +109,19 @@ class MangaCrudController extends CrudController
             'aspect_ratio' => 0,
         ]);
     }
+
+    private function filters()
+    {
+        $col = 'bookmarked';
+        $this->crud->addFilter([
+            'type'  => 'simple',
+            'name'  => $col,
+            'label' => convertColumnToHumanReadable($col),
+        ], 
+        false, 
+        function() { // if the filter is active
+            $this->crud->query->whereBookmarkedBy(auth()->user());
+        });
+    }
 }
+// TODO:: fix error export

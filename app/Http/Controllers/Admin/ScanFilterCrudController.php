@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ScanFilterRequest;
+use App\Http\Requests\ScanFilterCreateRequest;
+use App\Http\Requests\ScanFilterUpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -57,7 +58,7 @@ class ScanFilterCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(ScanFilterRequest::class); // TODO:: fix validation must unique name
+        CRUD::setValidation(ScanFilterCreateRequest::class); 
         $this->customInputs();
     }
 
@@ -69,7 +70,8 @@ class ScanFilterCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(ScanFilterUpdateRequest::class); 
+        $this->customInputs();
     }
 
     private function customInputs()

@@ -15,7 +15,7 @@ return [
     'select_placeholder'      => '-',
     'no_entries'              => 'No entries.',
     'column_title_text_color' => 'text-dark', // list view column title text color
-    
+    'duplicate_entry'         => 'Duplicate entry.',    
 
     
     /*

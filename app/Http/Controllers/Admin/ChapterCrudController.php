@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ChapterRequest;
+use App\Http\Requests\ChapterCreateRequest;
+use App\Http\Requests\ChapterUpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -24,7 +25,6 @@ class ChapterCrudController extends CrudController
     use \Backpack\ReviseOperation\ReviseOperation;
     use \App\Http\Controllers\Admin\Operations\ExportOperation;
     use \App\Http\Controllers\Admin\Operations\Chapter\ScanOperation;
-    use \App\Http\Controllers\Admin\Operations\Chapter\DismissOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
     use \App\Http\Controllers\Admin\Traits\FilterTrait;
@@ -55,7 +55,7 @@ class ChapterCrudController extends CrudController
         // add on query
         $this->crud->query->orderBy('created_at', 'desc');
 
-        $this->showColumns(null, ['url', 'dismiss']);
+        $this->showColumns(null, ['url']);
         $this->showRelationshipColumn('manga_id', 'title');
 
         $this->crud->addColumn([
@@ -113,7 +113,7 @@ class ChapterCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(ChapterRequest::class); // TODO:: validation, make unique manga and chapter #/letter
+        CRUD::setValidation(ChapterCreateRequest::class); 
         $this->customInputs();
     }
 
@@ -125,7 +125,8 @@ class ChapterCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(ChapterUpdateRequest::class); 
+        $this->customInputs();
     }
 
     private function customInputs()
@@ -136,7 +137,7 @@ class ChapterCrudController extends CrudController
 
     private function filters()
     {
-        $this->booleanFilter('dismiss');
+        
     }
 }
 // TODO:: make ScanOperation workable in schedule background process

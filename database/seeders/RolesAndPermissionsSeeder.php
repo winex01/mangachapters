@@ -127,8 +127,8 @@ class RolesAndPermissionsSeeder extends Seeder
         'bookmarks' => [
             'bookmarks_list',
             'bookmarks_export',
-            'bookmarks_add_bookmark',
-            'bookmarks_remove_bookmark',
+            'bookmarks_bookmark',
+            'bookmarks_unbookmark',
         ],
     ];
 

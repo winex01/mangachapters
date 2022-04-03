@@ -1,14 +1,30 @@
 @if ($crud->hasAccess('bookmarkToggle'))
+    @php
+        $icon = null;
+        $title = null;
+        $textColor = null;
+
+        if ((auth()->user()->hasBookmarked($entry))) {
+            $icon = '<i class="las la-ban"></i>';
+            $title = 'Unbookmark';
+            $textColor = 'text-danger';
+        }else {
+            $icon = '<i class="las la-heart"></i>';
+            $title = 'Bookmark';
+            $textColor = 'text-success';
+        }
+    @endphp
+
 	<a 
         href="javascript:void(0)" 
         data-toggle="tooltip" 
-        title="{{ __('Bookmark Toggle') }}" 
+        title="{{ $title }}" 
         onclick="bookmarkToggleEntry(this)" 
         data-route="{{ url($crud->route.'/'.$entry->getKey()).'/bookmarkToggle' }}" 
-        class="btn btn-sm btn-link text-success" 
+        class="btn btn-sm btn-link {{ $textColor }}" 
         data-button-type="bookmarkToggle"
     >
-        <i class="las la-heart"></i>
+        {!! $icon !!}
     </a>
 @endif
 

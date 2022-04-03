@@ -1,12 +1,12 @@
-@if ($crud->hasAccess('bookmark'))
+@if ($crud->hasAccess('bookmarkToggle'))
 	<a 
         href="javascript:void(0)" 
         data-toggle="tooltip" 
-        title="{{ __('Bookmark') }}" 
-        onclick="bookmarkEntry(this)" 
-        data-route="{{ url($crud->route.'/'.$entry->getKey()).'/bookmark' }}" 
+        title="{{ __('Bookmark Toggle') }}" 
+        onclick="bookmarkToggleEntry(this)" 
+        data-route="{{ url($crud->route.'/'.$entry->getKey()).'/bookmarkToggle' }}" 
         class="btn btn-sm btn-link text-success" 
-        data-button-type="bookmark"
+        data-button-type="bookmarkToggle"
     >
         <i class="las la-heart"></i>
     </a>
@@ -18,10 +18,10 @@
 @push('after_scripts') @if (request()->ajax()) @endpush @endif
 <script>
 
-	if (typeof bookmarkEntry != 'function') {
-	  $("[data-button-type=bookmark]").unbind('click');
+	if (typeof bookmarkToggleEntry != 'function') {
+	  $("[data-button-type=bookmarkToggle]").unbind('click');
 
-	  function bookmarkEntry(button) {
+	  function bookmarkToggleEntry(button) {
 		// ask for confirmation before deleting an item
 		// e.preventDefault();
 		var route = $(button).attr('data-route');
@@ -40,7 +40,7 @@
                     // Show a success notification bubble
                     new Noty({
                     type: "success",
-                    text: "{!! '<strong>'.trans('backpack::crud.bookmark_confirmation_title').'</strong><br>'.trans('backpack::crud.bookmark_confirmation_message') !!}"
+                    text: "{!! '<strong>'.trans('backpack::crud.bookmark_toggle_confirmation_title').'</strong><br>'.trans('backpack::crud.bookmark_toggle_confirmation_message') !!}"
                     }).show();
 
                     // Hide the modal, if any
@@ -61,8 +61,8 @@
                     });
                     } else {// Show an error alert
                         Swal.fire({
-                        title: "{!! trans('backpack::crud.bookmark_confirmation_not_title') !!}",
-                        text: "{!! trans('backpack::crud.bookmark_confirmation_not_message') !!}",
+                        title: "{!! trans('backpack::crud.bookmark_toggle_confirmation_not_title') !!}",
+                        text: "{!! trans('backpack::crud.bookmark_toggle_confirmation_not_message') !!}",
                         icon: "error",
                         timer: 4000,
                         showConfirmButton: false,
@@ -76,8 +76,8 @@
             error: function(result) {
                 // Show an alert with the result
                 Swal.fire({
-                title: "{!! trans('backpack::crud.bookmark_confirmation_not_title') !!}",
-                text: "{!! trans('backpack::crud.bookmark_confirmation_not_message') !!}",
+                title: "{!! trans('backpack::crud.bookmark_toggle_confirmation_not_title') !!}",
+                text: "{!! trans('backpack::crud.bookmark_toggle_confirmation_not_message') !!}",
                 icon: "error",
                 timer: 4000,
                 showConfirmButton: false,
@@ -90,6 +90,6 @@
 	}
 
 	// make it so that the function above is run after each DataTable draw event
-	// crud.addFunctionToDataTablesDrawEventQueue('bookmarkEntry');
+	// crud.addFunctionToDataTablesDrawEventQueue('bookmarkToggleEntry');
 </script>
 @if (!request()->ajax()) @endpush @endif

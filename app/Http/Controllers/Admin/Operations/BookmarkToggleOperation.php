@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin\Operations;
 
 use Illuminate\Support\Facades\Route;
 
-trait BookmarkOperation
+trait BookmarkToggleOperation
 {
-    protected $bookmarkButton = 'custom_bookmark';
+    protected $bookmarkToggleButton = 'custom_bookmark_toggle';
+
     /**
      * Define which routes are needed for this operation.
      *
@@ -14,28 +15,28 @@ trait BookmarkOperation
      * @param string $routeName  Prefix of the route name.
      * @param string $controller Name of the current CrudController.
      */
-    protected function setupBookmarkRoutes($segment, $routeName, $controller)
+    protected function setupBookmarkToggleRoutes($segment, $routeName, $controller)
     {
-        Route::post($segment.'/{id}/bookmark', [
-            'as'        => $routeName.'.bookmark',
-            'uses'      => $controller.'@bookmark',
-            'operation' => 'bookmark',
+        Route::post($segment.'/{id}/bookmarkToggle', [
+            'as'        => $routeName.'.bookmarkToggle',
+            'uses'      => $controller.'@bookmarkToggle',
+            'operation' => 'bookmarkToggle',
         ]);
     }
 
     /**
      * Add the default settings, buttons, etc that this operation needs.
      */
-    protected function setupBookmarkDefaults()
+    protected function setupBookmarkToggleDefaults()
     {
-        $this->crud->allowAccess('bookmark');
+        $this->crud->allowAccess('bookmarkToggle');
 
-        $this->crud->operation('bookmark', function () {
+        $this->crud->operation('bookmarkToggle', function () {
             $this->crud->loadDefaultOperationSettingsFromConfig();
         });
 
         $this->crud->operation('list', function () {
-            $this->crud->addButtonFromView('line', 'bookmark', $this->bookmarkButton, 'beginning');
+            $this->crud->addButtonFromView('line', 'bookmarkToggle', $this->bookmarkToggleButton, 'beginning');
         });
     }
 
@@ -44,16 +45,16 @@ trait BookmarkOperation
      *
      * @return Response
      */
-    public function bookmark($id)
+    public function bookmarkToggle($id)
     {
-        $this->crud->hasAccessOrFail('bookmark');
+        $this->crud->hasAccessOrFail('bookmarkToggle');
 
         $id = $this->crud->getCurrentEntryId() ?? $id;
 
         if ($id) {
             $manga = modelInstance('Manga')->find($id);
 
-            auth()->user()->bookmark($manga);
+            auth()->user()->toggleBookmark($manga);
             
             return true;
         }

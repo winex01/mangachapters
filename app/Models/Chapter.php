@@ -20,7 +20,10 @@ class Chapter extends Model
     protected $guarded = ['id'];
     // protected $fillable = [];
     // protected $hidden = [];
-    // protected $dates = [];
+
+    protected $dates = [
+        'created_at',
+    ];
 
     /*
     |--------------------------------------------------------------------------

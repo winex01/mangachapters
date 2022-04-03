@@ -77,6 +77,26 @@ class ChapterCrudController extends CrudController
             }
         ]);
 
+        $col = 'release';
+        $this->crud->addColumn([
+            'name'     => $col,
+            'label'    => convertColumnToHumanReadable($col),
+            'type'     => 'closure',
+            'function' => function($entry) {
+                $textColor = '';
+
+                if (isTimestampLessThanHoursAgo($entry->created_at, 2)) {
+                    $textColor = 'text-danger';
+                }elseif (isTimestampLessThanHoursAgo($entry->created_at, 5)) {
+                    $textColor = 'text-success';
+                }else {
+                    // do nothing
+                }
+
+                return '<span class="'.$textColor.'">'.$entry->created_at->diffForHumans().'</span>';
+            }
+        ]);
+
         $this->disableSortColumn('manga_id');
         $this->disableSortColumn('chapter');
 

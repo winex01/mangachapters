@@ -547,6 +547,18 @@ if (! function_exists('pesoCurrency')) {
 | Date / Time Related Stuff
 |--------------------------------------------------------------------------
 */
+if (! function_exists('isTimestampLessThanHoursAgo')) {
+	function isTimestampLessThanHoursAgo($timestamp, $hour) {	
+		$time = Carbon::now()->subHour($hour);
+
+		if ($time < $timestamp) {
+			return true;
+		}
+
+		return;
+	}
+}
+
 
 /**
  ** Convert integer time into time format

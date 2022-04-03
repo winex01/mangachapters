@@ -24,7 +24,6 @@ class ChapterCrudController extends CrudController
     use \Backpack\ReviseOperation\ReviseOperation;
     use \App\Http\Controllers\Admin\Operations\ExportOperation;
     use \App\Http\Controllers\Admin\Operations\Chapter\ScanOperation;
-    use \App\Http\Controllers\Admin\Operations\Chapter\DismissOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
     use \App\Http\Controllers\Admin\Traits\FilterTrait;
@@ -55,7 +54,7 @@ class ChapterCrudController extends CrudController
         // add on query
         $this->crud->query->orderBy('created_at', 'desc');
 
-        $this->showColumns(null, ['url', 'dismiss']);
+        $this->showColumns(null, ['url']);
         $this->showRelationshipColumn('manga_id', 'title');
 
         $this->crud->addColumn([
@@ -136,8 +135,7 @@ class ChapterCrudController extends CrudController
 
     private function filters()
     {
-        $this->booleanFilter('dismiss');
+        
     }
 }
 // TODO:: make ScanOperation workable in schedule background process
-// TODO:: remove all related including migration column dismiss and filterse and etc.

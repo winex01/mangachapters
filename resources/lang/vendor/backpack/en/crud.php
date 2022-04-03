@@ -84,4 +84,10 @@ return [
     // EmployeeFieldOnChange Operation
     'employeeFieldOnChange_ajax_error_title' => 'Error',
     'employeeFieldOnChange_ajax_error_text'  => "There's been an error. Please refresh the page or contact administrator.",
+
+    // Bookmark Operation
+    'bookmark_confirmation_title'               => 'Item bookmarked',
+    'bookmark_confirmation_message'             => 'The item has been bookmarked successfully.',
+    'bookmark_confirmation_not_title'           => 'Not bookmarked',
+    'bookmark_confirmation_not_message'         => "There's been an error. Your item might not have been bookmarked.",
 ];

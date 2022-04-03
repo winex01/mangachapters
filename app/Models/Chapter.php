@@ -20,7 +20,10 @@ class Chapter extends Model
     protected $guarded = ['id'];
     // protected $fillable = [];
     // protected $hidden = [];
-    // protected $dates = [];
+
+    protected $dates = [
+        'created_at',
+    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -49,7 +52,25 @@ class Chapter extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    public function getReleaseAttribute()
+    {
+        $textColor = '';
 
+        if (isTimestampLessThanHoursAgo($this->created_at, 2)) {
+            $textColor = 'text-danger';
+        }elseif (isTimestampLessThanHoursAgo($this->created_at, 5)) {
+            $textColor = 'text-success';
+        }else {
+            // do nothing
+        }
+
+        return '<span class="'.$textColor.'">'.$this->created_at->diffForHumans().'</span>';
+    }
+
+    public function getChapterLinkAttribute()
+    {
+        return anchorNewTab($this->url, $this->chapter, $this->url);
+    }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

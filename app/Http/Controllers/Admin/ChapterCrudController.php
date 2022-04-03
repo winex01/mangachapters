@@ -29,6 +29,8 @@ class ChapterCrudController extends CrudController
 
     use \App\Http\Controllers\Admin\Traits\FilterTrait;
 
+    // TODO:: add bookmark
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -50,7 +52,10 @@ class ChapterCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->showColumns(null, ['url']);
+        // add on query
+        $this->crud->query->orderBy('created_at', 'desc');
+
+        $this->showColumns(null, ['url', 'dismiss']);
         $this->showRelationshipColumn('manga_id', 'title');
 
         $this->crud->addColumn([
@@ -65,17 +70,25 @@ class ChapterCrudController extends CrudController
         $this->crud->modifyColumn('chapter', [
             'type' => 'closure',
             'function' => function($entry) {
-                return anchorNewTab($entry->url, $entry->chapter, $entry->url);
+                return $entry->chapterLink;
             },
             'searchLogic' => function ($query, $column, $searchTerm) {
                 $query->orWhere('chapter', 'like', '%'.$searchTerm.'%');
-            },
-            'orderable'  => true,
-            'orderLogic' => function ($query, $column, $columnDirection) {
-                return $query->orderByRaw("CAST(chapter as UNSIGNED) ".$columnDirection);
             }
-            
         ]);
+
+        $col = 'release';
+        $this->crud->addColumn([
+            'name'     => $col,
+            'label'    => convertColumnToHumanReadable($col),
+            'type'     => 'closure',
+            'function' => function($entry) {
+                return $entry->release;
+            }
+        ]);
+
+        $this->disableSortColumn('manga_id');
+        $this->disableSortColumn('chapter');
 
         $this->filters();
     }

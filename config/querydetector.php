@@ -1,9 +1,7 @@
 <?php
 
-use App\Models\ChangeShiftSchedule;
-use App\Models\Employee;
-use App\Models\EmployeeShiftSchedule;
-use App\Models\ShiftSchedule;
+use App\Models\User;
+use LaravelInteraction\Bookmark\Bookmark;
 
 return [
     /*
@@ -30,6 +28,11 @@ return [
         //    Post::class,
         //    'posts',
         //]
+
+        User::class => [
+           Bookmark::class,
+           'bookmark',
+        ]
     ],
 
     /*

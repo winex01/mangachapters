@@ -84,4 +84,10 @@ return [
     // EmployeeFieldOnChange Operation
     'employeeFieldOnChange_ajax_error_title' => 'Error',
     'employeeFieldOnChange_ajax_error_text'  => "There's been an error. Please refresh the page or contact administrator.",
+
+    // Bookmark Operation
+    'bookmark_toggle_confirmation_title'        => 'Item Toggle',
+    'bookmark_toggle_confirmation_message'      => 'The item has been toggle successfully.',
+    'bookmark_toggle_confirmation_not_title'    => 'Not toggled',
+    'bookmark_toggle_confirmation_not_message'  => "There's been an error. Your item might not have been toggled.",
 ];

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Operations\Chapter;
 use Goutte\Client;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\SendNewChapterNotification;
 
 trait ScanOperation
 {
@@ -126,14 +128,18 @@ trait ScanOperation
 
 
         if (!empty($newChapters)) {
-            debug($newChapters);
-            // TODO:: insert bookmarks here
+            // debug($newChapters);
             
-            // TODO:: events
-                // NewChapterScanned event
-            // TODO:: listener
-                // SendUserBookmarkedNewChapterNotification
-        }
+            foreach ($newChapters as $chapter) {
+                $bookmarkedByUsers = $chapter->manga->bookmarkers;
+                
+                // TODO:: events
+                    // NewChapterScanned event
+
+                Notification::send($bookmarkedByUsers, new SendNewChapterNotification($chapter));
+            
+            }
+        }// end if !empty $newChapters
 
         return compact('error', 'failMangas');
     }

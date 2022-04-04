@@ -21,4 +21,5 @@ Route::group([
     Route::crud('chapter', 'ChapterCrudController');
     Route::crud('scanfilter', 'ScanFilterCrudController');
     Route::crud('bookmark', 'BookmarkCrudController');
+    Route::crud('dashboard', 'DashboardCrudController');
 }); // this should be the absolute last line of this file

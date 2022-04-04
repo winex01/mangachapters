@@ -60,8 +60,10 @@ trait ScanOperation
             $mangas = modelInstance('Manga')
                         ->has('sources')
                         ->with(['sources' => function ($query) {
+                            $query->with('scanFilter');
                             $query->published();
                         }])
+                        ->with('latestChapter')
                         ->whereIn('id', $ids)
                         ->get();
         }else { // query all manga
@@ -69,8 +71,11 @@ trait ScanOperation
             $mangas = modelInstance('Manga')
                         ->has('sources')
                         ->with(['sources' => function ($query) {
+                            $query->with('scanFilter');
                             $query->published();
-                        }])->get();
+                        }])
+                        ->with('latestChapter')
+                        ->get();
         }
 
         $newChapters = [];

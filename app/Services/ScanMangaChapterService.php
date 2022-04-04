@@ -33,11 +33,7 @@ class ScanMangaChapterService
             }
 
             // get my current chapter, check last chapter entries of that manga_id, if no data then save only the first links
-            $currentChapter = modelInstance('Chapter')
-                                ->where('manga_id', $this->manga->id)
-                                ->orderBy('chapter', 'desc')
-                                ->orderBy('created_at', 'desc')
-                                ->first();
+            $currentChapter = $this->manga->latestChapter;
 
             $crawler = $this->client->request('GET', $source->url);
             $links = $crawler->filter($source->scanFilter->filter)->links();

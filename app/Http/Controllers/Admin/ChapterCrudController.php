@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\NewChapterScanned;
 use App\Http\Requests\ChapterCreateRequest;
 use App\Http\Requests\ChapterUpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -15,7 +16,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class ChapterCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as parentStore; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
@@ -137,5 +138,15 @@ class ChapterCrudController extends CrudController
     {
         
     }
+
+    public function store()
+    {
+        $response = $this->parentStore();
+
+        event(new NewChapterScanned($this->data['entry']));
+
+        return $response;
+    }
 }
+// TODO:: TBD add broken link boolean column in chapters
 // TODO:: make ScanOperation workable in schedule background process

@@ -22,7 +22,7 @@
         <div 
             class="chapter-alert alert alert-secondary alert-dismissible fade show text-dark" 
             role="alert" 
-            data-route="{{ route('dashboard.markAsReadNotification', $notification->id) }}"
+            data-id="{{ $notification->id }}"
         >
             
             <img style="height: 50px; width:40px;" src="{{ $chapter->manga->photo }}" class="rounded" alt="...">
@@ -51,10 +51,12 @@
        
         $.ajax({
             type: "post",
-            url: $(this).attr('data-route'),
+            url: "{{ route('dashboard.markAsReadNotification') }}",
+            data: {
+                ids : $(this).attr('data-id')
+            },
             success: function (response) {
                 // console.log(response);
-
                 // Show a success notification bubble
                 new Noty({
                     type: "success",
@@ -67,9 +69,17 @@
     $('#clear-all-notifications').click(function (e) { 
         e.preventDefault();
         
+        var dataArray = $('.chapter-alert').map(function(){
+            return $(this).data('id');
+        }).get();
+
+
         $.ajax({
             type: "post",
-            url: "{{ route('dashboard.clearAllNotification') }}",
+            url: "{{ route('dashboard.markAsReadNotification') }}",
+            data: {
+                ids : dataArray
+            },
             success: function (response) {
                 // console.log(response);
                 $('.chapter-alert').hide();
@@ -84,7 +94,7 @@
                     text: "{!! '<strong>'.trans('backpack::crud.delete_confirmation_title').'</strong><br>'.trans('backpack::crud.delete_confirmation_message') !!}"
                 }).show();
             }
-        });        
+        });       
     });
 </script>
 @endpush

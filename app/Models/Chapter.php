@@ -61,10 +61,10 @@ class Chapter extends Model
         }elseif (isTimestampLessThanHoursAgo($this->created_at, 2)) {
             $textColor = 'text-success';
         }else {
-            // do nothing
+            $textColor = 'text-dark';            
         }
 
-        return '<span class="'.$textColor.'">'.$this->created_at->diffForHumans().'</span>';
+        return '<span class="font-weight-light '.$textColor.'">'.$this->created_at->diffForHumans().'</span>';
     }
 
     public function getChapterLinkAttribute()

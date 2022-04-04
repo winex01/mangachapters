@@ -1,18 +1,22 @@
 @extends(backpack_view('blank'))
 
 @section('content')
+
     @php
-        $hasNotifications = false;
+        $firstLoop = true;
     @endphp
+    
     @forelse (auth()->user()->unreadNotifications
         ->where('type', 'App\Notifications\NewChapterNotification') as $notification)
         
+        @if ($firstLoop)
+            <a class="btn btn-danger btn-sm mb-3" href="javascript:void(0)" id="clear-all-notifications">Clear all notification(s).</a>
+        @endif
+
         @php
-            $hasNotifications = true;
+            $firstLoop = false;
             $data = $notification->data;
             $chapter = modelInstance($data['model'])->with('manga')->find($data['id']);
-
-            // dump($chapter);
         @endphp
 
         <div 
@@ -39,10 +43,6 @@
         <p>No notification(s).</p>
     @endforelse
 
-    @if ($hasNotifications)
-        <a href="javascript:void(0)" id="clear-all-notifications">Clear all notification.</a>
-    @endif
-    
 @endsection
 
 @push('after_scripts')
@@ -74,6 +74,10 @@
                 // console.log(response);
                 $('.chapter-alert').hide();
                 
+                $('#clear-all-notifications').hide();
+
+                $('.container-fluid').html('<p>No notification(s).</p>')
+
                 // Show a success notification bubble
                 new Noty({
                     type: "success",

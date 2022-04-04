@@ -57,7 +57,8 @@ class SendNewChapterNotification extends Notification
     {
         return [
             //
-            'chapter_id' => $this->chapter->id
+            'model' => $this->chapter->model,
+            'id' => $this->chapter->id,
         ];
     }
 }

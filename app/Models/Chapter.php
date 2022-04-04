@@ -56,9 +56,9 @@ class Chapter extends Model
     {
         $textColor = '';
 
-        if (isTimestampLessThanHoursAgo($this->created_at, 2)) {
+        if (isTimestampLessThanHoursAgo($this->created_at, 1)) {
             $textColor = 'text-danger';
-        }elseif (isTimestampLessThanHoursAgo($this->created_at, 5)) {
+        }elseif (isTimestampLessThanHoursAgo($this->created_at, 2)) {
             $textColor = 'text-success';
         }else {
             // do nothing

@@ -23,16 +23,16 @@
               url: "{{ url($crud->route) }}/scan",
               data: { ids: crud.checkedItems },
               success: function (response) {
-                console.log(response);
-                if (response.error) {
+                // console.log(response);
+                if (response) {
+                    // Show a success notification bubble
+                    swalSuccess();
+                } else {
                     swalError();
                     new Noty({
                         type: "warning",
                         text: "<strong>{!! __('Scanned Error') !!}</strong><br>{!! __('Whoops something went wrong.') !!}"
                     }).show();			          	  
-                } else {
-                    // Show a success notification bubble
-                    swalSuccess();
                 }
                 crud.table.ajax.reload();                 
               },

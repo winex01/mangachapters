@@ -50,6 +50,14 @@ class Manga extends Model
         return $this->hasMany(\App\Models\Chapter::class);
     }
 
+    public function latestChapter()
+    {
+        return $this->hasOne(\App\Models\Chapter::class)
+                ->orderBy('chapter', 'desc')
+                ->orderBy('created_at', 'desc');
+                // ->latest(); // * use 2 line above instead of this
+    }
+
     public function sources()
     {
         return $this->hasMany(\App\Models\Source::class);

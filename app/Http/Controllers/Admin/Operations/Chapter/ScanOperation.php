@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Operations\Chapter;
 
+use App\Events\NewChapterScanned;
 use Goutte\Client;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -125,9 +126,11 @@ trait ScanOperation
         }// loop manga
 
 
-        if (!empty($newChapters)) {
-            debug($newChapters);
-            // TODO:: insert bookmarks here
+        // if has new manga chapters then triggered event and do the listeners
+        if (!empty($newChapters)) {            
+            foreach ($newChapters as $chapter) {
+                event(new NewChapterScanned($chapter));
+            }
         }
 
         return compact('error', 'failMangas');

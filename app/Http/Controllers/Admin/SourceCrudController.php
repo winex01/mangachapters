@@ -27,6 +27,7 @@ class SourceCrudController extends CrudController
 
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
     use \App\Http\Controllers\Admin\Traits\Fetch\FetchMangaTrait;
+    use \App\Http\Controllers\Admin\Traits\FilterTrait;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -71,6 +72,8 @@ class SourceCrudController extends CrudController
                 }
             }
         ]);
+
+        $this->filters();
     }
 
     protected function setupShowOperation()
@@ -114,5 +117,10 @@ class SourceCrudController extends CrudController
         // $this->addRelationshipField('manga_id');
         $this->addInlineCreateField('manga_id');
         $this->addRelationshipField('scan_filter_id');
+    }
+
+    private function filters()
+    {
+        $this->booleanFilter('published');
     }
 }

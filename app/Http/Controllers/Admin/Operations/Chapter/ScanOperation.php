@@ -128,6 +128,11 @@ trait ScanOperation
         if (!empty($newChapters)) {
             debug($newChapters);
             // TODO:: insert bookmarks here
+            
+            // TODO:: events
+                // NewChapterScanned event
+            // TODO:: listener
+                // SendUserBookmarkedNewChapterNotification
         }
 
         return compact('error', 'failMangas');

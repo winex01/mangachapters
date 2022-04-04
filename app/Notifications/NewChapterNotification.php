@@ -7,11 +7,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SendNewChapterNotification extends Notification
+class NewChapterNotification extends Notification
 {
     use Queueable;
 
-    public $chapter;
+    protected $chapter;
+
     /**
      * Create a new notification instance.
      *

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Operations\Chapter;
 
+use App\Events\NewChapterScanned;
 use Goutte\Client;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\SendNewChapterNotification;
 
 trait ScanOperation
 {
@@ -127,19 +126,12 @@ trait ScanOperation
         }// loop manga
 
 
-        if (!empty($newChapters)) {
-            // debug($newChapters);
-            
+        // if has new manga chapters then triggered event and do the listeners
+        if (!empty($newChapters)) {            
             foreach ($newChapters as $chapter) {
-                $bookmarkedByUsers = $chapter->manga->bookmarkers;
-                
-                // TODO:: events
-                    // NewChapterScanned event
-
-                Notification::send($bookmarkedByUsers, new SendNewChapterNotification($chapter));
-            
+                event(new NewChapterScanned($chapter));
             }
-        }// end if !empty $newChapters
+        }
 
         return compact('error', 'failMangas');
     }

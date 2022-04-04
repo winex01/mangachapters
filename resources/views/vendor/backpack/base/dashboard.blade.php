@@ -17,6 +17,11 @@
             $firstLoop = false;
             $data = $notification->data;
             $chapter = modelInstance($data['model'])->with('manga')->find($data['id']);
+
+            // if no data is find then perhaps i deleted the notification in database, so escape this loop
+            if (!$chapter) {
+                continue;
+            }
         @endphp
 
         <div 

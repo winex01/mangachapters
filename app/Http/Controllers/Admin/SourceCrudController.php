@@ -50,7 +50,7 @@ class SourceCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->showColumns();
-        $this->showRelationshipColumn('manga_id');
+        $this->showRelationshipColumn('manga_id', 'title');
         $this->showRelationshipColumn('scan_filter_id');
 
         $this->crud->addColumn([
@@ -116,5 +116,3 @@ class SourceCrudController extends CrudController
         $this->addRelationshipField('scan_filter_id');
     }
 }
-// TODO:: add filter manga
-// TODO:: error search box

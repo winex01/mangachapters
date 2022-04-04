@@ -15,8 +15,10 @@
             // dump($chapter);
         @endphp
 
-        <div class="myAlert alert alert-secondary alert-dismissible fade show text-dark" role="alert">
-            <span>{{ $chapter->manga->name }}!</span> 
+        <div class="chapter-alert alert alert-secondary alert-dismissible fade show text-dark" role="alert">
+            
+            <img style="height: 50px; width:40px;" src="{{ $chapter->manga->photo }}" class="rounded" alt="...">
+            <span class="ml-1">{{ $chapter->manga->name }}!</span> 
 
             @php
                 $label = "Chapter $chapter->chapter is out $chapter->release."
@@ -41,8 +43,7 @@
 
 @push('after_scripts')
 <script>
-    $('.myAlert').on('closed.bs.alert', function () {
-        alert('winex'); 
+    $('.chapter-alert').on('closed.bs.alert', function () {
         // TODO:: ajax request to mark as read noti
     });
 </script>

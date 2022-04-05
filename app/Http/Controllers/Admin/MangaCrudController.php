@@ -49,6 +49,8 @@ class MangaCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->query->orderByTitle();
+
         $this->showColumns();
 
         // photo
@@ -114,4 +116,3 @@ class MangaCrudController extends CrudController
         $this->simpleFilter('add_scope_myBookmarked', null);
     }
 }
-// TODO:: add default order in export

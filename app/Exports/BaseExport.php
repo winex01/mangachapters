@@ -361,7 +361,11 @@ class BaseExport implements
         }elseif (array_key_exists('name', $this->tableColumns)) {
             // if table has Name column
             $this->query->orderBy('name', 'asc');
-        }else {
+        }elseif (array_key_exists('title', $this->tableColumns)) {
+            // if table has title column
+            $this->query->orderBy('title', 'asc');
+        }
+        else {
             // do nothing
         }
     }

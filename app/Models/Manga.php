@@ -38,6 +38,10 @@ class Manga extends Model
             }
         });
 
+        static::addGlobalScope('orderByTitle', function (\Illuminate\Database\Eloquent\Builder $builder) {
+            $builder->orderByTitle(); //* order the select field
+        });
+
     }
 
     /*
@@ -72,6 +76,10 @@ class Manga extends Model
         $query->whereBookmarkedBy(auth()->user());
     }
 
+    public function scopeOrderByTitle($query)
+    {
+        $query->orderBy('title', 'asc');
+    }
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS

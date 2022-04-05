@@ -26,6 +26,7 @@
         "laravel-interaction/bookmark": "^1.5",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
+        "laravel/ui": "3.2",
         "maatwebsite/excel": "^3.1",
         "orangehill/iseed": "^3.0",
         "qlick/laravel-full-calendar": "dev-master",

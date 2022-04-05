@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Traits;
 
 use Illuminate\Support\Str;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * import in backpack crud controller
@@ -847,6 +848,21 @@ trait CrudExtendTrait
         }
 
         $this->adminFilters(); 
+
+        // add global widgets
+        $this->globalWidgets();
+    }
+
+    public function globalWidgets()
+    {   
+        if (!auth()->user()->hasVerifiedEmail()){
+            // add email verified notice.
+            Widget::add([
+                'type'         => 'alert',
+                'class'        => 'alert alert-secondary text-danger',
+                'content'      => '<strong>Email address not verified!</strong> <a href="#" class="alert-link">Click here to verify email address.</a>',
+            ]);
+        }
     }
 
     public function downloadableAttachment($attachment = null)

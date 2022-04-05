@@ -25,6 +25,7 @@
 
     @php
         $firstLoop = true;
+        $tempValue = null;
     @endphp
     
     @forelse (auth()->user()->unreadNotifications
@@ -41,6 +42,7 @@
 
             // if no data is find then perhaps i deleted the notification in database, so escape this loop
             if (!$chapter) {
+                $notification->markAsRead();
                 continue;
             }
         @endphp
@@ -66,8 +68,12 @@
         </div>
         
     @empty
-        <p>No notification(s).</p>
+        @php
+            $tempValue = 'No notification(s).';
+        @endphp
     @endforelse
+
+    <p id="temp">{{ $tempValue }}</p>
 
 @endsection
 
@@ -112,7 +118,7 @@
                 
                 $('#clear-all-notifications').hide();
 
-                $('.container-fluid').html('<p>No notification(s).</p>')
+                $('#temp').text('No notification(s).')
 
                 // Show a success notification bubble
                 new Noty({

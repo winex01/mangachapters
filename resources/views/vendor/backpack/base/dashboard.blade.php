@@ -16,7 +16,7 @@
                 {{ __('If you want to recover your account if you forgot your password.') }}
                 <form class="d-inline" method="POST" action="{{ route('verification.send') }}">
                     @csrf
-                    <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('please click here to verify email.') }}</button>.
+                    <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('please click here to verify your email.') }}</button>.
                 </form>
             </div>
         </div>

@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\User;
+use App\Models\Manga;
+use App\Models\Chapter;
 use LaravelInteraction\Bookmark\Bookmark;
 
 return [
@@ -32,6 +34,11 @@ return [
         User::class => [
            Bookmark::class,
            'bookmark',
+        ],
+
+        Chapter::class => [
+            Manga::class,
+            'manga',
         ]
     ],
 

@@ -41,6 +41,8 @@ class ChapterCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/chapter');
 
         $this->userPermissions();
+
+        $this->exportClass = '\App\Exports\ChapterExport';
     }
 
     /**
@@ -52,8 +54,7 @@ class ChapterCrudController extends CrudController
     protected function setupListOperation()
     {
         // add on query
-        $this->crud->query->orderBy('created_at', 'desc');
-        $this->crud->query->orderBy('chapter', 'desc');
+        $this->crud->query->orderByRelease();
 
         $this->showColumns(null, ['url']);
         $this->showRelationshipColumn('manga_id', 'title');

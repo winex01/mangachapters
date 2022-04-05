@@ -46,6 +46,11 @@ class Chapter extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+    public function scopeOrderByRelease($query)
+    {
+        $query->orderBy('created_at', 'desc');
+        $query->orderBy('chapter', 'desc');
+    }
 
     /*
     |--------------------------------------------------------------------------

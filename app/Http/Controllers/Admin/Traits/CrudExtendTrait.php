@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Traits;
 
 use Illuminate\Support\Str;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * import in backpack crud controller
@@ -847,6 +848,13 @@ trait CrudExtendTrait
         }
 
         $this->adminFilters(); 
+
+        // add global widgets
+        $this->globalWidgets();
+    }
+
+    public function globalWidgets()
+    {   
     }
 
     public function downloadableAttachment($attachment = null)

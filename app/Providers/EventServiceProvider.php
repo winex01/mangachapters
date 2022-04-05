@@ -18,9 +18,8 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Registered::class => [
-            SendEmailVerificationNotification::class,
+            // SendEmailVerificationNotification::class, // dont verify email when register, but when he clicks the alert msg
         ],
-
 
         NewChapterScanned::class => [
             SendUserNewChapterNotification::class,

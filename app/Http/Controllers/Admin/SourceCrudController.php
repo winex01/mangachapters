@@ -96,7 +96,7 @@ class SourceCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(SourceRequest::class); // TODO:: unique source and manga_id, required crawler_filter(should only accept yes)
+        CRUD::setValidation(SourceRequest::class); // TODO:: wip, unique source and manga_id, required crawler_filter(should only accept yes)
         $this->customInputs();
     }
 

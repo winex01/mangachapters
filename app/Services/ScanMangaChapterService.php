@@ -85,23 +85,16 @@ class ScanMangaChapterService
             if ( is_array($chapter) && count($chapter) == 2 ) {
                 $chapter = $chapter[1];
             }
-            
-            $chapter = str_replace('/', '', $chapter);
-
-            // support decimal chapters ex. 1.1
-            $chapter = str_replace('-', '.', $chapter);
-
-            // debug($chapter);
-
-        }else { // universal
-            $chapter = str_replace($sourceUrl, '', $scrapUrl);
-            $chapter = str_replace('/', '', $chapter);
-            $chapter = str_replace('chapter-', '', $chapter);
-            
-            // support decimal chapters ex. 1.1
-            $chapter = str_replace('-', '.', $chapter);
         }
+         
+        $chapter = str_replace($sourceUrl, '', $scrapUrl);
+        $chapter = str_replace('chapter-', '', $chapter);
+        $chapter = str_replace('chapter_', '', $chapter);
+        $chapter = str_replace('/', '', $chapter);
 
+        // support decimal chapters ex. 1.1
+        $chapter = str_replace('-', '.', $chapter);
+        
         return [
             'manga_id' => $mangaId,
             'chapter' => $chapter,

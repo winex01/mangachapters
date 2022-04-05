@@ -150,4 +150,4 @@ class ChapterCrudController extends CrudController
     }
 }
 // TODO:: TBD add broken link boolean column in chapters
-// TODO:: make ScanOperation workable in schedule background process
+// TODO:: add chapters table for guest

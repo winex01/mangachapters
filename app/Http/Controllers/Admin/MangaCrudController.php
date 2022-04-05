@@ -111,7 +111,7 @@ class MangaCrudController extends CrudController
 
     private function filters()
     {
-        $this->simpleFilter('add_scope_myBookmarked');
+        $this->simpleFilter('add_scope_myBookmarked', null);
     }
 }
-// TODO:: fix error export
+// TODO:: add default order in export

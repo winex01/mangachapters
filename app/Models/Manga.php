@@ -67,6 +67,10 @@ class Manga extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+    public function scopeMyBookmarked($query)
+    {
+        $query->whereBookmarkedBy(auth()->user());
+    }
 
     /*
     |--------------------------------------------------------------------------

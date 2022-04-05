@@ -11,15 +11,27 @@ trait FilterTrait
 {
     public function simpleFilter($col, $value = 1)
     {
+        $isScope = false;
+
+        if (stringContains($col, 'add_scope_')) {
+            $isScope = true;
+
+            $col = str_replace('add_scope_', '', $col);
+        }
+
         $this->crud->addFilter([
             'type'  => 'simple',
             'name'  => $col,
             'label' => convertColumnToHumanReadable($col),
         ], 
         false, 
-        function() use($col, $value) { // if the filter is active
-            $this->crud->query->where($col, '=', $value); // apply the "active" eloquent scope 
-        } );
+        function() use($col, $value, $isScope) { // if the filter is active
+            if ($isScope) {
+                $this->crud->query->{$col}();
+            }else {
+                $this->crud->query->where($col, '=', $value); // apply the "active" eloquent scope 
+            }
+        });
     }
 
     public function booleanFilter($col, $options = null)

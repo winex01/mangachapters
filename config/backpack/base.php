@@ -24,7 +24,7 @@ return [
     // ----
 
     // Project name. Shown in the window title.
-    'project_name' => env('PROJECT_NAME', 'Backpack Admin Panel'),
+    'project_name' => env('APP_NAME', 'Backpack Admin Panel'),
 
     // When clicking on the admin panel's top-left logo/name,
     // where should the user be redirected?

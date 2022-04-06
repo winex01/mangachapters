@@ -24,7 +24,7 @@ Route::group([
 
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();
-        return redirect('/dashboard');
+        return redirect()->route('backpack.dashboard');
     })->middleware(['auth', 'signed'])->name('verification.verify');
 
     Route::crud('audittrail', 'AuditTrailCrudController');

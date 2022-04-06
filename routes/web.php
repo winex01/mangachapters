@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-	return redirect()->route('backpack.auth.login');
+	// return redirect()->route('backpack.auth.login');
+
+	return view('home');
 });

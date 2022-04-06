@@ -46,6 +46,11 @@ class Chapter extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+    public function scopeOrderByRelease($query)
+    {
+        $query->orderBy('created_at', 'desc');
+        $query->orderBy('chapter', 'desc');
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -58,7 +63,7 @@ class Chapter extends Model
 
         if (isTimestampLessThanHoursAgo($this->created_at, 1)) {
             $textColor = 'text-danger';
-        }elseif (isTimestampLessThanHoursAgo($this->created_at, 2)) {
+        }elseif (isTimestampLessThanHoursAgo($this->created_at, 3)) {
             $textColor = 'text-success';
         }else {
             $textColor = 'text-dark';            

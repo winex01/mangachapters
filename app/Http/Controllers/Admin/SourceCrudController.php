@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\SourceRequest;
+use App\Http\Requests\SourceCreateRequest;
+use App\Http\Requests\SourceUpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -96,7 +97,7 @@ class SourceCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(SourceRequest::class); // TODO:: unique source and manga_id, required crawler_filter(should only accept yes)
+        CRUD::setValidation(SourceCreateRequest::class); 
         $this->customInputs();
     }
 
@@ -108,7 +109,8 @@ class SourceCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(SourceUpdateRequest::class); 
+        $this->customInputs();
     }
 
     private function customInputs()

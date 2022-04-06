@@ -437,10 +437,9 @@ if (! function_exists('convertToClassName')) {
 
 if (! function_exists('convertColumnToHumanReadable')) {
 	function convertColumnToHumanReadable($col) {
+		$col = str_replace('add_scope_', '', $col);
 		$col = Str::snake($col);
-		
 		$col = endsWith($col, '_id') ? str_replace('_id', '', $col) : $col;
-
         $col = str_replace('_', ' ', $col);
         $col = ucwords($col);
 

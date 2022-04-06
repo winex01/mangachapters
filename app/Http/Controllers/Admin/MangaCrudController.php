@@ -27,6 +27,7 @@ class MangaCrudController extends CrudController
     use \App\Http\Controllers\Admin\Operations\BookmarkToggleOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
+    use \App\Http\Controllers\Admin\Traits\FilterTrait;
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -48,6 +49,8 @@ class MangaCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->query->orderByTitle();
+
         $this->showColumns();
 
         // photo
@@ -110,16 +113,6 @@ class MangaCrudController extends CrudController
 
     private function filters()
     {
-        $col = 'bookmarked';
-        $this->crud->addFilter([
-            'type'  => 'simple',
-            'name'  => $col,
-            'label' => convertColumnToHumanReadable($col),
-        ], 
-        false, 
-        function() { // if the filter is active
-            $this->crud->query->whereBookmarkedBy(auth()->user());
-        });
+        $this->simpleFilter('add_scope_myBookmarked', null);
     }
 }
-// TODO:: fix error export

@@ -4,7 +4,7 @@
 
     @if (!auth()->user()->hasVerifiedEmail())
         <div class="card">
-            <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+            <div class="card-header">{{ __('Verify Your Email Address (Optional)') }}</div>
             
             <div class="card-body">
                 @if (session('message'))
@@ -13,11 +13,10 @@
                 </div>
                 @endif
                 
-                {{ __('Before proceeding, please check your email for a verification link.') }}
-                {{ __('If you did not receive the email') }},
+                {{ __('If you want to recover your account if you forgot your password.') }}
                 <form class="d-inline" method="POST" action="{{ route('verification.send') }}">
                     @csrf
-                    <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
+                    <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('please click here to verify your email.') }}</button>.
                 </form>
             </div>
         </div>
@@ -25,6 +24,7 @@
 
     @php
         $firstLoop = true;
+        $tempValue = null;
     @endphp
     
     @forelse (auth()->user()->unreadNotifications
@@ -41,6 +41,7 @@
 
             // if no data is find then perhaps i deleted the notification in database, so escape this loop
             if (!$chapter) {
+                $notification->markAsRead();
                 continue;
             }
         @endphp
@@ -66,8 +67,12 @@
         </div>
         
     @empty
-        <p>No notification(s).</p>
+        @php
+            $tempValue = 'No notification(s).';
+        @endphp
     @endforelse
+
+    <p id="temp">{{ $tempValue }}</p>
 
 @endsection
 
@@ -112,7 +117,7 @@
                 
                 $('#clear-all-notifications').hide();
 
-                $('.container-fluid').html('<p>No notification(s).</p>')
+                $('#temp').text('No notification(s).')
 
                 // Show a success notification bubble
                 new Noty({

@@ -18,8 +18,19 @@ trait FilterTrait
         ], 
         false, 
         function() use($col, $value) { // if the filter is active
-            $this->crud->query->where($col, '=', $value); // apply the "active" eloquent scope 
-        } );
+            if ((stringContains($col, 'add_scope_'))) {
+                $scopeName = str_replace('add_scope_', '', $col);
+ 
+                if ($value != null) {
+                    $this->crud->query->{$scopeName}($value);
+                }else {
+                    $this->crud->query->{$scopeName}();
+                }
+
+            }else {
+                $this->crud->query->where($col, '=', $value); // apply the "active" eloquent scope 
+            }
+        });
     }
 
     public function booleanFilter($col, $options = null)

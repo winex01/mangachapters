@@ -59,6 +59,16 @@ class MangaCrudController extends CrudController
             'orderable' => false,
         ]);
 
+        $this->crud->addColumn([
+            'name'     => 'sources',
+            'label'    => 'Sources',
+            'type'     => 'closure',
+            'function' => function($entry) {
+                return $entry->sourcesInHtml;
+            }
+            // TODO:: add search logic of sources
+        ]);
+
         $this->filters();
     }
 
@@ -114,4 +124,3 @@ class MangaCrudController extends CrudController
         $this->simpleFilter('add_scope_myBookmarked', null);
     }
 }
-// TODO:: display sources in manga crud

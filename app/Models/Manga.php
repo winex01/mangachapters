@@ -57,6 +57,7 @@ class Manga extends Model
     public function latestChapter()
     {
         return $this->hasOne(\App\Models\Chapter::class)
+                ->notInvalidLink()
                 ->orderBy('chapter', 'desc')
                 ->orderBy('created_at', 'desc');
                 // ->latest(); // * use 2 line above instead of this

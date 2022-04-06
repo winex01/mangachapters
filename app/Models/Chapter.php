@@ -52,6 +52,10 @@ class Chapter extends Model
         $query->orderBy('chapter', 'desc');
     }
 
+    public function scopeNotInvalidLink($query)
+    {
+        $query->where('invalid_link', false);
+    }
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS

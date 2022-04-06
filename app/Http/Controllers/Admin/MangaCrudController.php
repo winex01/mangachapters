@@ -116,3 +116,4 @@ class MangaCrudController extends CrudController
         $this->simpleFilter('add_scope_myBookmarked', null);
     }
 }
+// TODO:: display sources in manga crud

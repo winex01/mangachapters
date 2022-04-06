@@ -59,6 +59,7 @@ return [
     */
     'sources_url' => 'Website source',
     'sources_crawler_filter' => 'Tag and class name for filter',
+    'sources_description' => 'You can add the description why this is not published or anything.',
 
     /*
     |--------------------------------------------------------------------------

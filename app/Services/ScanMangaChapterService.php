@@ -45,9 +45,12 @@ class ScanMangaChapterService
             $crawler = $this->client->request('GET', $source->url);
             $links = $crawler->filter($source->scanFilter->filter)->links();
 
+            
             // web crawled website links
             foreach ($links as $link) {
                 $data = $this->prepareData($this->manga->id, $link->getUri(), $source->url);
+                // dump($link->getUri());
+                // dump($data);
                 if (is_numeric($data['chapter'])) {
                     // manga has no chapters yet, then after saving the latest chapter then exist loop.
                     if ($currentChapter == null) {
@@ -93,21 +96,27 @@ class ScanMangaChapterService
 
     private function prepareData($mangaId, $scrapUrl, $sourceUrl)
     {
-        
-        // support mangaraw.pro
-        if ( stringContains($sourceUrl, 'mangaraw.pro') ) {
-            $chapter = explode('chapter-', $scrapUrl);
-
-            if ( is_array($chapter) && count($chapter) == 2 ) {
-                $chapter = $chapter[1];
-            }
+        // start explode, this is to filter those url list mangas who is different from individual link
+        $chapter = explode('chapter-', $scrapUrl);
+        if ( is_array($chapter) && count($chapter) == 2 ) {
+            $chapter = $chapter[1];
+        }else {
+            $chapter = $scrapUrl; // else reset value to non array/original
         }
-         
-        $chapter = str_replace($sourceUrl, '', $scrapUrl);
+        
+        $chapter = explode('chapter_', $chapter);
+        if ( is_array($chapter) && count($chapter) == 2 ) {
+            $chapter = $chapter[1];
+        }else {
+            $chapter = $scrapUrl; // else reset value to non array/original
+        }
+        // end start explode
+        
+        $chapter = str_replace($sourceUrl, '', $chapter);
         $chapter = str_replace('chapter-', '', $chapter);
         $chapter = str_replace('chapter_', '', $chapter);
         $chapter = str_replace('/', '', $chapter);
-
+        
         // support decimal chapters ex. 1.1
         $chapter = str_replace('-', '.', $chapter);
         

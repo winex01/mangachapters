@@ -101,7 +101,8 @@ class Manga extends Model
         $temp = $this->sources()->pluck('url');
 
         $temp = collect($temp)->map(function ($item, $key) {
-            return anchorNewTab($item, $item);
+            $label = str_limit($item, 30);
+            return anchorNewTab($item, $label, $item);
         })->toArray();
                 
         return implode('</br>', $temp);

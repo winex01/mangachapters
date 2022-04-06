@@ -51,13 +51,18 @@ class ScanMangaChapterService
                             $duplicate = modelInstance('Chapter')
                                         ->where('chapter', $data['chapter'])
                                         ->where('manga_id', $data['manga_id'])
+                                        ->notInvalidLink()
                                         ->first();
-
+                            
                             if (!$duplicate) {
-                                $newChapters[] = modelInstance('Chapter')->create($data);
+                                $isNewChapter = modelInstance('Chapter')->firstOrCreate($data);
+
+                                if ($isNewChapter->wasRecentlyCreated) {
+                                    $newChapters[] = $isNewChapter;
+                                }
                             }
                         }else {
-                            break; // add this break so i will exit the foreach if no latest chapters found
+                            break; // add this break so it will exit the foreach if no latest chapters found
                         }
                     }
                 }else {

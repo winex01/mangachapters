@@ -56,8 +56,25 @@ class ChapterCrudController extends CrudController
         // add on query
         $this->crud->query->orderByRelease();
 
-        $this->showColumns(null, ['url']);
+        $this->showColumns(null, ['url', 'invalid_link']);
         $this->showRelationshipColumn('manga_id', 'title');
+
+        // show this column if has access to chapters_invalid_link permission
+        if ($this->crud->hasAccess('invalidLink')) {
+            $this->crud->addColumn([
+                'name' => 'invalid_link',
+                'type' => 'boolean',
+                'wrapper' => [
+                    'element' => 'span',
+                    'class' => function ($crud, $column, $entry, $related_key) {
+                        if ($column['text'] == 'Yes') {
+                            return 'badge badge-danger';
+                        }
+                        return 'badge badge-success';
+                    },
+                ],
+            ]);
+        }
 
         $this->crud->addColumn([
             'name' => 'manga.photo',
@@ -138,7 +155,9 @@ class ChapterCrudController extends CrudController
 
     private function filters()
     {
-        
+        if ($this->crud->hasAccess('invalidLink')) {
+            $this->booleanFilter('invalid_link');
+        }
     }
 
     public function store()
@@ -150,5 +169,5 @@ class ChapterCrudController extends CrudController
         return $response;
     }
 }
-// TODO:: TBD add broken link boolean column in chapters
 // TODO:: add chapters table for guest
+// TODO:: allow user to report chapter in chapters crud as invalid link

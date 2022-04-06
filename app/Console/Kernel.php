@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('winex:scan-chapters')->hourly();
 
+        // TODO:: send backupto mail or dropbox
         $schedule->command('backup:clean')->daily()->at('11:00');
         $schedule->command('backup:run')->daily()->at('12:00');
     }

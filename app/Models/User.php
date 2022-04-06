@@ -51,18 +51,6 @@ class User extends Authenticatable implements MustVerifyEmail
     | Functions 
     |--------------------------------------------------------------------------
     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::updated(static function ($model) {
-            if ($model->wasChanged('email')) {
-                $model->markEmailAsNotVerified();
-                // TODO:: notify an admin if user change his email
-            }
-        });
-    }
-
     public function markEmailAsNotVerified()
     {
         $this->email_verified_at = null;

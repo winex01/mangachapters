@@ -20,6 +20,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'admin_trashed_filter', 
             'admin_debugbar', 
             'admin_web_tinker', 
+            'admin_notify_newly_registered',
         ],
 
         'audit_trails' => [

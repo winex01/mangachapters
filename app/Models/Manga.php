@@ -96,6 +96,17 @@ class Manga extends Model
         return $this->attributes['title'];
     }
 
+    public function getSourcesInHtmlAttribute()
+    {
+        $temp = $this->sources()->pluck('url');
+
+        $temp = collect($temp)->map(function ($item, $key) {
+            $label = str_limit($item, 30);
+            return anchorNewTab($item, $label, $item);
+        })->toArray();
+                
+        return implode('</br>', $temp);
+    }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

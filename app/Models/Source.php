@@ -56,6 +56,11 @@ class Source extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    public function getUrlLinkAttribute()
+    {   
+        $url = $this->attributes['url'];
+        return anchorNewTab($url, $url);
+    }
 
     /*
     |--------------------------------------------------------------------------

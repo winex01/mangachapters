@@ -48,10 +48,13 @@ class ScanMangaChapterService
                         break;
                     }else {
                         if ($currentChapter->chapter < $data['chapter']) {
-                            $firstOrCreate = modelInstance('Chapter')->firstOrCreate($data);
-                            
-                            if($firstOrCreate->wasRecentlyCreated) {
-                                $newChapters[] = $firstOrCreate;
+                            $duplicate = modelInstance('Chapter')
+                                        ->where('chapter', $data['chapter'])
+                                        ->where('manga_id', $data['manga_id'])
+                                        ->first();
+
+                            if (!$duplicate) {
+                                $newChapters[] = modelInstance('Chapter')->create($data);
                             }
                         }else {
                             break; // add this break so i will exit the foreach if no latest chapters found

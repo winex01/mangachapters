@@ -28,8 +28,7 @@
         $tempValue = null;
     @endphp
     
-    @forelse (auth()->user()->unreadNotifications
-        ->where('type', 'App\Notifications\NewChapterNotification') as $notification)
+    @forelse (auth()->user()->unreadNotifications  as $notification)
         
         @if ($firstLoop)
             <a class="btn btn-danger btn-sm mb-3" href="javascript:void(0)" id="clear-all-notifications">Clear all notification(s).</a>
@@ -38,34 +37,65 @@
         @php
             $firstLoop = false;
             $data = $notification->data;
-            $chapter = modelInstance($data['model'])->with('manga')->find($data['id']);
+            $model = null;
+            $type = null;
+
+            if ($notification->type == 'App\Notifications\NewChapterNotification') {
+                $model = modelInstance($data['model'])->with('manga')->find($data['id']);
+                $type = 'newChapter';
+                
+            }elseif ($notification->type == 'App\Notifications\NewUserNotification') {
+                $model = modelInstance($data['model'])->find($data['id']);
+                $type = 'newUser';
+                
+            }else {
+                // do nothing
+            }
 
             // if no data is find then perhaps i deleted the notification in database, so escape this loop
-            if (!$chapter) {
+            if (!$model) {
                 $notification->markAsRead();
                 continue;
             }
         @endphp
 
-        <div 
-            class="chapter-alert alert alert-secondary alert-dismissible fade show text-dark" 
-            role="alert" 
-            data-id="{{ $notification->id }}"
-        >
+        @if ($type == 'newChapter')
+            <div 
+                class="chapter-alert alert alert-secondary alert-dismissible fade show text-dark" 
+                role="alert" 
+                data-id="{{ $notification->id }}"
+            >
             
-            <img style="height: 50px; width:40px;" src="{{ $chapter->manga->photo }}" class="rounded" alt="...">
-            <span class="ml-1">{{ $chapter->manga->name }}!</span> 
+                <img style="height: 50px; width:40px;" src="{{ $model->manga->photo }}" class="rounded" alt="...">
+                <span class="ml-1">{{ $model->manga->name }}!</span> 
 
-            @php
-                $label = "Chapter $chapter->chapter is out $chapter->release."
-            @endphp
+                @php
+                    $label = "Chapter $model->chapter is out $model->release."
+                @endphp
 
-            {!! anchorNewTab($chapter->url, $label) !!}
-            
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+                {!! anchorNewTab($model->url, $label) !!}
+                
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @else
+            <div 
+                class="chapter-alert alert alert-secondary alert-dismissible fade show text-dark" 
+                role="alert" 
+                data-id="{{ $notification->id }}"
+            >
+
+                {{ __( $model->email .'['.$model->name.']' ) }}
+                <span class="text-info"> join the party</span>
+                {!! $model->joined !!}.
+                
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+        
         
     @empty
         @php

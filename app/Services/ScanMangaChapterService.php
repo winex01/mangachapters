@@ -57,7 +57,7 @@ class ScanMangaChapterService
                                 $newChapters[] = modelInstance('Chapter')->create($data);
                             }
                         }else {
-                            break; // add this break so i will exit the foreach if no latest chapters found
+                            break; // add this break so it will exit the foreach if no latest chapters found
                         }
                     }
                 }else {

@@ -25,11 +25,18 @@ class ScanMangaChapterService
     {
         $newChapters = [];
         
-        foreach ($this->manga->sources as $source) {
+        $firstEverMangaChapter = false;
 
+        foreach ($this->manga->sources as $source) {
             // escape source that are not published
             if (!$source->published){
                 continue;
+            }
+
+            // if this is the first ever scan chapter of this manga, then exit loop to all sources
+            // add only 1 chapter.
+            if ($firstEverMangaChapter) {
+                break;
             }
 
             // get my current chapter, check last chapter entries of that manga_id, if no data then save only the first links
@@ -45,6 +52,7 @@ class ScanMangaChapterService
                     // manga has no chapters yet, then after saving the latest chapter then exist loop.
                     if ($currentChapter == null) {
                         $newChapters[] = modelInstance('Chapter')->create($data);
+                        $firstEverMangaChapter = true;
                         break;
                     }else {
                         if ($currentChapter->chapter < $data['chapter']) {

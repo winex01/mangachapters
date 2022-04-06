@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\NewChapterScanned;
+use App\Listeners\SendAdminNewUserNotification;
 use App\Listeners\SendUserNewChapterNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -19,8 +20,8 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             // SendEmailVerificationNotification::class, // dont verify email when register, but when he clicks the alert msg
-            // TODO:: notify admin if someone register
             // TODO:: let the user verify the account again if the user change the email.
+            SendAdminNewUserNotification::class,
         ],
 
         NewChapterScanned::class => [

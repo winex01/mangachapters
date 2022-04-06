@@ -46,9 +46,19 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-     /*
+    /*
     |--------------------------------------------------------------------------
-    | ACCESSORS
+    | Functions 
+    |--------------------------------------------------------------------------
+    */
+    public function markEmailAsNotVerified()
+    {
+        $this->email_verified_at = null;
+        $this->save();
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESSORS 
     |--------------------------------------------------------------------------
     */
     public function getModelAttribute()
@@ -58,6 +68,20 @@ class User extends Authenticatable implements MustVerifyEmail
         return str_replace('App\\Models\\', '', $class);
     }
 
+    public function getJoinedAttribute()
+    {
+        $textColor = '';
+
+        if (isTimestampLessThanHoursAgo($this->created_at, 1)) {
+            $textColor = 'text-danger';
+        }elseif (isTimestampLessThanHoursAgo($this->created_at, 3)) {
+            $textColor = 'text-success';
+        }else {
+            $textColor = 'text-dark';            
+        }
+
+        return '<span class="font-weight-light '.$textColor.'">'.$this->created_at->diffForHumans().'</span>';
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS 

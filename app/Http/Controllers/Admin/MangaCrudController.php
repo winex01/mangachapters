@@ -49,8 +49,6 @@ class MangaCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->query->orderByTitle();
-
         $this->showColumns();
 
         // photo

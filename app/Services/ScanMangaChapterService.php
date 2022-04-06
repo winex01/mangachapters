@@ -45,7 +45,6 @@ class ScanMangaChapterService
             $crawler = $this->client->request('GET', $source->url);
             $links = $crawler->filter($source->scanFilter->filter)->links();
 
-            
             // web crawled website links
             foreach ($links as $link) {
                 $data = $this->prepareData($this->manga->id, $link->getUri(), $source->url);
@@ -119,6 +118,9 @@ class ScanMangaChapterService
         
         // support decimal chapters ex. 1.1
         $chapter = str_replace('-', '.', $chapter);
+        
+        // support mangatown
+        $chapter = str_replace('c', '', $chapter);
         
         return [
             'manga_id' => $mangaId,

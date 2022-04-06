@@ -13,10 +13,11 @@
                 </div>
                 @endif
                 
-                {{ __('If you want to recover your account if you forgot your password.') }}
+                {{ __('Before proceeding, please check your email for a verification link.') }}
+                {{ __('If you did not receive the email') }},
                 <form class="d-inline" method="POST" action="{{ route('verification.send') }}">
                     @csrf
-                    <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('please click here to verify your email.') }}</button>.
+                    <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
                 </form>
             </div>
         </div>

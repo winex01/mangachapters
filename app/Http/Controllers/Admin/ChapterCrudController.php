@@ -59,23 +59,6 @@ class ChapterCrudController extends CrudController
         $this->showColumns(null, ['url', 'invalid_link']);
         $this->showRelationshipColumn('manga_id', 'title');
 
-        // show this column if has access to chapters_invalid_link permission
-        if ($this->crud->hasAccess('invalidLink')) {
-            $this->crud->addColumn([
-                'name' => 'invalid_link',
-                'type' => 'boolean',
-                'wrapper' => [
-                    'element' => 'span',
-                    'class' => function ($crud, $column, $entry, $related_key) {
-                        if ($column['text'] == 'Yes') {
-                            return 'badge badge-danger';
-                        }
-                        return 'badge badge-success';
-                    },
-                ],
-            ]);
-        }
-
         $this->crud->addColumn([
             'name' => 'manga.photo',
             'label' => 'Photo',
@@ -104,6 +87,23 @@ class ChapterCrudController extends CrudController
                 return $entry->release;
             }
         ]);
+
+        // show this column if has access to chapters_invalid_link permission
+        if ($this->crud->hasAccess('invalidLink')) {
+            $this->crud->addColumn([
+                'name' => 'invalid_link',
+                'type' => 'boolean',
+                'wrapper' => [
+                    'element' => 'span',
+                    'class' => function ($crud, $column, $entry, $related_key) {
+                        if ($column['text'] == 'Yes') {
+                            return 'badge badge-danger';
+                        }
+                        return 'badge badge-success';
+                    },
+                ],
+            ]);
+        }
 
         $this->disableSortColumn('manga_id');
         $this->disableSortColumn('chapter');

@@ -2,7 +2,11 @@
  - client_max_body_size 100M;
  - max_input_vars = 3000 
 
-#NOTE
+#REMINDER
+ - cron
+ - email setup
+
+#INSTALLATION
  - git clone git@github.com:winex01/mangachapters.git
  - cp .env.example .env
  - composer install

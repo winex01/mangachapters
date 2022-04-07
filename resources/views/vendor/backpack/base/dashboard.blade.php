@@ -48,7 +48,11 @@
                 $model = modelInstance($data['model'])->find($data['id']);
                 $type = 'newUser';
                 
-            }else {
+            }elseif ($notification->type == 'App\Notifications\WelcomeMessageNotification'){
+                $type = 'welcomeMsg';
+                $model = true; // assign model to true so it wont markAsRead at the bottom
+            }
+            else {
                 // do nothing
             }
 
@@ -60,6 +64,7 @@
         @endphp
 
         @if ($type == 'newChapter')
+
             <div 
                 class="chapter-alert alert alert-secondary alert-dismissible fade show text-dark" 
                 role="alert" 
@@ -79,7 +84,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-        @else
+
+        @elseif($type == 'newUser')
+
             <div 
                 class="chapter-alert alert alert-secondary alert-dismissible fade show text-dark" 
                 role="alert" 
@@ -94,6 +101,31 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            
+        @elseif($type == 'welcomeMsg')
+
+            <div 
+                class="chapter-alert alert alert-secondary alert-dismissible fade show text-dark font-weight-bold" 
+                role="alert" 
+                data-id="{{ $notification->id }}"
+            >
+
+                <span class="text-success">{{ __('Hello') }}</span>
+                <span class="text-info">{{ auth()->user()->email }}</span>
+                <span class="text-danger">!!!!!</span>
+                <br>
+                
+                {!! trans('lang.welcome_message') !!} 
+
+                <img class="mt-n2" style="height: 30px; width:30px;" src="{{ asset('images/heart_emoji.jpg') }}" class="rounded" alt="...">
+
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        @else
+            
         @endif
         
         

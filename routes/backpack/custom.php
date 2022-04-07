@@ -26,10 +26,6 @@ Route::group([
         $request->fulfill();
         return redirect()->route('backpack.dashboard');
     })->middleware(['auth', 'signed'])->name('verification.verify');
-    
-    Route::get('/redirect-here-when-email-verify-is-click', function () {
-        return redirect()->route('backpack.dashboard');
-    })->name('login');
 
     Route::crud('audittrail', 'AuditTrailCrudController');
     Route::crud('menu', 'MenuCrudController');

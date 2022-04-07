@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 	// return redirect()->route('backpack.auth.login');
+	if (auth()->user()) {
+		return redirect()->route('backpack.dashboard');
+	}
 
 	return view('home');
 });
+
+Route::get('/redirect-here-when-email-verify-is-click', function () {
+	return redirect()->route('backpack.dashboard');
+})->name('login');

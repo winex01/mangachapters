@@ -23,6 +23,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class, // my custom listener, let the user still use the app, even not verified 
             SendAdminNewUserNotification::class,
             AssignNormalUserRole::class,
+            // TODO:: add welcome message
         ],
 
         NewChapterScanned::class => [

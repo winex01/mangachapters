@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\NewChapterScanned;
+use App\Listeners\AssignNormalUserRole;
 use App\Listeners\SendAdminNewUserNotification;
 use App\Listeners\SendUserNewChapterNotification;
 use Illuminate\Auth\Events\Registered;
@@ -20,8 +21,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             // SendEmailVerificationNotification::class, // dont verify email when register, but when he clicks the alert msg
-            // TODO:: let the user verify the account again if the user change the email.
+            // TODO:: send new registered email verification but let the user still use the app even not verified
             SendAdminNewUserNotification::class,
+            AssignNormalUserRole::class,
         ],
 
         NewChapterScanned::class => [

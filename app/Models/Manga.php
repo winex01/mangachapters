@@ -98,7 +98,7 @@ class Manga extends Model
 
     public function getSourcesInHtmlAttribute()
     {
-        $temp = $this->sources()->pluck('url');
+        $temp = $this->sources()->published()->pluck('url');
 
         $temp = collect($temp)->map(function ($item, $key) {
             $label = str_limit($item, 30);

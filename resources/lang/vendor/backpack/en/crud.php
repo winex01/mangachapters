@@ -15,6 +15,7 @@ return [
     
     // Delete
     'delete' => 'Yes, delete it!',
+    'yes_please' => 'Yes, please!',
 
     // Force Delete
     'force_delete'          => 'Force Delete',
@@ -90,4 +91,11 @@ return [
     'bookmark_toggle_confirmation_message'      => 'The item has been toggle successfully.',
     'bookmark_toggle_confirmation_not_title'    => 'Not toggled',
     'bookmark_toggle_confirmation_not_message'  => "There's been an error. Your item might not have been toggled.",
+
+    // Bulk Bookmark Operation
+    'bulk_bookmark_are_you_sure'   => 'Are you sure you want to bookmark these :number entries?',
+    'bulk_bookmark_success_title'   => 'Entries bookmarked',
+    'bulk_bookmark_success_message' => ' items have been bookmarked.',
+    'bulk_bookmark_error_title'    => 'Bookmarking failed',
+    'bulk_bookmark_error_message'  => 'One or more entries could not be bookmarked. Please try again.',
 ];

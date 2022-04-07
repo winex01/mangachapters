@@ -11,7 +11,7 @@
         }else {
             $icon = '<i class="las la-heart"></i>';
             $title = 'Bookmark';
-            $textColor = 'text-success';
+            $textColor = 'text-primarys';
         }
     @endphp
 

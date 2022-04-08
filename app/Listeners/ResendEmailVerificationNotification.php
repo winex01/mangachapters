@@ -2,10 +2,10 @@
 
 namespace App\Listeners;
 
-use Illuminate\Auth\Events\Registered;
+use App\Events\ResendEmailVerification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendEmailVerificationNotification implements ShouldQueue
+class ResendEmailVerificationNotification implements ShouldQueue
 {
     /**
      * The name of the queue the job should be sent to.
@@ -13,7 +13,7 @@ class SendEmailVerificationNotification implements ShouldQueue
      * @var string|null
      */
     public $queue = 'high';
-    
+
     /**
      * Create the event listener.
      *
@@ -27,16 +27,11 @@ class SendEmailVerificationNotification implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  Registered  $event
+     * @param  ResendEmailVerification  $event
      * @return void
      */
-    public function handle(Registered $event)
-    {   
+    public function handle(ResendEmailVerification $event)
+    {
         $event->user->sendEmailVerificationNotification();
     }
-
-    // public function viaQueue()
-    // {
-    //     return 'high';
-    // }
 }

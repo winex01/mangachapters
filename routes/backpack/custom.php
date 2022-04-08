@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\ResendEmailVerification;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 // --------------------------
@@ -18,7 +19,9 @@ Route::group([
 ], function () { // custom admin routes
     // allow login and use application and make email verification as optional only
     Route::post('/email/verification-notification', function () {
-        auth()->user()->sendEmailVerificationNotification();
+        // auth()->user()->sendEmailVerificationNotification();
+        event(new ResendEmailVerification(auth()->user()));
+
         return back()->with('message', 'Verification link sent!');
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 

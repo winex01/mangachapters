@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\NewChapterScanned;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewChapterNotification;
 

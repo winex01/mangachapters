@@ -2,7 +2,12 @@
  - client_max_body_size 100M;
  - max_input_vars = 3000 
 
-#NOTE
+#REMINDER
+ - schedule 
+ - php artisan queue:work --queue=high,medium,default 
+   - use supervisor
+
+#INSTALLATION
  - git clone git@github.com:winex01/mangachapters.git
  - cp .env.example .env
  - composer install

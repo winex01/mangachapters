@@ -4,12 +4,11 @@ namespace App\Listeners;
 
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Queue\InteractsWithQueue;
 use App\Notifications\NewUserNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
 
-class SendAdminNewUserNotification
+class SendAdminNewUserNotification implements ShouldQueue
 {
     /**
      * Create the event listener.

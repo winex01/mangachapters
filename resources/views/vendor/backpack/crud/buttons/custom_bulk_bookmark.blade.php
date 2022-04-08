@@ -2,7 +2,7 @@
 	<a 
         href="javascript:void(0)" 
         onclick="bulkBookmarkEntries(this)" 
-        class="btn btn-primary" 
+        class="btn btn-success" 
         data-toggle="tooltip" 
         title="{{ __('Check checkbox beside the image.') }}"
     >

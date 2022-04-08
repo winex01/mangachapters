@@ -66,8 +66,12 @@ class MangaCrudController extends CrudController
             'type'     => 'closure',
             'function' => function($entry) {
                 return $entry->sourcesInHtml;
+            },
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereHas('sources', function ($q) use ($searchTerm) {
+                    $q->where('url', 'like', "%$searchTerm%");
+                });
             }
-            // TODO:: add search logic of sources
         ]);
 
         $this->filters();

@@ -114,6 +114,7 @@ return [
              */
             'disks' => [
                 'backups',
+                'dropbox', //* https://qirolab.com/posts/how-to-store-laravel-backup-on-dropbox-1607451784
             ],
         ],
 

@@ -3,8 +3,8 @@
  - max_input_vars = 3000 
 
 #REMINDER
- - cron
- - email setup
+ - schedule 
+ - queue
 
 #INSTALLATION
  - git clone git@github.com:winex01/mangachapters.git

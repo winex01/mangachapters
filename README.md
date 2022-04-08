@@ -6,6 +6,9 @@
  - schedule 
  - php artisan queue:work --queue=high,medium,default 
    - use supervisor
+ - check backup in dropbox
+ - test scan chapter
+ - test queue
 
 #INSTALLATION
  - git clone git@github.com:winex01/mangachapters.git

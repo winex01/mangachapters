@@ -6,8 +6,15 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendEmailVerificationNotification
+class SendEmailVerificationNotification implements ShouldQueue
 {
+    /**
+     * The name of the queue the job should be sent to.
+     *
+     * @var string|null
+     */
+    public $queue = 'high';
+    
     /**
      * Create the event listener.
      *
@@ -25,7 +32,12 @@ class SendEmailVerificationNotification
      * @return void
      */
     public function handle(Registered $event)
-    {
+    {   
         $event->user->sendEmailVerificationNotification();
     }
+
+    // public function viaQueue()
+    // {
+    //     return 'high';
+    // }
 }

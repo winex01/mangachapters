@@ -21,14 +21,17 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Registered::class => [
-            // TODO:: use queue
+            //* Not Queue
+            AssignNormalUserRole::class, 
+            SendWelcomeMessage::class,
+            
+            //* Queue
             SendEmailVerificationNotification::class, // my custom listener, let the user still use the app, even not verified 
             SendAdminNewUserNotification::class,
-            AssignNormalUserRole::class,
-            SendWelcomeMessage::class,
         ],
-
+        
         NewChapterScanned::class => [
+            //* Not Queue
             SendUserNewChapterNotification::class,
         ],
 

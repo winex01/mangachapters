@@ -4,7 +4,8 @@
 
 #REMINDER
  - schedule 
- - queue
+ - php artisan queue:work --queue=high,medium,default 
+   - use supervisor
 
 #INSTALLATION
  - git clone git@github.com:winex01/mangachapters.git

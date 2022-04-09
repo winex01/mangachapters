@@ -21,7 +21,7 @@ class GetProxyService
 
         if (!file_exists($this->file)) {
             // dump('downloading proxies...');
-            $this->download();
+            // $this->download();
         }
         
         $this->proxy = $this->get();

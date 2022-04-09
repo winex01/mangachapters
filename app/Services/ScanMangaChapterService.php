@@ -82,7 +82,7 @@ class ScanMangaChapterService
                         }
                     }
                 }else {
-                    Log::error($data);
+                    Log::warning($data);
                     // TODO:: if not numeric find a way for comparison, check this: https://stackoverflow.com/questions/14288534/php-compare-alphabet-position
                 }
             }// loop links
@@ -101,25 +101,19 @@ class ScanMangaChapterService
 
     private function prepareData($mangaId, $scrapUrl, $sourceUrl)
     {
-        // start explode, this is to filter those url list mangas who is different from individual link
-        $chapter = explode('chapter-', $scrapUrl);
-        if ( is_array($chapter) && count($chapter) == 2 ) {
+        if (stringContains($scrapUrl, 'chapter-')) {
+            // dash
+            $chapter = explode('chapter-', $scrapUrl);
             $chapter = $chapter[1];
-        }else {
-            $chapter = $scrapUrl; // else reset value to non array/original
+        }elseif (stringContains($scrapUrl, 'chapter_')) {
+            // underscore
+            $chapter = explode('chapter_', $scrapUrl);
+            $chapter = $chapter[1];
+        }
+        else {
+            $chapter = str_replace($sourceUrl, '', $scrapUrl);
         }
         
-        $chapter = explode('chapter_', $chapter);
-        if ( is_array($chapter) && count($chapter) == 2 ) {
-            $chapter = $chapter[1];
-        }else {
-            $chapter = $scrapUrl; // else reset value to non array/original
-        }
-        // end start explode
-        
-        $chapter = str_replace($sourceUrl, '', $chapter);
-        $chapter = str_replace('chapter-', '', $chapter);
-        $chapter = str_replace('chapter_', '', $chapter);
         $chapter = str_replace('/', '', $chapter);
         
         // support decimal chapters ex. 1.1

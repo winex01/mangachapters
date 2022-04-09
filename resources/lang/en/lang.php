@@ -17,6 +17,7 @@ return [
     'column_title_text_color' => 'text-dark', // list view column title text color
     'duplicate_entry'         => 'Duplicate entry.',    
     'welcome_message'         => 'Welcome Aboard, We hope you enjoy your stay.',
+    'temp_change_proxy'       => '<span class="text-danger">PLEASE DONT\'T FORGT TO CHANGE PROXY FILE!!!</span> <a class="text-info" href="https://api.proxyscrape.com/v2/?request=getproxies&amp;protocol=http&amp;timeout=10000&amp;country=all&amp;ssl=all&amp;anonymity=all">Click Here To Download</a>',
 
     
     /*

@@ -75,8 +75,8 @@ class ScanChapters extends Command
         if ($mangas->isNotEmpty()) {
             $this->getOutput()->progressStart(count($mangas)); // progress bar total
 
-            $getNewProxies = new GetProxyService();
-            $getNewProxies->download();
+            // $getNewProxies = new GetProxyService();
+            // $getNewProxies->download();
 
             foreach ($mangas as $manga) {
                 $temp = new ScanMangaChapterService($manga);

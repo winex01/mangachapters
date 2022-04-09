@@ -5,20 +5,18 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
-class NewChapterNotification extends Notification
+class ChangeProxyNotification extends Notification
 {
     use Queueable;
-
-    protected $chapter;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($chapter)
+    public function __construct()
     {
-        $this->chapter = $chapter;
+        //
     }
 
     /**
@@ -40,10 +38,6 @@ class NewChapterNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-            'model' => $this->chapter->model,
-            'id' => $this->chapter->id,
-        ];
+        return 'temp_change_proxy';
     }
 }

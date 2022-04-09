@@ -18,6 +18,6 @@ return [
   	'selectLink'      => 'HTTP Proxies',
 
     // file name
-  	'filePathAndName' => 'proxy/proxyscrape.com.txt',
+  	'filePathAndName' => 'proxy/http_proxies.txt', //* DL it here: https://proxyscrape.com/free-proxy-list
     
 ];

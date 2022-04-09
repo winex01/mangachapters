@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ProxyNotice;
 use App\Console\Commands\ScanChapters;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -15,6 +16,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         ScanChapters::class,
+        ProxyNotice::class,
     ];
 
     /**
@@ -26,9 +28,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('winex:scan-chapters')->everyThirtyMinutes();
+        $schedule->command('winex:proxy-notice')->daily()->weekly();	
 
         $schedule->command('backup:clean')->daily()->at('11:00');
         $schedule->command('backup:run')->daily()->at('12:00');
+
     }
 
     /**

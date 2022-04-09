@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Services\GetProxyService;
 use App\Services\ScanMangaChapterService;
 
 class ScanChapters extends Command
@@ -73,6 +74,9 @@ class ScanChapters extends Command
 
         if ($mangas->isNotEmpty()) {
             $this->getOutput()->progressStart(count($mangas)); // progress bar total
+
+            $getNewProxies = new GetProxyService();
+            $getNewProxies->download();
 
             foreach ($mangas as $manga) {
                 $temp = new ScanMangaChapterService($manga);

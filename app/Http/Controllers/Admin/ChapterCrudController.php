@@ -171,5 +171,4 @@ class ChapterCrudController extends CrudController
 }
 // TODO:: add chapters table for guest
 // TODO:: allow user to report chapter in chapters crud as invalid link
-// TODO:: add telescope
 // TODO:: ass socialite auth

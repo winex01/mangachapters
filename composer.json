@@ -24,7 +24,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.5",
         "laravel-interaction/bookmark": "^1.5",
-        "laravel/framework": "^8.0",
+        "laravel/framework": "^8.83",
         "laravel/tinker": "^2.0",
         "laravel/ui": "3.2",
         "maatwebsite/excel": "^3.1",

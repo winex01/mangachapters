@@ -14,11 +14,15 @@ class ScanMangaChapterService
 
     protected $client;
 
+    protected $proxy;
+
     public function __construct(Manga $manga)
     {
         $this->manga = $manga;
         
         $this->client = new Client();
+    
+        $this->proxy = new GetProxyService();
     }
 
     public function scan()
@@ -42,7 +46,9 @@ class ScanMangaChapterService
             // get my current chapter, check last chapter entries of that manga_id, if no data then save only the first links
             $currentChapter = $this->manga->latestChapter;
 
-            $crawler = $this->client->request('GET', $source->url);
+            $proxy = 'http://'.$this->proxy->random();
+            // dump($proxy);
+            $crawler = $this->client->request('GET', $source->url, ['proxy' => $proxy]);
             $links = $crawler->filter($source->scanFilter->filter)->links();
 
             // web crawled website links

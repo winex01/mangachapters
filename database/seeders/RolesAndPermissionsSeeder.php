@@ -22,6 +22,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'admin_web_tinker', 
             'admin_notify_newly_registered',
             'admin_proxy_notice',
+            'admin_telescope',
         ],
 
         'audit_trails' => [

@@ -74,6 +74,14 @@ class MangaCrudController extends CrudController
             }
         ]);
 
+        $this->crud->modifyColumn('title', [
+            'wrapper'   => [
+                'title' => function ($crud, $column, $entry, $related_key) {
+                    return $entry->title;
+                },
+            ],
+        ]);
+
         $this->filters();
     }
 

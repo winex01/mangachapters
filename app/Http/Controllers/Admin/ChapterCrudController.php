@@ -169,6 +169,3 @@ class ChapterCrudController extends CrudController
         return $response;
     }
 }
-// TODO:: add chapters table for guest
-// TODO:: allow user to report chapter in chapters crud as invalid link
-// TODO:: ass socialite auth

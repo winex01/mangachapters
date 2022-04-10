@@ -3,11 +3,11 @@
 @section('content')
 
 <main role="main" class="container">
-  <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
-    <img class="mr-3" src="https://getbootstrap.com/docs/4.6/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
+  <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow-sm">
+    <img class="mr-3" src="{{ asset('images/logo.svg') }}" alt="" width="50" height="50">
     <div class="lh-100">
       <h6 class="mb-0 text-white lh-100">{{ config('appsettings.app_name') }}</h6>
-      <small>Since 2011</small>
+      <small>{!! trans('lang.slogan') !!}</small>
     </div>
   </div>
 

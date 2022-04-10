@@ -90,5 +90,12 @@ return [
     |--------------------------------------------------------------------------
     */
     'scan_filters_name' => 'Website url / name. Eg: https://www.readmng.com/',
-    'scan_filters_filter' => 'Tag or class name. Eg: .chp_lst a'
+    'scan_filters_filter' => 'Tag or class name. Eg: .chp_lst a',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Home 
+    |--------------------------------------------------------------------------
+    */
+    'slogan' => 'Get news of your favorite manga/manghwa/manhua.',
 ];

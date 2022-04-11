@@ -76,9 +76,6 @@ return [
     */
     'chapters_chapter' => '',
     'chapters_url' => '',
-    'chapter_notification_description' => "Chapter :chapter is out :release.",
-    'chapter_notification_image'       => '<img style="height: 50px; width:40px;" src=":src" class="rounded" alt="...">',
-    'chapter_notification_title'       => '<strong class="d-block text-gray-dark">:title</strong>',
     'chapter_notification_card' => '
         <div class="media text-muted pt-3 col-md-4">
           <img style="height: 50px; width:40px;" src=":image" class="rounded" alt="...">

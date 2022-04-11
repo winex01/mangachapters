@@ -108,5 +108,5 @@ return [
     'chapter_your_bookmark'   => 'Your bookmarks',
     'chapter_description'     => "Chapter :chapter is out :release.",
     'chapter_mark_as_read'    => 'Mark as read',
-    'chapter_bookmark'        => 'Bookmark',
+    'chapter_bookmark'        => 'Bookmark now',
 ];

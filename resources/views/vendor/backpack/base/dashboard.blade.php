@@ -136,7 +136,7 @@
 
     {{-- Recent Chapters --}}
     @php
-        $chapters = auth()->user()
+        $notifications = auth()->user()
                     ->unreadNotifications()
                     ->where('type', 'App\Notifications\NewChapterNotification')
                     ->simplePaginate(config('appsettings.home_chapters_entries'));
@@ -145,14 +145,19 @@
     <div class="my-3 p-3 bg-white rounded shadow-sm">
         <h6 class="border-bottom border-gray pb-2 mb-0">{{ trans('lang.chapter_your_bookmark') }}</h6>
 
-        @foreach ($chapters->chunk(3) as $chunks)
+        @foreach ($notifications->chunk(3) as $notification)
 
         <div class="row">
 
-            @foreach ($chunks as $chapter)
+            @foreach ($notification as $chapter)
 
                 @php
                     $chapter = modelInstance($chapter->data['model'])->with('manga')->find($chapter->data['id']);
+
+                    if (!$chapter) {
+                        $notification->markAsRead();
+                        continue;
+                    }
                 @endphp
 
                 <x-chapter :chapter="$chapter"></x-chapter>
@@ -164,8 +169,8 @@
         @endforeach
 
         <small class="d-block text-right mt-3">
-            @if ($chapters)
-                {{ $chapters->links() }}
+            @if ($notifications)
+                {{ $notifications->links() }}
             @endif
         </small>
 

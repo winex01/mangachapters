@@ -9,7 +9,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $chapters = Chapter::notInvalidLink()->orderByRelease()->simplePaginate(15); 
+        $chapters = Chapter::notInvalidLink()->orderByRelease()->simplePaginate(
+            config('appsettings.home_chapters_entries')
+        ); 
 
         return view('home', compact('chapters'));
     }    

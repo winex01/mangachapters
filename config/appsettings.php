@@ -59,4 +59,7 @@ return [
 
     // anchor class color
     'link_color' => 'text-info',
+
+    // default count entries showed in home pagination
+    'home_chapters_entries' => 30,
 ];

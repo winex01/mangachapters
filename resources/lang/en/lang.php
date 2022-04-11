@@ -76,18 +76,6 @@ return [
     */
     'chapters_chapter' => '',
     'chapters_url' => '',
-    'chapters_recent_chapters' => 'Recent chapters',
-    'chapters_bookmark' => 'Your bookmarks',
-    'chapter_notification_description' => "Chapter :chapter is out :release.",
-    'chapter_notification_card' => '
-        <div class="media text-muted pt-3 col-md-4">
-          <img style="height: 50px; width:40px;" src=":image" class="rounded" alt="...">
-          <p class="ml-2 media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-            <strong class="d-block text-gray-dark">:title</strong>
-            :link
-          </p>
-        </div>
-    ',
 
     /*
     |--------------------------------------------------------------------------
@@ -110,4 +98,15 @@ return [
     |--------------------------------------------------------------------------
     */
     'slogan' => 'Get news to your favorite manga, manghwa, manhua & etc.',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Chapters 
+    |--------------------------------------------------------------------------
+    */
+    'chapter_recent_chapters' => 'Recent chapters',
+    'chapter_your_bookmark'   => 'Your bookmarks',
+    'chapter_description'     => "Chapter :chapter is out :release.",
+    'chapter_mark_as_read'    => 'Mark as read',
+    'chapter_bookmark'        => 'Bookmark',
 ];

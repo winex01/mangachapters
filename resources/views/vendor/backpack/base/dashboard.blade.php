@@ -143,7 +143,7 @@
     @endphp
 
     <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <h6 class="border-bottom border-gray pb-2 mb-0">{{ trans('lang.chapters_bookmark') }}</h6>
+        <h6 class="border-bottom border-gray pb-2 mb-0">{{ trans('lang.chapter_your_bookmark') }}</h6>
 
         @foreach ($chapters->chunk(3) as $chunks)
 
@@ -155,15 +155,8 @@
                 $chapter = modelInstance($chapter->data['model'])->with('manga')->find($chapter->data['id']);
             @endphp
 
-            {!! trans('lang.chapter_notification_card', [
-                'image' => $chapter->manga->photo,
-                'title' => $chapter->manga->title,
-                'link' => anchorNewTab($chapter->url, trans('lang.chapter_notification_description', [
-                            'chapter' => $chapter->chapter, 
-                            'release' => $chapter->release, 
-                        ]) ) 
-            ]) !!}
-            
+                <x-chapter :chapter="$chapter"></x-chapter>
+
             @endforeach
             
         </div>

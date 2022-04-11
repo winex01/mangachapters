@@ -23,69 +23,62 @@
         </div>
     @endif
 
-    @php
+    {{-- @php
         $firstLoop = true;
         $tempValue = null;
-    @endphp
+    @endphp --}}
     
-    @forelse (auth()->user()->unreadNotifications  as $notification)
+    {{-- @forelse (auth()->user()->unreadNotifications  as $notification) --}}
         
-        @if ($firstLoop)
+        {{-- @if ($firstLoop)
             <a class="btn btn-danger btn-sm mb-3" href="javascript:void(0)" id="clear-all-notifications">Clear all notification(s).</a>
-        @endif
+        @endif --}}
 
         @php
-            $firstLoop = false;
-            $data = $notification->data;
-            $model = null;
-            $type = null;
+            // $firstLoop = false;
+            // $data = $notification->data;
+            // $model = null;
+            // $type = null;
 
-            if ($notification->type == 'App\Notifications\NewChapterNotification') {
-                $model = modelInstance($data['model'])->with('manga')->find($data['id']);
-                $type = 'newChapter';
+            // if ($notification->type == 'App\Notifications\NewChapterNotification') {
+            //     $model = modelInstance($data['model'])->with('manga')->find($data['id']);
+            //     $type = 'newChapter';
                 
-            }elseif ($notification->type == 'App\Notifications\NewUserNotification') {
-                $model = modelInstance($data['model'])->find($data['id']);
-                $type = 'newUser';
+            // }elseif ($notification->type == 'App\Notifications\NewUserNotification') {
+            //     $model = modelInstance($data['model'])->find($data['id']);
+            //     $type = 'newUser';
                 
-            }else {
-                $type = 'generalNotification';
-                $model = true; // assign model to true so it wont markAsRead at the bottom
-            }
+            // }else {
+            //     $type = 'generalNotification';
+            //     $model = true; // assign model to true so it wont markAsRead at the bottom
+            // }
 
-            // if no data is find then perhaps i deleted the notification in database, so escape this loop
-            if (!$model) {
-                $notification->markAsRead();
-                continue;
-            }
+            // // if no data is find then perhaps i deleted the notification in database, so escape this loop
+            // if (!$model) {
+            //     $notification->markAsRead();
+            //     continue;
+            // }
         @endphp
 
-        @if ($type == 'newChapter')
+        {{-- @if ($notification->type == 'App\Notifications\NewChapterNotification') --}}
 
-            <div 
-                class="chapter-alert alert alert-secondary alert-dismissible fade show text-dark" 
-                role="alert" 
-                data-id="{{ $notification->id }}"
-            >
-            
-                <img style="height: 50px; width:40px;" src="{{ $model->manga->photo }}" class="rounded" alt="...">
-                <span class="ml-1">{{ $model->manga->name }}!</span> 
+           {{--  @php
+                $chapter = modelInstance($data['model'])->with('manga')->find($data['id']);
+            @endphp
 
-                {!!  
-                    anchorNewTab($model->url, trans('lang.chapter_notification_description', [
-                        'chapter' => $model->chapter, 
-                        'release' => $model->release, 
-                    ]) ) 
-                !!}
-                
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
 
-        @elseif($type == 'newUser')
+            {!! trans('lang.chapter_notification_card', [
+                'image' => $chapter->manga->photo,
+                'title' => $chapter->manga->title,
+                'link' => anchorNewTab($chapter->url, trans('lang.chapter_notification_description', [
+                            'chapter' => $chapter->chapter, 
+                            'release' => $chapter->release, 
+                        ]) ) 
+            ]) !!} --}}
 
-            <div 
+        {{-- @elseif($type == 'newUser') --}}
+
+            {{-- <div 
                 class="chapter-alert alert alert-secondary alert-dismissible fade show text-dark" 
                 role="alert" 
                 data-id="{{ $notification->id }}"
@@ -98,16 +91,15 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div>
+            </div> --}}
             
-        @else
+        {{-- @else --}}
 
-            <div 
+            {{-- <div 
                 class="chapter-alert alert alert-secondary alert-dismissible fade show text-dark font-weight-bold" 
                 role="alert" 
                 data-id="{{ $notification->id }}"
             >
-                {{-- welcome msg --}}
                 @if ($notification->type == 'App\Notifications\WelcomeMessageNotification')
                     <span class="text-success">{{ __('Hello') }}</span>
                     <span class="text-info">{{ auth()->user()->email }}</span>
@@ -127,18 +119,65 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-            </div>
+            </div> --}}
 
-        @endif
+        {{-- @endif --}}
         
         
-    @empty
+    {{-- @empty
         @php
             $tempValue = 'No notification(s).';
         @endphp
     @endforelse
 
-    <p id="temp">{{ $tempValue }}</p>
+    <p id="temp">{{ $tempValue }}</p> --}}
+    
+
+
+    {{-- Recent Chapters --}}
+    @php
+        $chapters = auth()->user()
+                    ->unreadNotifications()
+                    ->where('type', 'App\Notifications\NewChapterNotification')
+                    ->simplePaginate(config('appsettings.home_chapters_entries'));
+    @endphp
+
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Recent chapters</h6>
+
+        @foreach ($chapters->chunk(3) as $chunks)
+
+        <div class="row">
+
+            @foreach ($chunks as $chapter)
+
+            @php
+                $chapter = modelInstance($chapter->data['model'])->with('manga')->find($chapter->data['id']);
+            @endphp
+
+            {!! trans('lang.chapter_notification_card', [
+                'image' => $chapter->manga->photo,
+                'title' => $chapter->manga->title,
+                'link' => anchorNewTab($chapter->url, trans('lang.chapter_notification_description', [
+                            'chapter' => $chapter->chapter, 
+                            'release' => $chapter->release, 
+                        ]) ) 
+            ]) !!}
+            
+            @endforeach
+            
+        </div>
+
+        @endforeach
+
+        <small class="d-block text-right mt-3">
+            @if ($chapters)
+                {{ $chapters->links() }}
+            @endif
+        </small>
+
+    </div>
+    {{-- End Recent Chapters --}}
 
 @endsection
 
@@ -195,3 +234,7 @@
     });
 </script>
 @endpush
+{{-- TODO:: add total number of users registered --}}
+{{-- TODO:: add total number of bookmarks --}}
+{{-- TODO:: add total number of chapters scan --}}
+{{-- TODO:: add total number of mangas --}}

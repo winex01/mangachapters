@@ -97,5 +97,5 @@ return [
     | Home 
     |--------------------------------------------------------------------------
     */
-    'slogan' => 'Get news of your favorite manga, manghwa, manhua & etc.',
+    'slogan' => 'Get news to your favorite manga, manghwa, manhua & etc.',
 ];

@@ -9,14 +9,20 @@
             'release' => $chapter->release, 
         ]) ) !!}
 
-        @yield('chapter_card')
+        @auth
+            <a 
+                href="javascript:void(0)" 
+                class="chapter-alert text-muted"
+                data-dismiss="alert"
+                data-id="{{ $notification->id }}">
+                    {{ trans('lang.chapter_mark_as_read') }}
+            </a>
+        @else
+            <a href="{{ route('manga.index') }}" class="text-muted">
+                {{ trans('lang.chapter_bookmark') }}
+                <i class="las la-bookmark" title="{{ trans('lang.chapter_bookmark') }}"></i>
+            </a>
+        @endauth
+
     </div>
 </div>
-
-{{-- 
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div> --}}

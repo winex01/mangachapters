@@ -21,16 +21,8 @@
       <div class="row">
 
         @foreach ($chunks as $chapter)
-          
-          @section('chapter_card')
-            <a href="{{ route('manga.index') }}" class="text-muted">
-              {{ trans('lang.chapter_bookmark') }}
-              <i class="las la-bookmark" title="{{ trans('lang.chapter_bookmark') }}"></i>
-            </a>
-          @endsection
 
           <x-chapter-card :chapter="$chapter"></x-chapter>
-            
           
         @endforeach
         

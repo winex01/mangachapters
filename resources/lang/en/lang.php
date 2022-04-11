@@ -76,6 +76,8 @@ return [
     */
     'chapters_chapter' => '',
     'chapters_url' => '',
+    'chapters_recent_chapters' => 'Recent chapters',
+    'chapters_bookmark' => 'Your bookmarks',
     'chapter_notification_description' => "Chapter :chapter is out :release.",
     'chapter_notification_card' => '
         <div class="media text-muted pt-3 col-md-4">

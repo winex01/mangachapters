@@ -17,6 +17,9 @@ return [
     'column_title_text_color' => 'text-dark', // list view column title text color
     'duplicate_entry'         => 'Duplicate entry.',    
     'welcome_message'         => 'Welcome Aboard, We hope you enjoy your stay.',
+    'notifications'           => 'Notifications',
+
+    // TODO:: create component
     'temp_change_proxy'       => '<span class="text-danger">
                                         PLEASE DONT\'T FORGT TO CHANGE PROXY FILE!!!
                                   </span>
@@ -105,7 +108,6 @@ return [
     |--------------------------------------------------------------------------
     */
     'chapter_recent_chapters' => 'Recent chapters',
-    'chapter_your_bookmark'   => 'Your bookmarks',
     'chapter_description'     => "Chapter :chapter is out :release.",
     'chapter_mark_as_read'    => 'Mark as read',
     'chapter_bookmark'        => 'Bookmark now',

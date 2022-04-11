@@ -71,11 +71,12 @@
                 <img style="height: 50px; width:40px;" src="{{ $model->manga->photo }}" class="rounded" alt="...">
                 <span class="ml-1">{{ $model->manga->name }}!</span> 
 
-                @php
-                    $label = "Chapter $model->chapter is out $model->release."
-                @endphp
-
-                {!! anchorNewTab($model->url, $label) !!}
+                {!!  
+                    anchorNewTab($model->url, trans('lang.chapter_notification_description', [
+                        'chapter' => $model->chapter, 
+                        'release' => $model->release, 
+                    ]) ) 
+                !!}
                 
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

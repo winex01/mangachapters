@@ -76,6 +76,7 @@ return [
     */
     'chapters_chapter' => '',
     'chapters_url' => '',
+    'chapter_notification_description' => "Chapter :chapter is out :release.",
 
     /*
     |--------------------------------------------------------------------------

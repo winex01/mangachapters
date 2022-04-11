@@ -27,7 +27,14 @@
             
             <p class="ml-2 media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
               <strong class="d-block text-gray-dark">{{ $chapter->manga->title }}</strong>
-              Standing on the frontline when the bombs start to fall. Heaven is jealous of our love.
+
+              {!!  
+                anchorNewTab($chapter->url, trans('lang.chapter_notification_description', [
+                  'chapter' => $chapter->chapter, 
+                  'release' => $chapter->release, 
+                ]) ) 
+              !!}
+
             </p>
             
           </div>

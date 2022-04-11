@@ -35,6 +35,14 @@ class SettingsTableSeeder extends Seeder
             'field'       => '{"name":"value","label":"Enabled","type":"boolean"}',
             'active'      => 0,
         ],
+        [
+            'key'         => 'appsettings_home_chapters_entries',
+            'name'        => 'appsettings.home_chapters_entries',
+            'description' => 'Input file home chapter entries limit.',
+            'value'       => 30,
+            'field'       => '{"name":"value","label":"Value in int","type":"number"}',
+            'active'      => 1,
+        ],
     ];
 
     /**

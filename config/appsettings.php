@@ -60,6 +60,6 @@ return [
     // anchor class color
     'link_color' => 'text-info',
 
-    // default count entries showed in home pagination
+    // default count entries showed in home pagination, you can override this at backpack advanced -> settings
     'home_chapters_entries' => 30,
 ];

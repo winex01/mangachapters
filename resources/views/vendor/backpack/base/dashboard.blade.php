@@ -151,9 +151,9 @@
 
             @foreach ($chunks as $chapter)
 
-            @php
-                $chapter = modelInstance($chapter->data['model'])->with('manga')->find($chapter->data['id']);
-            @endphp
+                @php
+                    $chapter = modelInstance($chapter->data['model'])->with('manga')->find($chapter->data['id']);
+                @endphp
 
                 <x-chapter :chapter="$chapter"></x-chapter>
 

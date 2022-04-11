@@ -22,22 +22,15 @@
 
         @foreach ($chunks as $chapter)
             
-          <div class="media text-muted pt-3 col-md-4">
-            {!! trans('lang.chapter_notification_image', ['src' => $chapter->manga->photo]) !!}
-            
-            <p class="ml-2 media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-              {!! trans('lang.chapter_notification_title', ['title' => $chapter->manga->title]) !!}
-
-              {!!  
-                anchorNewTab($chapter->url, trans('lang.chapter_notification_description', [
-                  'chapter' => $chapter->chapter, 
-                  'release' => $chapter->release, 
-                ]) ) 
-              !!}
-
-            </p>
-            
-          </div>
+          {!! trans('lang.chapter_notification_card', [
+            'image' => $chapter->manga->photo,
+            'title' => $chapter->manga->title,
+            'link' => anchorNewTab($chapter->url, trans('lang.chapter_notification_description', [
+                        'chapter' => $chapter->chapter, 
+                        'release' => $chapter->release, 
+                      ]) ) 
+          ]) !!}
+          
         @endforeach
         
       </div>

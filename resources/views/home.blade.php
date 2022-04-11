@@ -24,8 +24,8 @@
           
           @section('chapter_card')
             <a href="{{ route('manga.index') }}" class="text-muted">
-                <i class="las la-bookmark"></i>
-                {{ trans('lang.chapter_bookmark') }}
+              {{ trans('lang.chapter_bookmark') }}
+              <i class="las la-bookmark" title="{{ trans('lang.chapter_bookmark') }}"></i>
             </a>
           @endsection
 

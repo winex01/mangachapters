@@ -149,20 +149,26 @@
 
         <div class="row">
 
-            @foreach ($notification as $chapter)
-
+            @foreach ($notification as $noty)
                 @php
-                    $chapter = modelInstance($chapter->data['model'])->with('manga')->find($chapter->data['id']);
-
+                    $chapter = modelInstance($noty->data['model'])->with('manga')->find($noty->data['id']);
+                    
+                    //* if item not exist, maybe deleted, then mark it as read.
                     if (!$chapter) {
                         $notification->markAsRead();
                         continue;
                     }
                 @endphp
 
-                {{-- this should here, before the components --}}
+                {{-- this should here, before the chapter-card component --}}
                 @section('chapter_card')
-                    <a href="javascript:void(0)" class="chapter-alert text-muted">{{ trans('lang.chapter_mark_as_read') }}</a>
+                    <a 
+                        href="javascript:void(0)" 
+                        class="chapter-alert text-muted"
+                        data-dismiss="alert"
+                        data-id="{{ $noty->id }}">
+                            {{ trans('lang.chapter_mark_as_read') }}
+                    </a>
                 @endsection
 
                 <x-chapter-card :chapter="$chapter"></x-chapter>
@@ -187,22 +193,31 @@
 @push('after_scripts')
 <script>
     $('.chapter-alert').on('closed.bs.alert click', function () {
-       
-        $.ajax({
-            type: "post",
-            url: "{{ route('dashboard.markAsReadNotification') }}",
-            data: {
-                ids : $(this).attr('data-id')
-            },
-            success: function (response) {
-                // console.log(response);
-                // Show a success notification bubble
-                new Noty({
-                    type: "success",
-                    text: "{!! '<strong>'.trans('backpack::crud.delete_confirmation_title').'</strong><br>'.trans('backpack::crud.delete_confirmation_message') !!}"
-                }).show();
-            }
-        });
+       // TODO:: fix this
+        console.log(
+            $(this).parent().hide()
+
+        );
+
+        // $.ajax({
+        //     type: "post",
+        //     url: "{{ route('dashboard.markAsReadNotification') }}",
+        //     data: {
+        //         ids : $(this).attr('data-id')
+        //     },
+        //     success: function (response) {
+        //         // console.log(response);
+
+        //         // hide components when mark as read is click
+        //         // $(this).parent().parent().hide();
+
+        //         // Show a success notification bubble
+        //         new Noty({
+        //             type: "success",
+        //             text: "{!! '<strong>'.trans('backpack::crud.delete_confirmation_title').'</strong><br>'.trans('backpack::crud.delete_confirmation_message') !!}"
+        //         }).show();
+        //     }
+        // });
     });
     
     $('#clear-all-notifications').click(function (e) { 

@@ -110,5 +110,5 @@ return [
     'chapter_recent_chapters' => 'Recent chapters',
     'chapter_description'     => "Chapter :chapter is out :release.",
     'chapter_mark_as_read'    => 'Mark as read',
-    'chapter_bookmark'        => 'Bookmark now',
+    'chapter_bookmark'        => 'Bookmark',
 ];

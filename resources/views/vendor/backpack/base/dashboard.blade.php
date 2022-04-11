@@ -160,7 +160,12 @@
                     }
                 @endphp
 
-                <x-chapter :chapter="$chapter"></x-chapter>
+                {{-- this should here, before the components --}}
+                @section('chapter_card')
+                    <a href="javascript:void(0)" class="chapter-alert text-muted">{{ trans('lang.chapter_mark_as_read') }}</a>
+                @endsection
+
+                <x-chapter-card :chapter="$chapter"></x-chapter>
 
             @endforeach
             

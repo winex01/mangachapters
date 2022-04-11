@@ -11,14 +11,7 @@
 
         <br>
 
-        @auth
-            <a href="javascript:void(0)" class="chapter-alert text-muted">{{ trans('lang.chapter_mark_as_read') }}</a>
-        @else
-            <a href="{{ route('manga.index') }}" class="text-muted">
-                <i class="las la-bookmark"></i>
-                {{ trans('lang.chapter_bookmark') }}
-            </a>
-        @endauth
+        @yield('chapter_card')
 
     </div>
 </div>

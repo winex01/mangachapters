@@ -3,6 +3,7 @@
 @section('content')
 
 <main role="main" class="container">
+  
   <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow-sm">
     <img class="mr-3" src="{{ asset('images/logo.svg') }}" alt="" width="50" height="50">
     <div class="lh-100">
@@ -15,18 +16,24 @@
   <div class="my-3 p-3 bg-white rounded shadow-sm">
     <h6 class="border-bottom border-gray pb-2 mb-0">Recent chapters</h6>
 
-    @foreach ($chapters as $chapter)
-        
-      <div class="media text-muted pt-3">
-        <img style="height: 50px; width:40px;" src="{{ $chapter->manga->photo }}" class="rounded" alt="...">
-        
-        <p class="ml-2 media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-          <strong class="d-block text-gray-dark">{{ $chapter->manga->title }}</strong>
-          Standing on the frontline when the bombs start to fall. Heaven is jealous of our love, angels are crying from up above. Can't replace you with a million rings. Boy, when you're with me I'll give you a taste. There’s no going back. Before you met me I was alright but things were kinda heavy. Heavy is the head that wears the crown.
-        </p>
+    @foreach ($chapters->chunk(3) as $chunks)
 
+      <div class="row">
+
+        @foreach ($chunks as $chapter)
+            
+          <div class="media text-muted pt-3 col-md-4">
+            <img style="height: 50px; width:40px;" src="{{ $chapter->manga->photo }}" class="rounded" alt="...">
+            
+            <p class="ml-2 media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+              <strong class="d-block text-gray-dark">{{ $chapter->manga->title }}</strong>
+              Standing on the frontline when the bombs start to fall. Heaven is jealous of our love.
+            </p>
+            
+          </div>
+        @endforeach
+        
       </div>
-
     @endforeach
 
     <small class="d-block text-right mt-3">

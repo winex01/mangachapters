@@ -18,6 +18,12 @@ class DashboardCrudController extends CrudController
             'uses'      => $controller.'@markAsReadNotification',
             'operation' => 'markAsReadNotification',
         ]);
+
+        Route::post($segment.'/markAllAsReadChapterNotification', [
+            'as'        => $routeName.'.markAllAsReadChapterNotification',
+            'uses'      => $controller.'@markAllAsReadChapterNotification',
+            'operation' => 'markAllAsReadChapterNotification',
+        ]);
     }
 
     public function markAsReadNotification()
@@ -25,10 +31,15 @@ class DashboardCrudController extends CrudController
         $ids = request()->ids;
 
         if ($ids) {
-            return auth()->user()->unreadNotifications->whereIn('id', $ids)->markAsRead();
+            return auth()->user()->unreadNotifications->where('id', $ids)->markAsRead();
         }
 
         return;
+    }
+
+    public function markAllAsReadChapterNotification()
+    {
+        return auth()->user()->unreadNotifications->where('type', 'App\Notifications\NewChapterNotification')->markAsRead();
     }
     
 }

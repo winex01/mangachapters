@@ -11,6 +11,8 @@ return [
     |
     */
 
+    'app_name' => env('APP_NAME', false),
+
     // attachments file limit in KB
     'attachment_file_limit' => 500, 
 
@@ -57,4 +59,7 @@ return [
 
     // anchor class color
     'link_color' => 'text-info',
+
+    // default count entries showed in home pagination, you can override this at backpack advanced -> settings
+    'home_chapters_entries' => 30,
 ];

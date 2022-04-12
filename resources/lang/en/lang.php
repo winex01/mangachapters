@@ -16,7 +16,17 @@ return [
     'no_entries'              => 'No entries.',
     'column_title_text_color' => 'text-dark', // list view column title text color
     'duplicate_entry'         => 'Duplicate entry.',    
+
+  
+    /*
+    |--------------------------------------------------------------------------
+    | Notifications
+    |--------------------------------------------------------------------------
+    */
+    'notifications'           => 'Notifications',
     'welcome_message'         => 'Welcome Aboard, We hope you enjoy your stay.',
+
+    // TODO:: create component
     'temp_change_proxy'       => '<span class="text-danger">
                                         PLEASE DONT\'T FORGT TO CHANGE PROXY FILE!!!
                                   </span>
@@ -90,5 +100,26 @@ return [
     |--------------------------------------------------------------------------
     */
     'scan_filters_name' => 'Website url / name. Eg: https://www.readmng.com/',
-    'scan_filters_filter' => 'Tag or class name. Eg: .chp_lst a'
+    'scan_filters_filter' => 'Tag or class name. Eg: .chp_lst a',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Home 
+    |--------------------------------------------------------------------------
+    */
+    'slogan' => 'Get news to your favorite manga, manghwa, manhua & etc.',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Chapters 
+    |--------------------------------------------------------------------------
+    */
+    'chapter_recent_chapters'  => 'Recent chapters',
+    'chapter_description'      => "Chapter :chapter is out :release.",
+    'chapter_mark_as_read'     => 'Mark as read',
+    'chapter_mark_all_as_read' => '(Mark all as read)',
+    'chapter_bookmark'         => 'Bookmark',
+    'chapter_are_you_sure'     => 'Are you sure you want to delete all these items?',
+    'chapter_confirm'          => 'Yes, please!',
+    'chapter_cancel'           => 'Cancel',
 ];

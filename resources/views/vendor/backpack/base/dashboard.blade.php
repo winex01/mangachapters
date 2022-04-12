@@ -60,21 +60,6 @@
             // }
         @endphp
 
-        {{-- @if ($notification->type == 'App\Notifications\NewChapterNotification') --}}
-
-           {{--  @php
-                $chapter = modelInstance($data['model'])->with('manga')->find($data['id']);
-            @endphp
-
-
-            {!! trans('lang.chapter_notification_card', [
-                'image' => $chapter->manga->photo,
-                'title' => $chapter->manga->title,
-                'link' => anchorNewTab($chapter->url, trans('lang.chapter_notification_description', [
-                            'chapter' => $chapter->chapter, 
-                            'release' => $chapter->release, 
-                        ]) ) 
-            ]) !!} --}}
 
         {{-- @elseif($type == 'newUser') --}}
 
@@ -143,7 +128,14 @@
     @endphp
 
     <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <h6 class="border-bottom border-gray pb-2 mb-0">{{ trans('lang.notifications') }}</h6>
+        <h6 class="border-bottom border-gray pb-2 mb-0">
+            {{ trans('lang.notifications') }}
+            
+            @if (count($notifications))
+                <a class="text-muted" href="javascript:void(0)" id="mark-all-as-read">{{ trans('lang.chapter_mark_all_as_read') }}</a>
+            @endif
+
+        </h6>
 
         @foreach ($notifications->chunk(3) as $notification)
 
@@ -159,7 +151,7 @@
                         continue;
                     }
                 @endphp
-
+                
                 <x-chapter-card :chapter="$chapter" :notification="$noty"></x-chapter>
 
             @endforeach
@@ -200,35 +192,51 @@
         });
     });
     
-    $('#clear-all-notifications').click(function (e) { 
+    $('#mark-all-as-read').click(function (e) { 
         e.preventDefault();
         
         var dataArray = $('.chapter-alert').map(function(){
             return $(this).data('id');
         }).get();
 
+        const swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+		    confirmButton: 'btn btn-success ml-1',
+		    cancelButton: 'btn btn-secondary'
+		  },
+		  buttonsStyling: false
+		});
 
-        $.ajax({
-            type: "post",
-            url: "{{ route('dashboard.markAsReadNotification') }}",
-            data: {
-                ids : dataArray
-            },
-            success: function (response) {
-                // console.log(response);
-                $('.chapter-alert').hide();
-                
-                $('#clear-all-notifications').hide();
 
-                $('#temp').text('No notification(s).')
-
-                // Show a success notification bubble
-                new Noty({
-                    type: "success",
-                    text: "{!! '<strong>'.trans('backpack::crud.delete_confirmation_title').'</strong><br>'.trans('backpack::crud.delete_confirmation_message') !!}"
-                }).show();
+      	// show confirm message
+		swalWithBootstrapButtons.fire({
+		  text: "{{ trans('lang.chapter_are_you_sure') }}",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: "{{ trans('lang.chapter_confirm') }}",
+		  cancelButtonText: "{{ trans('lang.chapter_cancel') }}",
+		  reverseButtons: true,
+		}).then((result) => {
+		    if (result.isConfirmed) {
+                $.ajax({
+                    type: "post",
+                    url: "{{ route('dashboard.markAsReadNotification') }}",
+                    data: {
+                        ids : dataArray
+                    },
+                    success: function (response) {
+                        // console.log(response);
+                        $('.chapter-card').hide();
+                        
+                        // Show a success notification bubble
+                        new Noty({
+                            type: "success",
+                            text: "{!! '<strong>'.trans('backpack::crud.delete_confirmation_title').'</strong><br>'.trans('backpack::crud.delete_confirmation_message') !!}"
+                        }).show();
+                    }
+                });
             }
-        });       
+		});//end swal       
     });
 </script>
 @endpush

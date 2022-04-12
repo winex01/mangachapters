@@ -107,8 +107,12 @@ return [
     | Chapters 
     |--------------------------------------------------------------------------
     */
-    'chapter_recent_chapters' => 'Recent chapters',
-    'chapter_description'     => "Chapter :chapter is out :release.",
-    'chapter_mark_as_read'    => 'Mark as read',
-    'chapter_bookmark'        => 'Bookmark',
+    'chapter_recent_chapters'  => 'Recent chapters',
+    'chapter_description'      => "Chapter :chapter is out :release.",
+    'chapter_mark_as_read'     => 'Mark as read',
+    'chapter_mark_all_as_read' => '(Mark all as read)',
+    'chapter_bookmark'         => 'Bookmark',
+    'chapter_are_you_sure'     => 'Are you sure you want to delete all these items?',
+    'chapter_confirm'          => 'Yes, please!',
+    'chapter_cancel'           => 'Cancel',
 ];

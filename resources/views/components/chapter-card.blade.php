@@ -1,4 +1,4 @@
-<div class="media text-muted pt-3 mb-n2 col-md-4 alert alert-dismissible fade show" role="alert">
+<div class="chapter-card media text-muted pt-3 mb-n2 col-md-4 alert alert-dismissible fade show" role="alert">
     <img style="height: 50px; width:40px;" src="{{ $chapter->manga->photo }}" class="rounded" alt="...">
     <div class="flexbox ml-2 media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
         

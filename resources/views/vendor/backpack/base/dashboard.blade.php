@@ -140,7 +140,7 @@
         markAdRead($(this).attr('data-id'));
     });
     
-    $('.other-notification').on('closed.bs.alert', function () {
+    $('.other-notification').on('close.bs.alert', function () {
         markAdRead($(this).attr('data-id'));
     });
 

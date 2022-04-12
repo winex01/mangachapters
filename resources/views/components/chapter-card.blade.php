@@ -1,6 +1,6 @@
 <div class="chapter-card media text-muted pt-3 mb-n2 col-md-4 alert alert-dismissible fade show" role="alert">
-    <img style="height: 50px; width:40px;" src="{{ $chapter->manga->photo }}" class="rounded" alt="...">
-    <div class="flexbox ml-2 media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+    <img style="height: 55px; width:40px;" src="{{ $chapter->manga->photo }}" class="mt-1 rounded" alt="...">
+    <div class="flexbox ml-2 media-body small border-bottom border-gray">
         
         <strong class="d-block text-gray-dark">{{ $chapter->manga->title }}</strong>
     
@@ -8,6 +8,8 @@
             'chapter' => $chapter->chapter, 
             'release' => $chapter->release, 
         ]) ) !!}
+
+        <br>
 
         @auth
             <a 

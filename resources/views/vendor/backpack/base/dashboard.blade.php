@@ -53,10 +53,6 @@
 
                 @php
                     $user = modelInstance($notification->data['model'])->find($notification->data['id']);
-
-                    if (!$user) {
-                        $notification->markAsRead();
-                    }
                 @endphp
                 
                 @if ($user)
@@ -107,7 +103,10 @@
 
             @foreach ($notification as $noty)
                 @php
-                    $chapter = modelInstance($noty->data['model'])->with('manga')->find($noty->data['id']);
+                    $chapter = modelInstance('Chapter')
+                                ->with('manga')
+                                ->notInvalidLink()
+                                ->find($noty->data['id']);
                     
                     //* if item not exist, maybe deleted, then mark it as read.
                     if (!$chapter) {

@@ -22,7 +22,9 @@
             </div>
         </div>
     @endif
-
+    
+    {{-- TODO:: view only to those have access rights --}}
+    @include(backpack_view('inc.custom_my_widgets'))
         
     @php
         // all notification except for chapters
@@ -205,7 +207,3 @@
     }
 </script>
 @endpush
-{{-- TODO:: add total number of users registered --}}
-{{-- TODO:: add total number of bookmarks --}}
-{{-- TODO:: add total number of chapters scan --}}
-{{-- TODO:: add total number of mangas --}}

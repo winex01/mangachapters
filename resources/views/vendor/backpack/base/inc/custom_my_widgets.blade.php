@@ -59,7 +59,7 @@
             ->value($lastScanChapter)
             ->progressClass('progress-bar')
             ->description('Last scanned chapter.')
-            ->progress(30)
+            ->progress(0)
             ->hint('Scan chapter every 30 minutes.'),
 	]);
 

@@ -16,8 +16,15 @@ return [
     'no_entries'              => 'No entries.',
     'column_title_text_color' => 'text-dark', // list view column title text color
     'duplicate_entry'         => 'Duplicate entry.',    
-    'welcome_message'         => 'Welcome Aboard, We hope you enjoy your stay.',
+
+  
+    /*
+    |--------------------------------------------------------------------------
+    | Notifications
+    |--------------------------------------------------------------------------
+    */
     'notifications'           => 'Notifications',
+    'welcome_message'         => 'Welcome Aboard, We hope you enjoy your stay.',
 
     // TODO:: create component
     'temp_change_proxy'       => '<span class="text-danger">

@@ -23,103 +23,67 @@
         </div>
     @endif
 
-    {{-- @php
-        $firstLoop = true;
-        $tempValue = null;
-    @endphp --}}
-    
-    {{-- @forelse (auth()->user()->unreadNotifications  as $notification) --}}
         
-        {{-- @if ($firstLoop)
-            <a class="btn btn-danger btn-sm mb-3" href="javascript:void(0)" id="clear-all-notifications">Clear all notification(s).</a>
-        @endif --}}
+    @php
+        // all notification except for chapters
+        $notifications = auth()->user()
+                    ->unreadNotifications()
+                    ->where('type', '!=', 'App\Notifications\NewChapterNotification')
+                    ->simplePaginate(config('appsettings.home_chapters_entries'));
+    @endphp
 
-        @php
-            // $firstLoop = false;
-            // $data = $notification->data;
-            // $model = null;
-            // $type = null;
+    @foreach ($notifications as $notification)
+        <div 
+            class="alert alert-secondary alert-dismissible fade show text-dark font-weight-bold other-notification" 
+            role="alert" 
+            data-id="{{ $notification->id }}"
+        >
+            @if ($notification->type == 'App\Notifications\WelcomeMessageNotification')
 
-            // if ($notification->type == 'App\Notifications\NewChapterNotification') {
-            //     $model = modelInstance($data['model'])->with('manga')->find($data['id']);
-            //     $type = 'newChapter';
+                <span class="text-success">{{ __('Hello') }}</span>
+                <span class="text-info">{{ auth()->user()->email }}</span>
+                <span class="text-danger">!!!!!</span>
+                <br>
                 
-            // }elseif ($notification->type == 'App\Notifications\NewUserNotification') {
-            //     $model = modelInstance($data['model'])->find($data['id']);
-            //     $type = 'newUser';
-                
-            // }else {
-            //     $type = 'generalNotification';
-            //     $model = true; // assign model to true so it wont markAsRead at the bottom
-            // }
+                {!! trans('lang.welcome_message') !!} 
 
-            // // if no data is find then perhaps i deleted the notification in database, so escape this loop
-            // if (!$model) {
-            //     $notification->markAsRead();
-            //     continue;
-            // }
-        @endphp
-
-
-        {{-- @elseif($type == 'newUser') --}}
-
-            {{-- <div 
-                class="chapter-alert alert alert-secondary alert-dismissible fade show text-dark" 
-                role="alert" 
-                data-id="{{ $notification->id }}"
-            >
-
-                {{ __( $model->email .'['.$model->name.']' ) }}
-                <span class="text-info"> join the party</span>
-                {!! $model->joined !!}.
-                
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div> --}}
+                <img class="mt-n2" style="height: 30px; width:30px;" src="{{ asset('images/heart_emoji.png') }}" class="rounded" alt="...">    
             
-        {{-- @else --}}
+            @elseif ($notification->type == 'App\Notifications\NewUserNotification')
 
-            {{-- <div 
-                class="chapter-alert alert alert-secondary alert-dismissible fade show text-dark font-weight-bold" 
-                role="alert" 
-                data-id="{{ $notification->id }}"
-            >
-                @if ($notification->type == 'App\Notifications\WelcomeMessageNotification')
-                    <span class="text-success">{{ __('Hello') }}</span>
-                    <span class="text-info">{{ auth()->user()->email }}</span>
-                    <span class="text-danger">!!!!!</span>
-                    <br>
-                    
-                    {!! trans('lang.welcome_message') !!} 
+                @php
+                    $user = modelInstance($notification->data['model'])->find($notification->data['id']);
 
-                    <img class="mt-n2" style="height: 30px; width:30px;" src="{{ asset('images/heart_emoji.jpg') }}" class="rounded" alt="...">    
+                    if (!$user) {
+                        $notification->markAsRead();
+                    }
+                @endphp
+                
+                @if ($user)
+                    {{ __( $user->email .'['.$user->name.']' ) }}
+                    <span class="text-info"> join the party</span>
+                    {!! $user->joined !!}.
                 @else
-
-                    {!! trans('lang.'.$notification->data) !!}
-
+                    <p class="text-muted">
+                        {{ __('User was deleted.') }}                    
+                    </p>    
                 @endif
 
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            @else
+                {!! trans('lang.'.$notification->data) !!}
+            @endif
 
-            </div> --}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span  class="" aria-hidden="true">&times;</span>
+            </button>
 
-        {{-- @endif --}}
-        
-        
-    {{-- @empty
-        @php
-            $tempValue = 'No notification(s).';
-        @endphp
-    @endforelse
+        </div>
 
-    <p id="temp">{{ $tempValue }}</p> --}}
+    @endforeach
     
 
 
-    {{-- Recent Chapters --}}
+    {{-- Chapter Notification --}}
     @php
         $notifications = auth()->user()
                     ->unreadNotifications()
@@ -167,13 +131,13 @@
         </small>
 
     </div>
-    {{-- End Recent Chapters --}}
+    {{-- End Chapter Notification --}}
 
 @endsection
 
 @push('after_scripts')
 <script>
-    $('.chapter-alert').on('closed.bs.alert click', function () {
+    $('.mark-as-read, .other-notification').on('click', function () {
         $.ajax({
             type: "post",
             url: "{{ route('dashboard.markAsReadNotification') }}",
@@ -195,10 +159,6 @@
     $('#mark-all-as-read').click(function (e) { 
         e.preventDefault();
         
-        var dataArray = $('.chapter-alert').map(function(){
-            return $(this).data('id');
-        }).get();
-
         const swalWithBootstrapButtons = Swal.mixin({
 		  customClass: {
 		    confirmButton: 'btn btn-success ml-1',
@@ -220,10 +180,7 @@
 		    if (result.isConfirmed) {
                 $.ajax({
                     type: "post",
-                    url: "{{ route('dashboard.markAsReadNotification') }}",
-                    data: {
-                        ids : dataArray
-                    },
+                    url: "{{ route('dashboard.markAllAsReadChapterNotification') }}",
                     success: function (response) {
                         // console.log(response);
                         $('.chapter-card').hide();

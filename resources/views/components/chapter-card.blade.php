@@ -12,7 +12,7 @@
         @auth
             <a 
                 href="javascript:void(0)" 
-                class="chapter-alert text-muted"
+                class="mark-as-read text-muted"
                 data-dismiss="alert"
                 data-id="{{ $notification->id }}">
                     {{ trans('lang.chapter_mark_as_read') }}

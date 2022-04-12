@@ -1,4 +1,4 @@
-@extends(backpack_view('blank'))
+@extends('layouts.guest_main')
 
 @section('content')
 

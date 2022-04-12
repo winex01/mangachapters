@@ -1,6 +1,4 @@
 @php
-	use App\Models\Manga;
-    
 	$userCount = modelInstance('User')->count();
     $userMilestone = 0;
     
@@ -26,7 +24,7 @@
     Widget::add()->to('before_content')->type('div')->class('row')->content([
 		Widget::make()
 			->type('progress')
-			->class('card border-0 text-white bg-info')
+			->class('card border-0 text-white bg-info my-widgets')
 			->progressClass('progress-bar')
 			->value(number_format($userCount))
 			->description('Registered users.')
@@ -35,7 +33,7 @@
 
 		Widget::make()
             ->type('progress')
-            ->class('card border-0 text-white bg-success')
+            ->class('card border-0 text-white bg-success my-widgets')
             ->value(number_format($chapterCount))
             ->progressClass('progress-bar')
             ->description('Total combine chapters.')
@@ -45,7 +43,7 @@
 		// if you prefer defining your widgets as arrays
 	    Widget::make([
 			'type' => 'progress',
-			'class'=> 'card border-0 text-white bg-dark',
+			'class'=> 'card border-0 text-white bg-dark my-widgets',
 			'progressClass' => 'progress-bar',
 			'value' => number_format($mangaCount),
 			'description' => 'Mangas/Manhwa/Manhua.',
@@ -55,7 +53,7 @@
 
         Widget::make()
             ->type('progress')
-            ->class('card border-0 text-white bg-warning')
+            ->class('card border-0 text-white bg-warning my-widgets')
             ->value($lastScanChapter)
             ->progressClass('progress-bar')
             ->description('Last scanned chapter.')

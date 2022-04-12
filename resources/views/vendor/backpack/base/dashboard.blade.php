@@ -24,7 +24,9 @@
     @endif
     
     {{-- TODO:: view only to those have access rights --}}
-    @include(backpack_view('inc.custom_my_widgets'))
+    @can('admin_widgets')
+        @include(backpack_view('inc.custom_my_widgets'))
+    @endcan
         
     @php
         // all notification except for chapters
@@ -37,7 +39,7 @@
     @foreach ($notifications as $notification)
         <div 
             class="alert alert-secondary alert-dismissible fade show text-dark font-weight-bold other-notification" 
-            role="alert" 
+        role="alert" 
             data-id="{{ $notification->id }}"
         >
             @if ($notification->type == 'App\Notifications\WelcomeMessageNotification')

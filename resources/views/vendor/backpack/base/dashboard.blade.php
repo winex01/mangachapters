@@ -22,7 +22,10 @@
             </div>
         </div>
     @endif
-
+    
+    @can('admin_widgets')
+        @include(backpack_view('inc.custom_my_widgets'))
+    @endcan
         
     @php
         // all notification except for chapters
@@ -35,7 +38,7 @@
     @foreach ($notifications as $notification)
         <div 
             class="alert alert-secondary alert-dismissible fade show text-dark font-weight-bold other-notification" 
-            role="alert" 
+        role="alert" 
             data-id="{{ $notification->id }}"
         >
             @if ($notification->type == 'App\Notifications\WelcomeMessageNotification')
@@ -205,7 +208,3 @@
     }
 </script>
 @endpush
-{{-- TODO:: add total number of users registered --}}
-{{-- TODO:: add total number of bookmarks --}}
-{{-- TODO:: add total number of chapters scan --}}
-{{-- TODO:: add total number of mangas --}}

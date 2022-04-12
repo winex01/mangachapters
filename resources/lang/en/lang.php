@@ -26,7 +26,6 @@ return [
     'notifications'           => 'Notifications',
     'welcome_message'         => 'Welcome Aboard, We hope you enjoy your stay.',
 
-    // TODO:: create component
     'temp_change_proxy'       => '<span class="text-danger">
                                         PLEASE DONT\'T FORGT TO CHANGE PROXY FILE!!!
                                   </span>

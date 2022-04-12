@@ -111,3 +111,4 @@
 
 @push('after_scripts')
 @endpush
+{{-- TODO:: add mangas and sources lists --}}

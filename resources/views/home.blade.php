@@ -12,8 +12,15 @@
     </div>
   </div>
 
+  
+
   {{-- BEGIN CHAPTERS --}}
   <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <div class="float-right">
+      <a class="text-primary" href="/login">Login</a>
+      <a class="text-success" href="/register">Register</a>
+    </div>
+
     <h6 class="border-bottom border-gray pb-2 mb-0">{{ trans('lang.chapter_recent_chapters') }}</h6>
 
     @foreach ($chapters->chunk(3) as $chunks)

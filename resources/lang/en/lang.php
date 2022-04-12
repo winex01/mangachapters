@@ -107,7 +107,7 @@ return [
     | Home 
     |--------------------------------------------------------------------------
     */
-    'slogan' => 'Get news to your favorite manga, manghwa, manhua & etc.',
+    'slogan' => 'Keep your favorite mangas updated and notify you when updates are available.',
 
     /*
     |--------------------------------------------------------------------------

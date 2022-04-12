@@ -7,7 +7,9 @@
   <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow-sm">
     <img class="mr-3" src="{{ asset('images/logo.svg') }}" alt="" width="50" height="50">
     <div class="lh-100">
-      <h6 class="mb-0 text-white lh-100">{{ config('appsettings.app_name') }}</h6>
+      <a href="/" style="text-decoration: none;">
+        <h6 class="mb-0 text-white lh-100">{{ config('appsettings.app_name') }}</h6>
+      </a>
       <small>{!! trans('lang.slogan') !!}</small>
     </div>
   </div>

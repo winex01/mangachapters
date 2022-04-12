@@ -25,6 +25,11 @@
     
     @can('admin_widgets')
         @include(backpack_view('inc.custom_my_widgets'))
+
+        <div class="mb-2">
+            <a class="text-muted text-decoration-none" href="javscript::void()" onclick="$('.my-widgets').toggle()">{{ __('Toggle widgets') }}</a>
+        </div>
+        
     @endcan
         
     @php
@@ -207,4 +212,12 @@
         });
     }
 </script>
+@endpush
+
+@push('after_styles')
+    <style>
+        .my-widgets{
+            display:none;
+        }
+    </style>
 @endpush

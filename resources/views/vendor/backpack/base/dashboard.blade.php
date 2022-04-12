@@ -23,7 +23,6 @@
         </div>
     @endif
     
-    {{-- TODO:: view only to those have access rights --}}
     @can('admin_widgets')
         @include(backpack_view('inc.custom_my_widgets'))
     @endcan

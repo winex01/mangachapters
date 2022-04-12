@@ -136,25 +136,14 @@
 
 @push('after_scripts')
 <script>
-    $('.mark-as-read, .other-notification').on('click', function () {
-        $.ajax({
-            type: "post",
-            url: "{{ route('dashboard.markAsReadNotification') }}",
-            data: {
-                ids : $(this).attr('data-id')
-            },
-            success: function (response) {
-                // console.log(response);
-
-                // Show a success notification bubble
-                new Noty({
-                    type: "success",
-                    text: "{!! '<strong>'.trans('backpack::crud.delete_confirmation_title').'</strong><br>'.trans('backpack::crud.delete_confirmation_message') !!}"
-                }).show();
-            }
-        });
+    $('.mark-as-read').on('click', function () {
+        markAdRead($(this).attr('data-id'));
     });
     
+    $('.other-notification').on('closed.bs.alert', function () {
+        markAdRead($(this).attr('data-id'));
+    });
+
     $('#mark-all-as-read').click(function (e) { 
         e.preventDefault();
         
@@ -194,6 +183,26 @@
             }
 		});//end swal       
     });
+
+    function markAdRead(attrId) {
+        $.ajax({
+            type: "post",
+            url: "{{ route('dashboard.markAsReadNotification') }}",
+            data: {
+                // ids : $(this).attr('data-id')
+                id : attrId
+            },
+            success: function (response) {
+                // console.log(response);
+
+                // Show a success notification bubble
+                new Noty({
+                    type: "success",
+                    text: "{!! '<strong>'.trans('backpack::crud.delete_confirmation_title').'</strong><br>'.trans('backpack::crud.delete_confirmation_message') !!}"
+                }).show();
+            }
+        });
+    }
 </script>
 @endpush
 {{-- TODO:: add total number of users registered --}}

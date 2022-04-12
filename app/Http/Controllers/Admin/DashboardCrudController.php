@@ -28,10 +28,10 @@ class DashboardCrudController extends CrudController
 
     public function markAsReadNotification()
     {
-        $ids = request()->ids;
+        $id = request()->id;
 
-        if ($ids) {
-            return auth()->user()->unreadNotifications->where('id', $ids)->markAsRead();
+        if ($id) {
+            return auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
         }
 
         return;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\NewChapterScanned;
+use Jenssegers\Agent\Facades\Agent;
 use App\Http\Requests\ChapterCreateRequest;
 use App\Http\Requests\ChapterUpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -53,6 +54,10 @@ class ChapterCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        if (!Agent::isDesktop()) {
+            $this->crud->disableBulkActions();
+        }
+
         // add on query
         $this->crud->query->orderByRelease();
 

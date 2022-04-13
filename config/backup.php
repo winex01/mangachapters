@@ -24,7 +24,8 @@ return [
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name' => env('APP_NAME', 'laravel'),
+        // 'name' => env('APP_NAME', 'laravel'), // commented bec. it google drive backup doesn't work
+        'name' => '',
 
         'source' => [
 
@@ -114,7 +115,7 @@ return [
              */
             'disks' => [
                 'backups',
-                'dropbox', //* https://qirolab.com/posts/how-to-store-laravel-backup-on-dropbox-1607451784
+                'google', // https://www.nicesnippets.com/blog/laravel-8-backup-store-on-google-drive
             ],
         ],
 

@@ -6,12 +6,17 @@
     do {
         $userMilestone += 1000;
     } while ($userCount > $userMilestone);
+
     
 	$chapter = modelInstance('Chapter');
 	$chapterCount = $chapter->count(); 
 
     $lastChapter = $chapter->latest()->first();
-    $lastScanChapter = $lastChapter->created_at->diffForHumans();
+	$lastScanChapter = null;	
+
+	if ($lastChapter) {
+		$lastScanChapter = $lastChapter->created_at->diffForHumans();
+	}
 
     $mangaCount = modelInstance('Manga')->count();
 	$mangaMilestone = 0;
@@ -20,6 +25,14 @@
 		$mangaMilestone += 50;
 	} while ($mangaCount > $mangaMilestone);
 
+
+	// progressed value
+	$chapterProgressed = 0;
+	$chapterHint = null;
+	if ($chapterCount) {
+		$chapterProgressed = $chapterCount / $mangaCount;
+		$chapaterHint = number_format($chapterCount / $mangaCount, 2);
+	} 
 
     Widget::add()->to('before_content')->type('div')->class('row')->content([
 		Widget::make()
@@ -37,8 +50,8 @@
             ->value(number_format($chapterCount))
             ->progressClass('progress-bar')
             ->description('Total combine chapters.')
-            ->progress($chapterCount / $mangaCount)
-            ->hint(number_format($chapterCount / $mangaCount, 2). ' average manga chapters.'),
+            ->progress($chapterProgressed)
+            ->hint($chapterHint. ' average manga chapters.'),
 
 		// if you prefer defining your widgets as arrays
 	    Widget::make([

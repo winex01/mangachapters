@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('winex:scan-chapters')->everyThirtyMinutes();
+        $schedule->command('winex:scan-chapters')->everyFifteenMinutes();
         $schedule->command('winex:proxy-notice')->daily()->weekly();	
 
         $schedule->command('telescope:prune --hours=48')->daily();

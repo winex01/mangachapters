@@ -71,7 +71,7 @@
             ->progressClass('progress-bar')
             ->description('Last scanned chapter.')
             ->progress(0)
-            ->hint('Scan chapter every 30 minutes.'),
+            ->hint('Scan chapter every 15 minutes.'),
 	]);
 
 @endphp

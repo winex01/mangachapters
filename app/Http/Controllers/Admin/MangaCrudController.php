@@ -40,6 +40,8 @@ class MangaCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/manga');
 
         $this->userPermissions();
+
+        $this->enableDisqusComment(['list', 'show']);
     }
 
     /**

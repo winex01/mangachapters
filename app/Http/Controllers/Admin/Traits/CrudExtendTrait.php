@@ -927,6 +927,20 @@ trait CrudExtendTrait
         $this->crud->setEditView('crud::custom_edit_with_loader');
     }
 
+    // Ex: list, show and etc.
+    public function enableDisqusComment($operations) 
+    {
+        if (!is_array($operations)) {
+            $operations = (array) $operations;
+        }
+
+        foreach ($operations as $op) {
+            $method = 'set'.convertToClassName($op).'View';
+            $file = strtolower($op);
+
+            $this->crud->{$method}('crud::custom_'.$file.'_with_disqus');
+        }
+    }
     /*
     |--------------------------------------------------------------------------
     | Misc.

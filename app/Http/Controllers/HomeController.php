@@ -12,13 +12,17 @@ class HomeController extends Controller
         ); 
 
         $mangas = modelInstance('Manga')
-                    ->with(['chapters'])
+                    ->with(['chapters' => function ($q) {
+                        $q->orderBy('chapter', 'desc');
+                        $q->notInvalidLink();
+                    }])
                     ->get()
-                    ->random(9)
+                    ->random(15)
                     ->map(function( $temp ){
                         $temp->chapters = $temp->chapters->take(2);
                         return $temp;
                     });
+        
         return view('home', compact('chapters', 'mangas'));
     }    
 }

@@ -49,7 +49,7 @@
 
 
   <div class="my-3 p-3 bg-white rounded shadow-sm">
-    <h6 class="border-bottom border-gray pb-2 mb-0">{{ __('Available mangas') }}</h6>
+    <h6 class="border-bottom border-gray pb-2 mb-0">{{ __('Random mangas') }}</h6>
 
 
     @foreach ($mangas->chunk(3) as $chunks)

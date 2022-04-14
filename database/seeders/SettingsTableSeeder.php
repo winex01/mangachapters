@@ -43,6 +43,15 @@ class SettingsTableSeeder extends Seeder
             'field'       => '{"name":"value","label":"Value in int","type":"number"}',
             'active'      => 1,
         ],
+
+        [
+            'key'         => 'appsettings_manga_crud_notice',
+            'name'        => 'appsettings.manga_crud_notice',
+            'description' => 'Add alert notice to manga crud.',
+            'value'       => null,
+            'field'       => '{"name":"value","label":"Message","type":"text"}',
+            'active'      => 1,
+        ],
     ];
 
     /**

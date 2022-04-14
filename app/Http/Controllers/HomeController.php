@@ -14,7 +14,7 @@ class HomeController extends Controller
         $mangas = modelInstance('Manga')
                     ->with(['chapters'])
                     ->get()
-                    ->random(9)
+                    ->random(30)
                     ->map(function( $temp ){
                         $temp->chapters = $temp->chapters->take(2);
                         return $temp;

@@ -49,7 +49,7 @@
 
 
   <div class="my-3 p-3 bg-white rounded shadow-sm">
-    <h6 class="border-bottom border-gray pb-2 mb-0">Available mangas</h6>
+    <h6 class="border-bottom border-gray pb-2 mb-0">{{ __('Available mangas') }}</h6>
 
 
     @foreach ($mangas->chunk(3) as $chunks)
@@ -61,7 +61,7 @@
           <img style="height: 55px; width:40px;" src="{{ $manga->photo }}" class="mt-1 rounded" alt="...">
           <div class="flexbox ml-2 media-body small border-bottom border-gray">
               
-              <strong class="d-block text-gray-dark">{{ $manga->title }}</strong>
+              <strong class="d-block text-gray-dark" data-mng-id="{{ $manga->id }}">{{ $manga->title }}</strong>
             
               @php
                   $count = 0;

@@ -17,10 +17,22 @@
 		{{-- normal menu --}}
 		@can($menu->permission)
 			<li class="nav-item">
-				<a class="nav-link" href="{{ backpack_url($menu->url) }}">
+				@php
+					$url = $menu->url;
+					
+					// validate if it's an external link
+					if (!filter_var($url, FILTER_VALIDATE_URL) === false) {
+						$url = $menu->url;
+					}else {
+						$url = backpack_url($menu->url);
+					}
+				@endphp
+
+				<a class="nav-link" href="{{ $url }}">
 					{!! $menu->icon !!} 
 					{{ $menu->label }} 
 				</a>
+				
 			</li>
 		@endcan
 	@else

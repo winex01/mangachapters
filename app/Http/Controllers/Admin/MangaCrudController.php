@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\MangaRequest;
+use Backpack\CRUD\app\Library\Widget;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -85,6 +86,7 @@ class MangaCrudController extends CrudController
         ]);
 
         $this->filters();
+        $this->widgets();
     }
 
     protected function setupShowOperation()
@@ -137,5 +139,18 @@ class MangaCrudController extends CrudController
     private function filters()
     {
         $this->simpleFilter('add_scope_myBookmarked', null);
+    }
+
+    private function widgets()
+    {
+        $content = config('settings.appsettings_manga_crud_notice');
+        
+        if ($content != null) {
+            Widget::add([
+                'type'      => 'alert',
+                'class'     => 'alert alert-light text-info font-weight-bold',
+                'content'   => $content,
+            ]);
+        }
     }
 }

@@ -62,4 +62,7 @@ return [
 
     // default count entries showed in home pagination, you can override this at backpack advanced -> settings
     'home_chapters_entries' => 30,
+
+    // manga crud notice alert
+    'manga_crud_notice' => null,
 ];

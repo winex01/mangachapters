@@ -43,6 +43,8 @@ class ChapterCrudController extends CrudController
         $this->userPermissions();
 
         $this->exportClass = '\App\Exports\ChapterExport';
+    
+        $this->enableDisqusComment(['list', 'show']);
     }
 
     /**

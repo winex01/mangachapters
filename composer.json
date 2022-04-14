@@ -35,7 +35,8 @@
         "qlick/laravel-full-calendar": "dev-master",
         "spatie/laravel-backup": "^6.16",
         "spatie/laravel-web-tinker": "^1.7",
-        "tecnickcom/tcpdf": "^6.3"
+        "tecnickcom/tcpdf": "^6.3",
+        "yajra/laravel-disqus": "^1.2"
     },
     "require-dev": {
         "backpack/generators": "^3.1",

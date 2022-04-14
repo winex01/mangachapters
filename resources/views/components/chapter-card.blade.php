@@ -2,7 +2,9 @@
     <img style="height: 55px; width:40px;" src="{{ $chapter->manga->photo }}" class="mt-1 rounded" alt="...">
     <div class="flexbox ml-2 media-body small border-bottom border-gray">
         
-        <strong class="d-block text-gray-dark">{{ $chapter->manga->title }}</strong>
+        <a class="d-block text-muted font-weight-bold" href="{{ backpack_url('manga/'.$chapter->manga->id.'/show') }}" >
+            {{ $chapter->manga->title }}
+        </a>
     
         {!! anchorNewTab($chapter->url, trans('lang.chapter_description', [
             'chapter' => $chapter->chapter, 

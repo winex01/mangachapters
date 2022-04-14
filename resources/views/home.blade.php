@@ -61,7 +61,9 @@
           <img style="height: 55px; width:40px;" src="{{ $manga->photo }}" class="mt-1 rounded" alt="...">
           <div class="flexbox ml-2 media-body small border-bottom border-gray">
               
-              <strong class="d-block text-gray-dark" data-mng-id="{{ $manga->id }}">{{ $manga->title }}</strong>
+              <a class="d-block text-muted font-weight-bold" href="{{ backpack_url('manga/'.$manga->id.'/show') }}" >
+                {{ $manga->title }}
+              </a>
             
               @php
                   $count = 0;

@@ -114,6 +114,12 @@ class ScanMangaChapterService
             $chapter = str_replace($sourceUrl, '', $scrapUrl);
         }
         
+        // filter chapter with html or html extention
+        for($i = 1; $i <= 3; $i++) {
+            $chapter = str_replace($i.'.html', '', $chapter);
+            $chapter = str_replace($i.'.htm', '', $chapter);
+        }
+
         $chapter = str_replace('/', '', $chapter);
         
         // support decimal chapters ex. 1.1

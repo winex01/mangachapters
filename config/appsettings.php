@@ -13,6 +13,9 @@ return [
 
     'app_name' => env('APP_NAME', false),
 
+    // backpack advanced -> settings
+    'app_slogan' => null,
+
     // attachments file limit in KB
     'attachment_file_limit' => 500, 
 

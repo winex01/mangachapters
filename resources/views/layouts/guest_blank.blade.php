@@ -12,7 +12,7 @@
       <a href="/" style="text-decoration: none;">
         <h6 class="mb-0 text-white lh-100">{{ config('appsettings.app_name') }}</h6>
       </a>
-      <small>{!! trans('lang.slogan') !!}</small>
+      <small>{!! config('appsettings.app_slogan') !!}</small>
     </div>
   </div>
 

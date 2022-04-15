@@ -52,6 +52,15 @@ class SettingsTableSeeder extends Seeder
             'field'       => '{"name":"value","label":"Message","type":"text"}',
             'active'      => 1,
         ],
+
+        [
+            'key'         => 'appsettings_app_slogan',
+            'name'        => 'appsettings.app_slogan',
+            'description' => 'Home navbar slogan.',
+            'value'       => 'Bookmark your favorite mangas and get notifications when new chapters are available.',
+            'field'       => '{"name":"value","label":"Message","type":"text"}',
+            'active'      => 1,
+        ],
     ];
 
     /**

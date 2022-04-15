@@ -61,6 +61,15 @@ class SettingsTableSeeder extends Seeder
             'field'       => '{"name":"value","label":"Message","type":"text"}',
             'active'      => 1,
         ],
+
+        [
+            'key'         => 'appsettings_app_version',
+            'name'        => 'appsettings.app_version',
+            'description' => 'App version put the github release tag here.',
+            'value'       => '1.0.0',
+            'field'       => '{"name":"value","label":"Version","type":"text"}',
+            'active'      => 1,
+        ],
     ];
 
     /**

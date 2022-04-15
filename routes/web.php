@@ -17,10 +17,13 @@ use App\Http\Controllers\ContactController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->middleware('guest');
-Route::get('/about-us', [AboutUsController::class, 'index']);
-Route::get('/contact', [ContactController::class, 'index']);
-Route::get('/terms', [TermsController::class, 'index']);
+
+Route::group(['middleware' => 'guest'], function () { 
+	Route::get('/', [HomeController::class, 'index']);
+	Route::get('/about-us', [AboutUsController::class, 'index']);
+	Route::get('/contact', [ContactController::class, 'index']);
+	Route::get('/terms', [TermsController::class, 'index']);
+}); 
 
 Route::get('/redirect-here-when-email-verify-is-click', function () {
 	return redirect()->route('backpack.dashboard');

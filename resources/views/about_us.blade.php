@@ -12,14 +12,15 @@
         get notified once a new chapter is release. 
         Disclaimer, this is not a website where you can read Manga/Manhwa/Manhua it only redirects 
         you to the source of the new release or updates. Soo it's more of like a blog/news that notifies you
-        everytime a new chapter is realease. You can register {!! anchorNewTab('/register', 'here') !!}. You can contact me also at the 
-        {!! anchorNewTab('/contact-me', 'contact') !!}
+        everytime a new chapter is realease. You can register 
+        <a href="{{ url('/register') }}">here</a>
+        . You can contact me also at the 
+        <a href="{{ url('/contact') }}">contact</a>
         page menu.
     </p>
 
     <p class="text-muted">
         If you see your website links here and you want it to be remove, then please send me a message.
     </p>
-
 
 @endsection

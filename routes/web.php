@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AboutUsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->middleware('guest');
+Route::get('/about-us', [AboutUsController::class, 'index']);
 
 Route::get('/redirect-here-when-email-verify-is-click', function () {
 	return redirect()->route('backpack.dashboard');

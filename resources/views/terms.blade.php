@@ -4,7 +4,6 @@
 
   <h6 class="border-bottom border-gray pb-2 mb-0">{{ __('Terms & Conditions') }}</h6>
 
-    {{-- TODO:: --}}
     <p class="mt-2 text-muted">
     
         Welcome aboard <img class="mt-n2" style="height: 18px; width:18px;" src="{{ asset('images/heart_emoji.png') }}" class="rounded" alt="..."> . 

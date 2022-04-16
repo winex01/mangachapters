@@ -40,7 +40,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="https://www.facebook.com/ManghwuaHub">Social Media</a>
+          <a class="nav-link" href="{{ config('appsettings.social_media') }}">Social Media</a>
         </li>
 
       </ul>

@@ -18,8 +18,9 @@ return [
 
     // backpack advanced -> settings
     'app_slogan' => null,
-
-    'social_media' => 'https://www.facebook.com/ManghwuaHub',
+    
+    // backpack advanced -> settings
+    'social_media' => null,
 
     // attachments file limit in KB
     'attachment_file_limit' => 500, 

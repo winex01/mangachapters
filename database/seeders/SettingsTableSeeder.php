@@ -70,6 +70,15 @@ class SettingsTableSeeder extends Seeder
             'field'       => '{"name":"value","label":"Version","type":"text"}',
             'active'      => 1,
         ],
+
+        [
+            'key'         => 'appsettings_social_media',
+            'name'        => 'appsettings.social_media',
+            'description' => 'Change social media links at guest.',
+            'value'       => 'https://www.facebook.com/ManghwuaHub',
+            'field'       => '{"name":"value","label":"Version","type":"text"}',
+            'active'      => 1,
+        ],
     ];
 
     /**

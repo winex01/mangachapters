@@ -40,9 +40,9 @@
               <ul class="bd-footer-links">
                 <li><a class="{{ (request()->is('/')) ? 'text-info' : 'text-muted' }}" href="{{ url('/') }}">Home</a></li>
                 <li><a class="{{ (request()->is('about-us')) ? 'text-info' : 'text-muted' }}" href="{{ url('about-us') }}">About Us</a></li>
-                {{-- <li><a class="{{ (request()->is('contact')) ? 'text-info' : 'text-muted' }}" href="{{ url('contact') }}">Contact</a></li> --}}
-                <li><a class="text-muted" href="https://www.facebook.com/ManghwuaHub">Facebook</a></li>
+                <li><a class="text-muted" href="https://www.facebook.com/ManghwuaHub">Social Media</a></li>
                 <li><a class="{{ (request()->is('privacy-policy')) ? 'text-info' : 'text-muted' }}" href="{{ url('privacy-policy') }}">Privacy Policy</a></li>
+                <li><a class="{{ (request()->is('contact')) ? 'text-info' : 'text-muted' }}" href="{{ url('contact') }}">Contact</a></li>
                 <li><a class="{{ (request()->is('terms')) ? 'text-info' : 'text-muted' }}" href="{{ url('terms') }}">Terms</a></li>
               </ul>
             </div>

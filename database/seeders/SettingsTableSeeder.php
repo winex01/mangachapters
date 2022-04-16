@@ -52,6 +52,33 @@ class SettingsTableSeeder extends Seeder
             'field'       => '{"name":"value","label":"Message","type":"text"}',
             'active'      => 1,
         ],
+
+        [
+            'key'         => 'appsettings_app_slogan',
+            'name'        => 'appsettings.app_slogan',
+            'description' => 'Home navbar slogan.',
+            'value'       => 'Bookmark your favorite mangas and get notifications when new chapters are available.',
+            'field'       => '{"name":"value","label":"Message","type":"text"}',
+            'active'      => 1,
+        ],
+
+        [
+            'key'         => 'appsettings_app_version',
+            'name'        => 'appsettings.app_version',
+            'description' => 'App version put the github release tag here.',
+            'value'       => '1.0.0',
+            'field'       => '{"name":"value","label":"Version","type":"text"}',
+            'active'      => 1,
+        ],
+
+        [
+            'key'         => 'appsettings_social_media',
+            'name'        => 'appsettings.social_media',
+            'description' => 'Change social media links at guest.',
+            'value'       => 'https://www.facebook.com/ManghwuaHub',
+            'field'       => '{"name":"value","label":"Link","type":"text"}',
+            'active'      => 1,
+        ],
     ];
 
     /**

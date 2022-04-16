@@ -106,7 +106,6 @@ return [
     | Home 
     |--------------------------------------------------------------------------
     */
-    'slogan' => 'Keep your favorite mangas updated and notify you when updates are available.',
 
     /*
     |--------------------------------------------------------------------------

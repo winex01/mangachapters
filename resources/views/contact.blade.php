@@ -5,7 +5,7 @@
     <h6 class="border-bottom border-gray pb-2 mb-0">{{ __('Contact Us') }}</h6>
 
     
-    <div class="container mt-3 col-md-6 col-md-offset-3">
+    <div class="mt-3 col-md-6 offset-md-3">
         <form>
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
@@ -15,12 +15,12 @@
             
             <div class="form-group">
               <label for="name">Name</label>
-              <input type="name" class="form-control" id="name" placeholder="Name">
+              <input type="name" class="form-control" id="name" placeholder="Enter Name">
             </div>
 
             <div class="form-group">
                 <label for="message">Message</label>
-                <textarea class="form-control" name="message" id="message" rows="5"></textarea>
+                <textarea class="form-control" name="message" id="message" rows="5" placeholder="Please enter your message here..."></textarea>
             </div>
             
             <button type="submit" class="btn btn-success">Send a message</button>

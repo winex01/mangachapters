@@ -4,9 +4,12 @@
 
     <h6 class="border-bottom border-gray pb-2 mb-0">{{ __('Contact Us') }}</h6>
 
+    <p>
+      Coming soon...
+    </p>
     
     <div class="mt-3 col-md-6 offset-md-3">
-        <form>
+        {{-- <form>
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
               <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -24,7 +27,7 @@
             </div>
             
             <button type="submit" class="btn btn-success">Send a message</button>
-          </form>
+          </form> --}}
     </div>
     
 

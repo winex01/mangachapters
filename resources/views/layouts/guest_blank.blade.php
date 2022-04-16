@@ -4,19 +4,50 @@
 
 <main role="main" class="container">
   
-  <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow-sm">
-    <a href="/">
-      <img class="mr-3" src="{{ asset('images/logo.svg') }}" alt="" width="50" height="50">
+  <nav class="container navbar navbar-expand-lg navbar-dark bg-dark rounded shadow-sm">
+    <a class="navbar-brand" href="/">
+      <img class="mr-n1 ml-n2" src="{{ asset('images/logo.svg') }}" alt="" width="50" height="50">
+      {{ config('appsettings.app_name') }}
     </a>
-    <div class="lh-100">
-      <a href="/" style="text-decoration: none;">
-        <h6 class="mb-0 text-white lh-100">{{ config('appsettings.app_name') }}</h6>
-      </a>
-      <small>{!! config('appsettings.app_slogan') !!}</small>
-    </div>
-  </div>
 
-  
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <span class="navbar-text">
+      <small class="">
+        {!! config('appsettings.app_slogan') !!}
+      </small>
+    </span>
+
+    <div class="collapse navbar-collapse" id="navbarText">
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item {{ (request()->is('/')) ? 'active' : '' }}">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+
+        <li class="nav-item {{ (request()->is('about-us')) ? 'active' : '' }}">
+          <a class="nav-link" href="/about-us">About Us</a>
+        </li>
+
+        <li class="nav-item {{ (request()->is('terms')) ? 'active' : '' }}">
+          <a class="nav-link" href="/terms">Terms</a>
+        </li>
+
+        <li class="nav-item {{ (request()->is('contact')) ? 'active' : '' }}">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.facebook.com/ManghwuaHub">Social Media</a>
+        </li>
+
+      </ul>
+
+    </div>
+  </nav>
+
 
   <div class="my-3 p-3 bg-white rounded shadow-sm">
     <div class="float-right">
@@ -30,31 +61,6 @@
 
 
     @yield('guest_blank_after_content')
-    
-    <div class="my-3 p-3 bg-white rounded shadow-sm">
-      <div class="bd-footer text-muted">
-        <div class="container-fluid p-3 p-md-5">
-          <div class="row">
-
-            <div class="col-md-2">
-              <ul class="bd-footer-links">
-                <li><a class="{{ (request()->is('/')) ? 'text-info' : 'text-muted' }}" href="{{ url('/') }}">Home</a></li>
-                <li><a class="{{ (request()->is('about-us')) ? 'text-info' : 'text-muted' }}" href="{{ url('about-us') }}">About Us</a></li>
-                <li><a class="text-muted" href="https://www.facebook.com/ManghwuaHub">Social Media</a></li>
-                <li><a class="{{ (request()->is('contact')) ? 'text-info' : 'text-muted' }}" href="{{ url('contact') }}">Contact</a></li>
-                <li><a class="{{ (request()->is('terms')) ? 'text-info' : 'text-muted' }}" href="{{ url('terms') }}">Terms</a></li>
-              </ul>
-            </div>
-
-            <div class="col-md-8">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam repudiandae delectus atque, tempore et corrupti facilis modi? Laboriosam, eligendi voluptatum. Dolores dolorum perspiciatis rerum quod nobis assumenda quos omnis id.</p>  
-              <p>Currently v4.1.3. Code licensed <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE" target="_blank" rel="license noopener">MIT</a>, docs <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="license noopener">CC BY 3.0</a>.</p>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-    </div>
 
 </main>
 

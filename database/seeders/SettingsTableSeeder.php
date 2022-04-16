@@ -76,7 +76,7 @@ class SettingsTableSeeder extends Seeder
             'name'        => 'appsettings.social_media',
             'description' => 'Change social media links at guest.',
             'value'       => 'https://www.facebook.com/ManghwuaHub',
-            'field'       => '{"name":"value","label":"Version","type":"text"}',
+            'field'       => '{"name":"value","label":"Link","type":"text"}',
             'active'      => 1,
         ],
     ];

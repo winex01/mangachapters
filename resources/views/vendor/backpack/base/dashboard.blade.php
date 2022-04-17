@@ -2,8 +2,6 @@
 
 @section('content')
 
-    <x-verify-email></x-verify-email> 
-    
     @can('admin_widgets')
         @include(backpack_view('inc.custom_my_widgets'))
 

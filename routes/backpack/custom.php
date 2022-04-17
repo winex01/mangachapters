@@ -1,7 +1,6 @@
 <?php
 
-use App\Events\ResendEmailVerification;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Route;
 
 // --------------------------
 // Custom Backpack Routes
@@ -17,19 +16,6 @@ Route::group([
     ),
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
-    // allow login and use application and make email verification as optional only
-    Route::post('/email/verification-notification', function () {
-        // auth()->user()->sendEmailVerificationNotification();
-        event(new ResendEmailVerification(auth()->user()));
-
-        return back()->with('message', 'Verification link sent!');
-    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-        $request->fulfill();
-        return redirect()->route('backpack.dashboard');
-    })->middleware(['auth', 'signed'])->name('verification.verify');
-
     Route::crud('audittrail', 'AuditTrailCrudController');
     Route::crud('menu', 'MenuCrudController');
     Route::crud('manga', 'MangaCrudController');

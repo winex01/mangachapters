@@ -53,6 +53,9 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\AdvancedBackup::class,
             \App\Http\Middleware\AdvancedLog::class,
             \App\Http\Middleware\AdvancedSetting::class,
+            
+            // force user to verify email
+            // \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class
         ],
     ];
 

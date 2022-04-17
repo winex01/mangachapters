@@ -43,6 +43,9 @@ class MangaCrudController extends CrudController
         $this->userPermissions();
 
         $this->enableDisqusComment(['list', 'show']);
+
+        $this->crud->enableDetailsRow();
+        $this->crud->setDetailsRowView('backpack::crud.details_row.manga_chapters');
     }
 
     /**

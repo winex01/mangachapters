@@ -1,10 +1,3 @@
-<div class="text-center mb-4">
-    <a href="/logout" class="btn btn-outline-info">
-        <i class="las la-arrow-left"></i>
-        {{ __('Back to login') }}
-    </a>
-</div>
-
 <div class="card">
     <div class="card-header">{{ __('Verify Your Email Address') }}
         <span class="text-success font-weight-bold">

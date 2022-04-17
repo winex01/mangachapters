@@ -45,8 +45,6 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 
-
-
 Route::group(['middleware' => ['guest']], function() {
 	Route::get('/', [HomeController::class, 'index']); 
 	Route::get('/about-us', [AboutUsController::class, 'index']);

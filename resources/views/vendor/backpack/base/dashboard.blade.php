@@ -10,6 +10,10 @@
         </div>
         
     @endcan
+
+    @unless (auth()->user()->hasVerifiedEmail())
+        <x-verify-email></x-verify-email>
+    @endunless
         
     @php
         // all notification except for chapters

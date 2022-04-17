@@ -50,10 +50,12 @@
 
 
   <div class="my-3 p-3 bg-white rounded shadow-sm">
-    <div class="float-right">
-      <a class="text-primary" href="/login">Login</a>
-      <a class="text-success" href="/register">Register</a>
-    </div>
+    @unless (auth()->check())
+      <div class="float-right">
+        <a class="text-primary" href="/login">Login</a>
+        <a class="text-success" href="/register">Register</a>
+      </div>
+    @endunless
 
     @yield('guest_blank_content')
 

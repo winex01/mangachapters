@@ -1,6 +1,6 @@
 @if (!auth()->user()->hasVerifiedEmail())
     <div class="card">
-        <div class="card-header">{{ __('Verify Your Email Address (Optional)') }}</div>
+        <div class="card-header">{{ __('Verify Your Email Address') }}</div>
         
         <div class="card-body">
             @if (session('message'))
@@ -9,7 +9,7 @@
             </div>
             @endif
             
-            {{ __('Before proceeding, please check your email for a verification link.') }}
+            {{ __('Before proceeding, please check your email inbox or spam folder for a verification link.') }}
             {{ __('If you did not receive the email') }},
             <form class="d-inline" method="POST" action="{{ route('verification.send') }}">
                 @csrf

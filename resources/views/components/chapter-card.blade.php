@@ -13,7 +13,7 @@
 
         <br>
 
-        @auth
+        @if (isset($notification))
             <a 
                 href="javascript:void(0)" 
                 class="mark-as-read text-muted"

@@ -945,3 +945,20 @@ if (! function_exists('isJson')) {
      	return (json_last_error() == JSON_ERROR_NONE);
 	}
 }
+
+if (! function_exists('seo')) {
+	function seo($title) {
+		$title = ucwords($title);
+		$desc = config('appsettings.app_slogan');
+		$url = url()->current();
+
+		\Artesaos\SEOTools\Facades\SEOMeta::setTitle($title);
+		\Artesaos\SEOTools\Facades\SEOMeta::setDescription($desc);
+		\Artesaos\SEOTools\Facades\SEOMeta::setCanonical($url);
+
+		\Artesaos\SEOTools\Facades\OpenGraph::setDescription($desc);
+		\Artesaos\SEOTools\Facades\OpenGraph::setTitle($title);
+		\Artesaos\SEOTools\Facades\OpenGraph::setUrl($url);
+		\Artesaos\SEOTools\Facades\OpenGraph::addProperty('type', 'Recent chapters');
+	}
+}

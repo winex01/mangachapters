@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
+        "artesaos/seotools": "^0.22.0",
         "awobaz/compoships": "^2.1",
         "backpack/backupmanager": "^3.0",
         "backpack/crud": "^4.1",

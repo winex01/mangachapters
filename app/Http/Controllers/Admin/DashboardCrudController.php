@@ -39,7 +39,13 @@ class DashboardCrudController extends CrudController
 
     public function markAllAsReadChapterNotification()
     {
-        return auth()->user()->unreadNotifications->where('type', 'App\Notifications\NewChapterNotification')->markAsRead();
+        $ids = request()->ids;
+
+        if ($ids) {
+            return auth()->user()->unreadNotifications->whereIn('id', $ids)->markAsRead();
+        }
+
+        return;
     }
     
 }

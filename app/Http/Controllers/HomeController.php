@@ -23,6 +23,8 @@ class HomeController extends Controller
                         return $temp;
                     });
         
+        seo('Home');
+
         return view('home', compact('chapters', 'mangas'));
-    }    
+    }
 }

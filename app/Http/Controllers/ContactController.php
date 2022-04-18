@@ -12,6 +12,8 @@ class ContactController extends Controller
 {
     public function index()
     {
+        seo('Contact Us');
+
         return view('contact');
     }
 

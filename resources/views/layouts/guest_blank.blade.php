@@ -28,7 +28,7 @@
         </li>
 
         <li class="nav-item {{ (request()->is('about-us')) ? 'active' : '' }}">
-          <a class="nav-link" href="/about-us">About Us</a>
+          <a class="nav-link" href="/about-us">About</a>
         </li>
 
         <li class="nav-item {{ (request()->is('terms')) ? 'active' : '' }}">
@@ -40,7 +40,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ config('appsettings.social_media') }}">Social Media</a>
+          <a class="nav-link" href="{{ config('appsettings.social_media') }}">Social</a>
         </li>
 
       </ul>

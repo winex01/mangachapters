@@ -10,7 +10,11 @@
 
                     @if ($chapters->count() > 0)
                         <tr><td>{{ $entry->title }}</td></tr>
-                        <tr><td>Show only latest 10 chapters.</td></tr>
+                        <tr><td>
+                            <small>
+                                Show only latest 10 chapters.
+                            </small>
+                        </td></tr>
                     @else
                         <tr><td>No results.</td></tr>
                     @endunless

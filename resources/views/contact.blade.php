@@ -5,6 +5,14 @@
     <h6 class="border-bottom border-gray pb-2 mb-0">{{ __('Contact Us') }}</h6>
 
     <div class="mt-3 col-md-6 offset-md-3">
+
+        @if (session('message'))
+          <div class="alert alert-success" role="alert">
+              {{ __('Thanks for contacting us!') }}
+              {{ __('We will get back to you soon!') }}
+          </div>
+        @endif
+
         <form method="POST" action="{{ route('contact.send') }}">
             @csrf
 
@@ -43,7 +51,7 @@
                 @endif
             </div>
             
-            <button type="submit" class="btn btn-success">Send a message</button>
+            <button type="submit" class="btn btn-info">Send a message</button>
           </form>
     </div>
     

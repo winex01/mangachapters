@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth']], function() {
 		// auth()->user()->sendEmailVerificationNotification();
 		event(new ResendEmailVerification(auth()->user()));
 		return back()->with('message', 'Verification link sent!');
-	})->middleware(['throttle:6,1'])->name('verification.send');
+	})->middleware(['throttle:3,1'])->name('verification.send');
 });
 
 
@@ -50,5 +50,8 @@ Route::group(['middleware' => ['guest']], function() {
 	Route::get('/about-us', [AboutUsController::class, 'index']);
 	Route::get('/terms', [TermsController::class, 'index']);
 	Route::get('/contact', [ContactController::class, 'index']);
+	Route::post('/contact', [ContactController::class, 'store'])
+		// ->middleware(['throttle:5,1']) // TODO:: uncomment this
+		->name('contact.send');
 });
 

@@ -51,7 +51,7 @@ Route::group(['middleware' => ['guest']], function() {
 	Route::get('/terms', [TermsController::class, 'index']);
 	Route::get('/contact', [ContactController::class, 'index']);
 	Route::post('/contact', [ContactController::class, 'store'])
-			->middleware(['throttle:5,1'])
+			->middleware(['throttle:10,1'])
 			->name('contact.send');
 });
 

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Notifications\ContactUsNotification;
+use App\Rules\Throttle;
 use Illuminate\Http\Request;
+use App\Notifications\ContactUsNotification;
 use Illuminate\Support\Facades\Notification;
 
 class ContactController extends Controller
@@ -23,7 +24,12 @@ class ContactController extends Controller
     public function store(Request $request)
     {
         $validated =  $request->validate([
-            'email' => 'required|email',
+            // 'email' => 'required|email',
+            'email' => [
+                'required',
+                'email',
+                new Throttle('contact-form', $maxAttempts = 5, $minutes = 10),
+            ],
             'name' => 'required|max:255',
             'message' => 'required|min:10|max:999',
         ]);

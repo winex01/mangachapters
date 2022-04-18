@@ -157,11 +157,19 @@
 		  reverseButtons: true,
 		}).then((result) => {
 		    if (result.isConfirmed) {
+
+                var dataArray = $('.mark-as-read').map(function(){
+                    return $(this).data('id');
+                }).get();
+
                 $.ajax({
                     type: "post",
                     url: "{{ route('dashboard.markAllAsReadChapterNotification') }}",
+                    data: {
+                        ids : dataArray
+                    },
                     success: function (response) {
-                        // console.log(response);
+                        console.log(response);
                         $('.chapter-card').hide();
                         
                         // Show a success notification bubble

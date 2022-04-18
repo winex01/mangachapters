@@ -2,10 +2,6 @@
 	<div class="row">
 		<div class="col-md-12">
 			<table class="table table-sm table-bordered">
-                <colgroup>
-                    <col class="col-md-2">
-                    <col class="col-md-10">
-                </colgroup>
                 <tbody>
                    
                     @php
@@ -13,6 +9,7 @@
                     @endphp
 
                     @if ($chapters->count() > 0)
+                        <tr><td>{{ $entry->title }}</td></tr>
                         <tr><td>Show only latest 10 chapters.</td></tr>
                     @else
                         <tr><td>No results.</td></tr>
@@ -20,12 +17,12 @@
 
                     @foreach ($chapters as $chapter)
                         <tr>
-                        <td>
+                            <td>
                                 {!! anchorNewTab($chapter->url, trans('lang.chapter_description', [
                                     'chapter' => $chapter->chapter, 
                                     'release' => $chapter->release, 
                                 ]) ) !!}
-                        </td>
+                            </td>
                         </tr>
                     @endforeach
                   

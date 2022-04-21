@@ -53,5 +53,10 @@ Route::group(['middleware' => ['guest']], function() {
 	Route::post('/contact', [ContactController::class, 'store'])
 			->middleware(['throttle:10,1'])
 			->name('contact.send');
+
+	// need for name route login for link in email
+	Route::get('/redirect-from-verify-link', function () {
+		return redirect('/dashboard');
+	})->name('login');
 });
 

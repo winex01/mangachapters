@@ -54,9 +54,9 @@ Route::group(['middleware' => ['guest']], function() {
 			->middleware(['throttle:10,1'])
 			->name('contact.send');
 
-	// need for name route login for link in email
-	Route::get('/redirect-from-verify-link', function () {
-		return redirect('/dashboard');
+	// if not auth, redirect here
+	Route::get('/login-temp', function () {
+		return redirect()->route('backpack.dashboard');
 	})->name('login');
 });
 

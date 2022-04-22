@@ -50,13 +50,14 @@ Route::group(['middleware' => ['guest']], function() {
 	Route::get('/about-us', [AboutUsController::class, 'index']);
 	Route::get('/terms', [TermsController::class, 'index']);
 	Route::get('/contact', [ContactController::class, 'index']);
-	Route::post('/contact', [ContactController::class, 'store'])
-			->middleware(['throttle:10,1'])
-			->name('contact.send');
-
-	// if not auth, redirect here
-	Route::get('/login-temp', function () {
-		return redirect()->route('backpack.dashboard');
-	})->name('login');
 });
 
+// don't include in middleware guest to accommodate auth contact
+Route::post('/contact', [ContactController::class, 'store'])
+		->middleware(['throttle:10,1'])
+		->name('contact.send');
+		
+// if not auth, redirect here
+Route::get('/login-temp', function () {
+	return redirect()->route('backpack.dashboard');
+})->name('login');

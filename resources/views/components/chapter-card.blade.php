@@ -1,10 +1,17 @@
 <div class="chapter-card media text-muted pt-3 mb-n2 col-md-4 alert alert-dismissible fade show" role="alert">
-    <img style="height: 55px; width:40px;" src="{{ $chapter->manga->photo }}" class="mt-1 rounded" alt="...">
+    <img style="height: 55px; width:40px;" src="{{ asset($chapter->manga->photo) }}" class="mt-1 rounded" alt="...">
     <div class="flexbox ml-2 media-body small border-bottom border-gray">
         
-        <a class="d-block text-muted font-weight-bold" href="{{ backpack_url('manga/'.$chapter->manga->id.'/show') }}" >
-            {{ $chapter->manga->title }}
-        </a>
+        @auth
+            <a class="d-block text-muted font-weight-bold" href="{{ backpack_url('manga/'.$chapter->manga->id.'/show') }}" >
+                {{ $chapter->manga->title }}
+            </a>
+        @else
+            <a class="d-block text-muted font-weight-bold" href="{{ url('manghwua/'.$chapter->manga->id) }}" >
+                {{ $chapter->manga->title }}
+            </a>
+        @endauth
+
     
         {!! anchorNewTab($chapter->url, trans('lang.chapter_description', [
             'chapter' => $chapter->chapter, 

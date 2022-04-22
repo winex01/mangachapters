@@ -34,7 +34,8 @@ return [
     'home_link' => '',
 
     // Content of the HTML meta robots tag to prevent indexing and link following
-    'meta_robots_content' => 'noindex, nofollow',
+    // 'meta_robots_content' => 'noindex, nofollow', // remove so google could index
+    'meta_robots_content' => null,
 
     // ------
     // STYLES

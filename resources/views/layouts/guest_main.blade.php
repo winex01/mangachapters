@@ -4,9 +4,6 @@
 
 <head>
   @include(backpack_view('inc.head'))
-
-  {!! SEOMeta::generate(true) !!}
-  {!! OpenGraph::generate(true) !!}
 </head>
 
 <body class="{{ config('backpack.base.body_class') }}">

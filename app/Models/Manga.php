@@ -107,6 +107,13 @@ class Manga extends Model
                 
         return implode('</br>', $temp);
     }
+
+    public function getAlternativeTitleInHtmlAttribute()
+    {
+        $temp = $this->alternative_title;
+
+        return str_replace('/', '<br>', $temp);
+    }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

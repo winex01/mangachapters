@@ -89,6 +89,17 @@ class MangaCrudController extends CrudController
             ],
         ]);
 
+        
+        $this->crud->modifyColumn('alternative_title', [
+            'type'     => 'closure',
+            'function' => function($entry) {
+                return $entry->alternativeTitleInHtml;
+            },
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhere('alternative_title', 'like', "%$searchTerm%");
+            }
+        ]);
+
         $this->filters();
         $this->widgets();
     }

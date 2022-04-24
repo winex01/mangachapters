@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\MangaRequest;
 use Backpack\CRUD\app\Library\Widget;
+use App\Http\Requests\MangaCreateRequest;
+use App\Http\Requests\MangaUpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -112,7 +113,7 @@ class MangaCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(MangaRequest::class);
+        CRUD::setValidation(MangaCreateRequest::class);
         $this->customInputs();
     }
 
@@ -124,7 +125,8 @@ class MangaCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(MangaUpdateRequest::class);
+        $this->customInputs();
     }
 
     private function customInputs()

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\FormRequest;
 
-class MangaRequest extends FormRequest
+class MangaCreateRequest extends FormRequest
 {
     public function getTable()
     {

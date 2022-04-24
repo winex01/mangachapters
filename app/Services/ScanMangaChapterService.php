@@ -53,8 +53,7 @@ class ScanMangaChapterService
 
             // send logs if source is no longer working
             if (!$links || empty($links)) {
-                Log::warning('Invalid source link.');
-                Log::warning($source);
+                Log::warning(backpack_url('manga/'.$this->manga->id.'/show'));
             }
 
             // web crawled website links

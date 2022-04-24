@@ -43,6 +43,9 @@ class ScanMangaChapterService
                 break;
             }
 
+            // sleep foreach sources 1 seconds
+            sleep(1);
+
             // get my current chapter, check last chapter entries of that manga_id, if no data then save only the first links
             $currentChapter = $this->manga->latestChapter;
 
@@ -53,7 +56,12 @@ class ScanMangaChapterService
 
             // send logs if source is no longer working
             if (!$links || empty($links)) {
-                Log::warning(backpack_url('manga/'.$this->manga->id.'/show'));
+                $tempLog = [
+                    'manga' => backpack_url('manga/'.$this->manga->id.'/show'),
+                    'invalid_url' => $source->url,
+                ];
+                
+                Log::warning($tempLog);
             }
 
             // web crawled website links

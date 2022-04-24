@@ -43,13 +43,14 @@ class ScanMangaChapterService
                 break;
             }
 
-            // sleep foreach sources 1 seconds
-            sleep(1);
+            // sleep foreach sources 1 second
+            // sleep(1);
 
             // get my current chapter, check last chapter entries of that manga_id, if no data then save only the first links
             $currentChapter = $this->manga->latestChapter;
 
             $proxy = 'http://'.$this->proxy->random();
+
             // dump($proxy);
             $crawler = $this->client->request('GET', $source->url, ['proxy' => $proxy]);
             $links = $crawler->filter($source->scanFilter->filter)->links();
@@ -60,7 +61,7 @@ class ScanMangaChapterService
                     'manga' => backpack_url('manga/'.$this->manga->id.'/show'),
                     'invalid_url' => $source->url,
                 ];
-                
+
                 Log::warning($tempLog);
             }
 

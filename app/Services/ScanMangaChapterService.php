@@ -62,7 +62,7 @@ class ScanMangaChapterService
                     'invalid_url' => $source->url,
                 ];
 
-                Log::warning($tempLog);
+                Log::warning('INVALID SOURCE', $tempLog);
             }
 
             // web crawled website links

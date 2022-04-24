@@ -119,6 +119,10 @@ class SourceCrudController extends CrudController
         // $this->addRelationshipField('manga_id');
         $this->addInlineCreateField('manga_id');
         $this->addRelationshipField('scan_filter_id');
+
+        $this->crud->modifyField('url', [
+            'type' => 'sources.url'
+        ]);
     }
 
     private function filters()

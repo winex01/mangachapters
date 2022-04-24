@@ -51,6 +51,12 @@ class ScanMangaChapterService
             $crawler = $this->client->request('GET', $source->url, ['proxy' => $proxy]);
             $links = $crawler->filter($source->scanFilter->filter)->links();
 
+            // send logs if source is no longer working
+            if (!$links || empty($links)) {
+                Log::warning('Invalid source link.');
+                Log::warning($source);
+            }
+
             // web crawled website links
             foreach ($links as $link) {
                 $data = $this->prepareData($this->manga->id, $link->getUri(), $source->url);

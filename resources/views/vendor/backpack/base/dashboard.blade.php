@@ -56,7 +56,7 @@
                     </p>    
                 @endif
 
-            @elseif ($notification->type = 'App\Notifications\ContactUsNotification')
+            @elseif ($notification->type == 'App\Notifications\ContactUsNotification')
                 @dump($notification->data)
             @else
                 {!! trans('lang.'.$notification->data) !!}

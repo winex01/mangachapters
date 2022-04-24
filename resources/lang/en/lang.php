@@ -68,7 +68,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'mangas_title' => '',
-    'mangas_alternative_title' => 'add alternative title separated by comma.',
+    'mangas_alternative_title' => 'add alternative title separated by slash(/).',
 
     /*
     |--------------------------------------------------------------------------

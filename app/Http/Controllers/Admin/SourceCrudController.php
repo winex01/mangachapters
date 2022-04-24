@@ -123,6 +123,10 @@ class SourceCrudController extends CrudController
         $this->crud->modifyField('url', [
             'type' => 'sources.url'
         ]);
+
+        $this->crud->modifyField('published', [
+            'value' => true
+        ]);
     }
 
     private function filters()

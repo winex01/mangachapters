@@ -13,6 +13,8 @@ return [
 
     'app_name' => env('APP_NAME', false),
 
+    'app_twitter' => env('APP_TWITTER', '@winnie131212592'),
+
     // backpack advanced -> settings
     'app_version' => null,
 

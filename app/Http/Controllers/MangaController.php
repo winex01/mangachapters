@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\OpenGraph;
-use Artesaos\SEOTools\Facades\JsonLdMulti;
 use Artesaos\SEOTools\Facades\TwitterCard;
 
 class MangaController extends Controller
@@ -60,7 +58,7 @@ class MangaController extends Controller
         OpenGraph::addImage($img, ['height' => 300, 'width' => 300]);
 
         TwitterCard::setTitle($title);
-        TwitterCard::setSite('@winnie131212592');
+        TwitterCard::setSite(config('appsettings.app_twitter'));
 
         TwitterCard::setDescription($description); // description of twitter card tag
         TwitterCard::setType($type); // type of twitter card tag

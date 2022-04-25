@@ -14,10 +14,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        if (env('TELESCOPE_ENABLED', false)) {
+        if (config('appsettings.telescope_enabled')) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
-          }
+        }
     }
 
     /**

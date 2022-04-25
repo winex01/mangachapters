@@ -3,11 +3,13 @@
 namespace App\Providers;
 
 use App\Events\NewChapterScanned;
+use Illuminate\Auth\Events\Login;
 use App\Listeners\SendWelcomeMessage;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Events\ResendEmailVerification;
 use App\Listeners\AssignNormalUserRole;
+use App\Listeners\LogUserLogin;
 use App\Listeners\SendAdminNewUserNotification;
 use App\Listeners\SendUserNewChapterNotification;
 use App\Listeners\SendEmailVerificationNotification;
@@ -43,6 +45,11 @@ class EventServiceProvider extends ServiceProvider
         NewChapterScanned::class => [
             //* Not Queue
             SendUserNewChapterNotification::class,
+        ],
+        
+        Login::class => [
+            //* Queue
+            LogUserLogin::class,
         ],
 
     ];

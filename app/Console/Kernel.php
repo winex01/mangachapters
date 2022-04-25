@@ -30,10 +30,12 @@ class Kernel extends ConsoleKernel
         $schedule->command('winex:scan-chapters')->everyFifteenMinutes();
         $schedule->command('winex:proxy-notice')->daily()->weekly();	
 
-        // $schedule->command('telescope:prune --hours=48')->daily();
-
         $schedule->command('backup:clean')->daily()->at('11:00');
         $schedule->command('backup:run')->daily()->at('12:00');
+
+        if (config('appsettings.telescope_enabled')) {
+            $schedule->command('telescope:prune --hours=48')->daily();
+        }
     }
 
     /**

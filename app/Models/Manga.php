@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use App\Models\Model;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Manga extends Model
 {
+    use HasSlug;
+
     use \Illuminate\Database\Eloquent\SoftDeletes;
     use \LaravelInteraction\Bookmark\Concerns\Bookmarkable;
 
@@ -44,6 +48,15 @@ class Manga extends Model
 
     }
 
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

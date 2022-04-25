@@ -89,6 +89,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'mangas_revise',
             'mangas_bookmark_toggle',
             'mangas_bulk_bookmark',
+            'mangas_slug',
         ],
 
         'sources' => [

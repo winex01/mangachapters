@@ -57,7 +57,7 @@ class MangaCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->showColumns();
+        $this->showColumns(null, ['slug']);
 
         // photo
         $this->crud->modifyColumn('photo', [
@@ -99,6 +99,13 @@ class MangaCrudController extends CrudController
                 $query->orWhere('alternative_title', 'like', "%$searchTerm%");
             }
         ]);
+
+        if ($this->crud->hasAccess('slug')) {
+            $this->crud->addColumn([
+                'name' => 'slug',
+                'type' => 'string',
+            ]);
+        }
 
         $this->filters();
         $this->widgets();
@@ -150,6 +157,10 @@ class MangaCrudController extends CrudController
             'crop'         => true,
             'aspect_ratio' => 0,
         ]);
+
+        if (!$this->crud->hasAccess('slug')) {
+            $this->crud->removeField('slug');
+        }
     }
 
     private function filters()

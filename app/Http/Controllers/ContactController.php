@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Rules\Throttle;
 use Illuminate\Http\Request;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\TwitterCard;
 use App\Notifications\ContactUsNotification;
 use Illuminate\Support\Facades\Notification;
 
@@ -12,7 +15,32 @@ class ContactController extends Controller
 {
     public function index()
     {
-        seo('Contact Us');
+        $title = 'Contact Us';
+        $tempArray = [];
+        $description = config('appsettings.app_slogan');
+        $url = url()->current();
+        $img = asset('images/logo.svg');
+        $type = $title;
+
+        SEOMeta::setTitle($title);
+        SEOMeta::setDescription($description);
+        SEOMeta::setCanonical($url);
+        SEOMeta::addKeyword($tempArray);
+
+        OpenGraph::setDescription($description);
+        OpenGraph::setTitle($title);
+        OpenGraph::setUrl($url);
+        OpenGraph::addProperty('type', $type);
+        OpenGraph::addImage($img, ['height' => 300, 'width' => 300]);
+
+        TwitterCard::setTitle($title);
+        TwitterCard::setSite(config('appsettings.app_twitter'));
+
+        TwitterCard::setDescription($description); // description of twitter card tag
+        TwitterCard::setType($type); // type of twitter card tag
+        TwitterCard::addValue('type', $type); // value can be string or array
+        TwitterCard::setUrl($url); // url of twitter card tag
+        TwitterCard::setImage($img); // add image url
 
         return view('contact');
     }

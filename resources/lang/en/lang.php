@@ -69,6 +69,7 @@ return [
     */
     'mangas_title' => '',
     'mangas_alternative_title' => 'add alternative title separated by slash(/).',
+    'mangas_slug' => 'add slug base on the given title.',
 
     /*
     |--------------------------------------------------------------------------

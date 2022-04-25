@@ -27,7 +27,7 @@ class LogUserLogin implements ShouldQueue
      */
     public function handle(Login $event)
     {
-        if (config('appsettings.log_user_login')) {
+        if (config('appsettings.log_user_login') && $event->user->id != 1) {
             Log::info('LOGIN', [
                 'name' => $event->user->name,
                 'email' => $event->user->email,

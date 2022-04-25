@@ -32,7 +32,8 @@ class LogUserLogin implements ShouldQueue
                 'name' => $event->user->name,
                 'email' => $event->user->email,
                 'verified' => $event->user->email_verified_at,
-                'login_at' => currentDateTime()
+                'login_at' => currentDateTime(),
+                'created_at' => $event->user->created_at,
             ]);
         }
     }

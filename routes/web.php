@@ -51,7 +51,7 @@ Route::group(['middleware' => ['guest']], function() {
 	Route::get('/about-us', [AboutUsController::class, 'index']);
 	Route::get('/terms', [TermsController::class, 'index']);
 	Route::get('/contact', [ContactController::class, 'index']);
-	Route::get('/manghwua/{manga}/', [MangaController::class, 'show']);
+	Route::get('/manghwua/{slugOrId}/', [MangaController::class, 'show']);
 });
 
 // don't include in middleware guest to accommodate auth contact

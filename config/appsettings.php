@@ -74,4 +74,6 @@ return [
 
     // manga crud notice alert
     'manga_crud_notice' => null,
+
+    'log_user_login' => env('LOG_USER_LOGIN', false),
 ];

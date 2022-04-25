@@ -35,6 +35,7 @@
         "orangehill/iseed": "^3.0",
         "qlick/laravel-full-calendar": "dev-master",
         "spatie/laravel-backup": "^6.16",
+        "spatie/laravel-sluggable": "^2.6",
         "spatie/laravel-web-tinker": "^1.7",
         "tecnickcom/tcpdf": "^6.3",
         "yajra/laravel-disqus": "^1.2"

@@ -7,7 +7,7 @@
                 {{ $chapter->manga->title }}
             </a>
         @else
-            <a class="d-block text-muted font-weight-bold" href="{{ url('manghwua/'.$chapter->manga->id) }}" >
+            <a class="d-block text-muted font-weight-bold" href="{{ url('manghwua/'.$chapter->manga->slug) }}" >
                 {{ $chapter->manga->title }}
             </a>
         @endauth

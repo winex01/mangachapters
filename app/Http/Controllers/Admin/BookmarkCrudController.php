@@ -32,6 +32,11 @@ class BookmarkCrudController extends CrudController
         $this->userPermissions();
     }
 
+    public function entryLabel()
+    {
+        return 'My Bookmarks';
+    }
+
     /**
      * Define what happens when the List operation is loaded.
      * 

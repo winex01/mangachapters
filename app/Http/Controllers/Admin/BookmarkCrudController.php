@@ -14,6 +14,8 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class BookmarkCrudController extends CrudController
 {   
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \App\Http\Controllers\Admin\Operations\BookmarkToggleOperation;
     use \App\Http\Controllers\Admin\Operations\ExportOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
@@ -41,7 +43,7 @@ class BookmarkCrudController extends CrudController
         // add on query, show only auth user his/her bookmark manga
         $this->crud->query->whereBookmarkedBy(auth()->user());
 
-        $this->showColumns();
+        $this->showColumns(null, ['slug']);
 
         // photo
         $this->crud->modifyColumn('photo', [
@@ -50,6 +52,23 @@ class BookmarkCrudController extends CrudController
             'width'  => '40px',
             'orderable' => false,
         ]);
-        
+
+        $this->limitColumn('title', 500);
+        $this->limitColumn('alternative_title', 500);
+
+        $this->crud->disableBulkActions();
     }
+
+    protected function setupShowOperation()
+    {
+        $this->crud->set('show.setFromDb', false); // remove fk column such as: gender_id
+        $this->setupListOperation();
+
+        // photo
+        $this->crud->modifyColumn('photo', [
+            'height' => '300px',
+            'width'  => '200px',
+        ]);
+    }
+
 }

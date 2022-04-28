@@ -41,6 +41,7 @@
 		// ask for confirmation before deleting an item
 		// e.preventDefault();
 		var route = $(button).attr('data-route');
+        var title = $(button).attr('title');
 
 		$.ajax({
             url: route,
@@ -56,7 +57,7 @@
                     // Show a success notification bubble
                     new Noty({
                     type: "success",
-                    text: "{!! '<strong>'.trans('backpack::crud.bookmark_toggle_confirmation_title').'</strong><br>'.trans('backpack::crud.bookmark_toggle_confirmation_message') !!}"
+                    text: "{!! '<strong>"+title+"</strong><br>'.trans('backpack::crud.bookmark_toggle_confirmation_message') !!}"
                     }).show();
 
                     // Hide the modal, if any

@@ -127,6 +127,11 @@ class Manga extends Model
 
         return str_replace('/', '<br>', $temp);
     }
+
+    public function getTitleInHtmlAttribute()
+    {
+        return $this->title. '<span class="mt-n5 badge badge-success" title="Noval">N</span>';
+    }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

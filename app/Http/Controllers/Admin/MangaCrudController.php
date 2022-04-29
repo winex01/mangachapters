@@ -31,6 +31,10 @@ class MangaCrudController extends CrudController
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
     use \App\Http\Controllers\Admin\Traits\FilterTrait;
+
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+    use \App\Http\Controllers\Admin\Traits\Fetch\FetchTypeTrait;
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -57,7 +61,7 @@ class MangaCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->showColumns(null, ['slug']);
+        $this->showColumns(null, ['slug', 'type_id']);
 
         // photo
         $this->crud->modifyColumn('photo', [
@@ -82,6 +86,13 @@ class MangaCrudController extends CrudController
         ]);
 
         $this->crud->modifyColumn('title', [
+            'type'     => 'closure',
+            'function' => function($entry) {
+                return $entry->titleInHtml;
+            },
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhere('title', 'like', "%$searchTerm%");
+            },
             'wrapper'   => [
                 'title' => function ($crud, $column, $entry, $related_key) {
                     return $entry->title;
@@ -161,6 +172,13 @@ class MangaCrudController extends CrudController
         if (!$this->crud->hasAccess('slug')) {
             $this->crud->removeField('slug');
         }
+
+        $this->crud->modifyField('type_id', [
+            'type'        => 'select2_from_array',
+            'options'     => $this->fetchType()->pluck('name', 'id'),
+            'allows_null' => false,
+            'default'     => 1,
+        ]);
     }
 
     private function filters()

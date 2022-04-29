@@ -16,6 +16,7 @@ class AddFkColumnInMangasTables extends Migration
         Schema::table('mangas', function (Blueprint $table) {
             //
             $table->foreignId('type_id')
+            ->nullable()
             ->default(1) // 1 = manga 
             ->constrained();
         });

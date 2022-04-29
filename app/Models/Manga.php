@@ -129,8 +129,13 @@ class Manga extends Model
     }
 
     public function getTitleInHtmlAttribute()
-    {
-        return $this->title. '<span class="mt-n5 badge badge-success" title="Noval">N</span>';
+    {   
+        if ($this->type_id == 2) {
+
+            return $this->title. '<span class="badge badge-success align-middle" title="Novel">N</span>';
+        }
+     
+        return $this->title;
     }
     /*
     |--------------------------------------------------------------------------

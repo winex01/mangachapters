@@ -48,7 +48,7 @@ class BookmarkCrudController extends CrudController
         // add on query, show only auth user his/her bookmark manga
         $this->crud->query->whereBookmarkedBy(auth()->user());
 
-        $this->showColumns(null, ['slug']);
+        $this->showColumns(null, ['slug', 'type_id']);
 
         // photo
         $this->crud->modifyColumn('photo', [
@@ -60,6 +60,38 @@ class BookmarkCrudController extends CrudController
 
         $this->limitColumn('title', 500);
         $this->limitColumn('alternative_title', 500);
+
+        $this->crud->modifyColumn('title', [
+            'type'     => 'closure',
+            'function' => function($entry) {
+                return $entry->titleInHtml;
+            },
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhere('title', 'like', "%$searchTerm%");
+            },
+            'wrapper'   => [
+                'title' => function ($crud, $column, $entry, $related_key) {
+                    return $entry->title;
+                },
+            ],
+        ]);
+
+        $this->crud->modifyColumn('alternative_title', [
+            'type'     => 'closure',
+            'function' => function($entry) {
+                return $entry->alternativeTitleInHtml;
+            },
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhere('alternative_title', 'like', "%$searchTerm%");
+            }
+        ]);
+
+        if ($this->crud->hasAccess('slug')) {
+            $this->crud->addColumn([
+                'name' => 'slug',
+                'type' => 'string',
+            ]);
+        }
 
         $this->crud->disableBulkActions();
     }
@@ -73,6 +105,20 @@ class BookmarkCrudController extends CrudController
         $this->crud->modifyColumn('photo', [
             'height' => '300px',
             'width'  => '200px',
+        ]);
+
+        $this->crud->addColumn([
+            'name'     => 'sources',
+            'label'    => 'Sources',
+            'type'     => 'closure',
+            'function' => function($entry) {
+                return $entry->sourcesInHtml;
+            },
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereHas('sources', function ($q) use ($searchTerm) {
+                    $q->where('url', 'like', "%$searchTerm%");
+                });
+            }
         ]);
     }
 

@@ -9,7 +9,7 @@
  - check backup in dropbox
  - test scan chapter
  - test queue
- - supervisorctl restart // restart supervisor if queue doesnt work
+ - supervisorctl restart all // restart supervisor if queue doesnt work
 
 #INSTALLATION
  - git clone git@github.com:winex01/mangachapters.git

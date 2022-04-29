@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingsTableSeeder::class);
         $this->call(MenusTableSeeder::class);
         $this->call(ScanFiltersTableSeeder::class);
+        $this->call(TypesTableSeeder::class);
     }
 
     private function createSuperAdminAccount()

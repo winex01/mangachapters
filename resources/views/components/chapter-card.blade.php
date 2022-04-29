@@ -4,11 +4,11 @@
         
         @auth
             <a class="d-block text-muted font-weight-bold" href="{{ backpack_url('manga/'.$chapter->manga->id.'/show') }}" >
-                {{ $chapter->manga->title }}
+                {!! $chapter->manga->titleInHtml !!}
             </a>
         @else
             <a class="d-block text-muted font-weight-bold" href="{{ url('manghwua/'.$chapter->manga->slug) }}" >
-                {{ $chapter->manga->title }}
+                {!! $chapter->manga->titleInHtml !!}
             </a>
         @endauth
 

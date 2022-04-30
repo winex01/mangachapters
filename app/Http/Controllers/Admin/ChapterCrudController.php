@@ -59,7 +59,7 @@ class ChapterCrudController extends CrudController
         $this->crud->query->orderByRelease();
 
         $this->showColumns(null, ['url', 'invalid_link']);
-        $this->showRelationshipColumn('manga_id', 'title');
+        $this->showRelationshipColumn('manga_id', 'titleInHtml');
 
         $this->crud->addColumn([
             'name' => 'manga.photo',

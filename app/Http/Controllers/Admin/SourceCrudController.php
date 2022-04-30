@@ -52,7 +52,7 @@ class SourceCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->showColumns();
-        $this->showRelationshipColumn('manga_id', 'title');
+        $this->showRelationshipColumn('manga_id', 'titleInHtml');
         $this->showRelationshipColumn('scan_filter_id');
 
         $this->crud->addColumn([

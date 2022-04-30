@@ -48,7 +48,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         
         Login::class => [
-            //* Queue
+            //* Not Queue
             LogUserLogin::class,
         ],
 

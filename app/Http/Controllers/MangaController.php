@@ -25,20 +25,11 @@ class MangaController extends Controller
         
 
         $title = $manga->title;
-        $tempArray = [];
-        if ($manga->alternative_title != null) {
-            $tempArray = explode('/', $manga->alternative_title);
-
-            foreach ($tempArray as $temp) {
-                $title .= ', '.$temp;
-            }
-        }
-
-        $description = '';
+        $description = $manga->alternative_title;
         
+        $tempArray = [];
         foreach ($chapters as $chapter) {
-            $description .= 'Chapter '.$chapter->chapter.' is out '.$chapter->created_at->diffForHumans();
-            $description .= ', ';
+            $tempArray[] = 'Chapter '.$chapter->chapter;
         }
 
         $url = url()->current();

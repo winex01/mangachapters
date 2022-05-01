@@ -38,7 +38,7 @@
                 <div class="flexbox ml-2 media-body small border-bottom border-gray">
                     
                     <a class="d-block text-muted font-weight-bold" href="{{ url('manghwua/'.$manga->id) }}" >
-                      {{ $manga->title }}
+                      {{ $manga->titleInHtml }}
                     </a>
                   
                     @php

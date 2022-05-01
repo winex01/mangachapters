@@ -55,6 +55,19 @@ class SourceCrudController extends CrudController
         $this->showRelationshipColumn('manga_id', 'titleInHtml');
         $this->showRelationshipColumn('scan_filter_id');
 
+        $this->crud->modifyColumn('manga_id', [
+            'type'     => 'closure',
+            'function' => function($entry) {
+                return $entry->manga->titleInHtml;
+            },
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereHas('manga', function ($q) use ($column, $searchTerm) {
+                    $q->where('title', 'like', '%'.$searchTerm.'%');
+                    $q->orWhere('alternative_title', 'like', '%'.$searchTerm.'%');
+                });
+            },
+        ]);
+
         $this->crud->addColumn([
             'name' => 'manga.photo',
             'label' => 'Photo',

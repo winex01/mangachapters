@@ -125,7 +125,9 @@ class Manga extends Model
     {
         $temp = $this->alternative_title;
 
-        return str_replace('/', '<br>', $temp);
+        // return str_replace('/', '<br>', $temp);
+
+        return $temp;
     }
 
     public function getTitleInHtmlAttribute()

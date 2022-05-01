@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFkColumnInMangasTables extends Migration
+class AlterTableMangasChangeAlternativeTitle extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AddFkColumnInMangasTables extends Migration
     public function up()
     {
         Schema::table('mangas', function (Blueprint $table) {
-            //
-            $table->foreign('type_id')->references('id')->on('types');
+            $table->text('alternative_title')->nullable()->change();
         });
     }
 
@@ -27,7 +26,7 @@ class AddFkColumnInMangasTables extends Migration
     public function down()
     {
         Schema::table('mangas', function (Blueprint $table) {
-            $table->dropForeign(['type_id']);
+            $table->string('alternative_title')->nullable()->change();
         });
     }
 }

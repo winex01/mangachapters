@@ -134,6 +134,8 @@ class ScanMangaChapterService
             $chapter = str_replace($i.'.htm', '', $chapter);
         }
 
+        $chapter = str_replace('/all-pages', '', $chapter);
+
         $chapter = str_replace('/', '', $chapter);
         
         // support decimal chapters ex. 1.1

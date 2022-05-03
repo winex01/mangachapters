@@ -5,7 +5,7 @@
                 <tbody>
                    
                     @php
-                        $chapters = $entry->chapters->sortByDesc('chapter')->take(10);
+                        $chapters = $entry->chapters->where('invalid_link', '!=', true)->sortByDesc('chapter')->take(10);
                     @endphp
 
                     @if ($chapters->count() > 0)

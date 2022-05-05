@@ -96,8 +96,18 @@ class ScanMangaChapterService
                         }
                     }
                 }else {
-                    Log::warning($data);
-                    // TODO:: if not numeric find a way for comparison, check this: https://stackoverflow.com/questions/14288534/php-compare-alphabet-position
+                    $duplicate = modelInstance('Chapter')
+                                        ->where('chapter', $data['chapter'])
+                                        ->where('manga_id', $data['manga_id'])
+                                        ->notInvalidLink()
+                                        ->first();
+                    if (!$duplicate) {
+                        $isNewChapter = modelInstance('Chapter')->firstOrCreate($data);
+
+                        if ($isNewChapter->wasRecentlyCreated) {
+                            $newChapters[] = $isNewChapter;
+                        }
+                    }
                 }
             }// loop links
         }// loop sources

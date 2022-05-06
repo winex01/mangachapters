@@ -30,8 +30,8 @@
             </a>
         @else
             <a href="{{ route('manga.index') }}" class="text-muted">
-                {{ trans('lang.chapter_bookmark') }}
                 <i class="las la-bookmark" title="{{ trans('lang.chapter_bookmark') }}"></i>
+                {{ trans('lang.chapter_bookmark') }}
             </a>
         @endauth
 

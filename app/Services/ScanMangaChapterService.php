@@ -6,6 +6,7 @@ use Goutte\Client;
 use App\Models\Manga;
 use App\Events\NewChapterScanned;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpClient\HttpClient;
 
 
 class ScanMangaChapterService
@@ -52,6 +53,7 @@ class ScanMangaChapterService
             $proxy = 'http://'.$this->proxy->random();
 
             // dump($proxy);
+            $client = new Client(HttpClient::create(['verify_peer' => false, 'verify_host' => false]));
             $crawler = $this->client->request('GET', $source->url, ['proxy' => $proxy]);
             $links = $crawler->filter($source->scanFilter->filter)->links();
 

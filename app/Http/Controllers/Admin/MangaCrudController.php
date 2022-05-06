@@ -185,7 +185,7 @@ class MangaCrudController extends CrudController
     {
         // $this->simpleFilter('add_scope_myBookmarked', null);
 
-        $col = 'add_scope_show';
+        $col = 'add_scope_show_only';
         $this->crud->addFilter([
             'name' => $col,
             'type' => 'select2', 

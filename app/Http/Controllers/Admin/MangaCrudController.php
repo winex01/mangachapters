@@ -184,6 +184,8 @@ class MangaCrudController extends CrudController
     private function filters()
     {
         $this->simpleFilter('add_scope_myBookmarked', null);
+
+        $this->select2FromArrayFilter('type_id', $this->fetchType()->pluck('name', 'id')->toArray());
     }
 
     private function widgets()

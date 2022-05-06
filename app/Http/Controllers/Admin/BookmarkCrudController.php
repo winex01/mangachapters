@@ -18,6 +18,9 @@ class BookmarkCrudController extends CrudController
     use \App\Http\Controllers\Admin\Operations\BookmarkToggleOperation;
     use \App\Http\Controllers\Admin\Operations\ExportOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
+    use \App\Http\Controllers\Admin\Traits\FilterTrait;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+    use \App\Http\Controllers\Admin\Traits\Fetch\FetchTypeTrait;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -94,6 +97,8 @@ class BookmarkCrudController extends CrudController
         }
 
         $this->crud->disableBulkActions();
+
+        $this->filters();
     }
 
     protected function setupShowOperation()
@@ -120,6 +125,11 @@ class BookmarkCrudController extends CrudController
                 });
             }
         ]);
+    }
+
+    private function filters()
+    {
+        $this->select2FromArrayFilter('type_id', $this->fetchType()->pluck('name', 'id')->toArray());
     }
 
 }

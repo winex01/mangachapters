@@ -70,15 +70,14 @@ class ScanMangaChapterService
             // web crawled website links
             foreach ($links as $link) {
                 $data = $this->prepareData($this->manga->id, $link->getUri(), $source->url);
-                // dump($link->getUri());
-                // dump($data);
-                if (is_numeric($data['chapter'])) {
-                    // manga has no chapters yet, then after saving the latest chapter then exist loop.
-                    if ($currentChapter == null) {
-                        $newChapters[] = modelInstance('Chapter')->create($data);
-                        $firstEverMangaChapter = true;
-                        break;
-                    }else {
+
+                // manga has no chapters yet, then after saving the latest chapter then exist loop.
+                if ($currentChapter == null) {
+                    $newChapters[] = modelInstance('Chapter')->create($data);
+                    $firstEverMangaChapter = true;
+                    break;
+                }else {
+                    if (is_numeric($data['chapter'])) {
                         if ($currentChapter->chapter < $data['chapter']) {
                             $duplicate = modelInstance('Chapter')
                                         ->where('chapter', $data['chapter'])
@@ -88,7 +87,7 @@ class ScanMangaChapterService
                             
                             if (!$duplicate) {
                                 $isNewChapter = modelInstance('Chapter')->firstOrCreate($data);
-
+    
                                 if ($isNewChapter->wasRecentlyCreated) {
                                     $newChapters[] = $isNewChapter;
                                 }
@@ -96,21 +95,23 @@ class ScanMangaChapterService
                         }else {
                             break; // add this break so it will exit the foreach if no latest chapters found
                         }
-                    }
-                }else {
-                    $duplicate = modelInstance('Chapter')
+                    }else {
+                        // not numeric
+                        $duplicate = modelInstance('Chapter')
                                         ->where('chapter', $data['chapter'])
                                         ->where('manga_id', $data['manga_id'])
                                         ->notInvalidLink()
                                         ->first();
-                    if (!$duplicate) {
-                        $isNewChapter = modelInstance('Chapter')->firstOrCreate($data);
+                        if (!$duplicate) {
+                            $isNewChapter = modelInstance('Chapter')->firstOrCreate($data);
 
-                        if ($isNewChapter->wasRecentlyCreated) {
-                            $newChapters[] = $isNewChapter;
+                            if ($isNewChapter->wasRecentlyCreated) {
+                                $newChapters[] = $isNewChapter;
+                            }
                         }
                     }
-                }
+                }// end if currentChapter == null
+
             }// loop links
         }// loop sources
 

@@ -183,7 +183,23 @@ class MangaCrudController extends CrudController
 
     private function filters()
     {
-        $this->simpleFilter('add_scope_myBookmarked', null);
+        // $this->simpleFilter('add_scope_myBookmarked', null);
+
+        $col = 'add_scope_show';
+        $this->crud->addFilter([
+            'name' => $col,
+            'type' => 'select2', 
+            'label' => convertColumnToHumanReadable($col),
+        ], 
+        [
+            // Scope are from the interaction package
+            'whereBookmarkedBy' => 'Bookmark',
+            'whereNotBookmarkedBy' => 'Unbookmark',
+        ],
+        function ($value) { // if the filter is active
+            $this->crud->query->{$value}(auth()->user());
+        });
+
 
         $this->select2FromArrayFilter('type_id', $this->fetchType()->pluck('name', 'id')->toArray());
     }

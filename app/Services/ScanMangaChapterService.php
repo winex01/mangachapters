@@ -21,7 +21,8 @@ class ScanMangaChapterService
     {
         $this->manga = $manga;
         
-        $this->client = new Client();
+        // $this->client = new Client();
+        $this->client = new Client(HttpClient::create(['verify_peer' => false, 'verify_host' => false]));
     
         $this->proxy = new GetProxyService();
     }
@@ -53,7 +54,6 @@ class ScanMangaChapterService
             $proxy = 'http://'.$this->proxy->random();
 
             // dump($proxy);
-            $client = new Client(HttpClient::create(['verify_peer' => false, 'verify_host' => false]));
             $crawler = $this->client->request('GET', $source->url, ['proxy' => $proxy]);
             $links = $crawler->filter($source->scanFilter->filter)->links();
 

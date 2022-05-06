@@ -9,7 +9,7 @@
             $title = 'Unbookmark';
             $textColor = 'text-danger';
         }else {
-            $icon = '<i class="las la-heart"></i>';
+            $icon = '<i class="las la-bookmark"></i>';
             $title = 'Bookmark';
             $textColor = 'text-success';
         }
@@ -25,6 +25,7 @@
         data-button-type="bookmarkToggle"
     >
         {!! $icon !!}
+        {{ $title }}
     </a>
 @endif
 

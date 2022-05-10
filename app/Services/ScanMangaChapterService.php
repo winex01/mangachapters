@@ -77,7 +77,7 @@ class ScanMangaChapterService
                     $firstEverMangaChapter = true;
                     break;
                 }else {
-                    if (is_numeric($data['chapter'])) {
+                    if (is_numeric($data['chapter']) && is_numeric($currentChapter->chapter)) {
                         if ($currentChapter->chapter < $data['chapter']) {
                             $duplicate = modelInstance('Chapter')
                                         ->where('chapter', $data['chapter'])

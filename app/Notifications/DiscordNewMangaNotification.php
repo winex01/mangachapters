@@ -41,6 +41,6 @@ class DiscordNewMangaNotification extends Notification
 
     private function getMessage() 
     {
-        return 'New '.$this->manga->type->name.': '.$this->manga->title.' - '.$this->manga->alternative_title;
+        return '```New '.strtolower($this->manga->type->name).': '.$this->manga->title.' - '.$this->manga->alternative_title.' ```';
     }
 }

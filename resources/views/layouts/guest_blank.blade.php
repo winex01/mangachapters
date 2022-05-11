@@ -40,6 +40,10 @@
         </li>
 
         <li class="nav-item">
+          <a class="nav-link" href="{{ config('appsettings.discord_link') }}">Discord</a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" href="{{ config('appsettings.social_media') }}">Social</a>
         </li>
 

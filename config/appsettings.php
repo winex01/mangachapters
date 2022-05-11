@@ -24,6 +24,9 @@ return [
     // backpack advanced -> settings
     'social_media' => null,
 
+    // backpack advanced -> settings
+    'discord_link' => null,
+
     // attachments file limit in KB
     'attachment_file_limit' => 500, 
 

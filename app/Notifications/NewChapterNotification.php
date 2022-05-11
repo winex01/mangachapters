@@ -4,6 +4,8 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\Discord\DiscordChannel; 
+use NotificationChannels\Discord\DiscordMessage;
 
 class NewChapterNotification extends Notification
 {
@@ -29,7 +31,10 @@ class NewChapterNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return [
+            'database',
+            DiscordChannel::class,
+        ];
     }
 
     /**
@@ -45,5 +50,15 @@ class NewChapterNotification extends Notification
             'model' => $this->chapter->model,
             'id' => $this->chapter->id,
         ];
+    }
+
+    public function toDiscord($notifiable)
+    {
+        return DiscordMessage::create($this->getMessage());
+    }
+
+    private function getMessage() 
+    {
+        return '```'.$this->chapter->manga->title.': Chapter '.$this->chapter->chapter.'! ```' .$this->chapter->url;
     }
 }

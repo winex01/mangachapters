@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\Models\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Chapter extends Model
 {
+    use Notifiable;
+
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
     /*
@@ -30,6 +33,10 @@ class Chapter extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public function routeNotificationForDiscord()
+    {
+        return config('appsettings.discord_chapter_channel_id');
+    }
 
     /*
     |--------------------------------------------------------------------------

@@ -166,6 +166,8 @@ return [
         /*
          * Package Service Providers...
          */
+        #https://mikey.dev/posts/2021/10/18/discord-notifications-laravel.html
+        NotificationChannels\Discord\DiscordServiceProvider::class, 
 
         /*
          * Application Service Providers...

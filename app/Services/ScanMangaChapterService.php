@@ -77,6 +77,8 @@ class ScanMangaChapterService
                     $firstEverMangaChapter = true;
                     break;
                 }else {
+                    // debug($data['chapter'] .' -- '. $currentChapter->chapter);
+
                     if (is_numeric($data['chapter']) && is_numeric($currentChapter->chapter)) {
                         if ($currentChapter->chapter < $data['chapter']) {
                             $duplicate = modelInstance('Chapter')
@@ -96,6 +98,9 @@ class ScanMangaChapterService
                             break; // add this break so it will exit the foreach if no latest chapters found
                         }
                     }else {
+
+                        debug('here');
+
                         // not numeric
                         $duplicate = modelInstance('Chapter')
                                         ->where('chapter', $data['chapter'])
@@ -109,6 +114,8 @@ class ScanMangaChapterService
                                 $newChapters[] = $isNewChapter;
                             }
                         }
+
+                        break; // add this break so it will only insert 1 non numeric chapter. bec. non numeric chapter is seldom
                     }
                 }// end if currentChapter == null
 

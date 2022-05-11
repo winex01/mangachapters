@@ -2,18 +2,20 @@
 
 namespace App\Providers;
 
+use App\Listeners\LogUserLogin;
 use App\Events\NewChapterScanned;
 use Illuminate\Auth\Events\Login;
+use App\Events\NewMangaOrNovelAdded;
 use App\Listeners\SendWelcomeMessage;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Events\ResendEmailVerification;
 use App\Listeners\AssignNormalUserRole;
-use App\Listeners\LogUserLogin;
 use App\Listeners\SendAdminNewUserNotification;
 use App\Listeners\SendUserNewChapterNotification;
 use App\Listeners\SendEmailVerificationNotification;
 use App\Listeners\ResendEmailVerificationNotification;
+use App\Listeners\SendDiscordNewChapterNotification;
+use App\Listeners\SendDiscordNewMangaNovelNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -45,6 +47,12 @@ class EventServiceProvider extends ServiceProvider
         NewChapterScanned::class => [
             //* Not Queue
             SendUserNewChapterNotification::class,
+            SendDiscordNewChapterNotification::class,
+        ],
+
+        NewMangaOrNovelAdded::class => [
+            //* Not Queue
+            SendDiscordNewMangaNovelNotification::class,
         ],
         
         Login::class => [

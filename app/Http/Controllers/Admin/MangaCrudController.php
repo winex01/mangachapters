@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\NewMangaOrNovelAdded;
 use Backpack\CRUD\app\Library\Widget;
 use App\Http\Requests\MangaCreateRequest;
 use App\Http\Requests\MangaUpdateRequest;
@@ -16,7 +17,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class MangaCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
@@ -156,6 +157,17 @@ class MangaCrudController extends CrudController
     {
         CRUD::setValidation(MangaUpdateRequest::class);
         $this->customInputs();
+    }
+
+    public function store()
+    {
+        // do something before validation, before save, before everything
+        $response = $this->traitStore();
+        // do something after save
+
+        event(new NewMangaOrNovelAdded($this->data['entry']));
+
+        return $response;
     }
 
     private function customInputs()

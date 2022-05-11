@@ -80,4 +80,7 @@ return [
     'log_user_login' => env('LOG_USER_LOGIN', false),
 
     'telescope_enabled' => env('TELESCOPE_ENABLED', false),
+
+    'discord_manga_channel_id' => env('DISCORD_MANGA_CHANNEL_ID', false),
+    'discord_chapter_channel_id' => env('DISCORD_CHAPTER_CHANNEL_ID', false),
 ];

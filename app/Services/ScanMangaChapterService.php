@@ -77,7 +77,7 @@ class ScanMangaChapterService
                     $firstEverMangaChapter = true;
                     break;
                 }else {
-                    if (is_numeric($data['chapter'])) {
+                    if (is_numeric($data['chapter']) && is_numeric($currentChapter->chapter)) {
                         if ($currentChapter->chapter < $data['chapter']) {
                             $duplicate = modelInstance('Chapter')
                                         ->where('chapter', $data['chapter'])
@@ -137,6 +137,11 @@ class ScanMangaChapterService
             $chapter = explode('chapter_', $scrapUrl);
             $chapter = $chapter[1];
         }
+        elseif (stringContains($scrapUrl, 'www.webtoons.com')) {
+			$chapter = explode('episode-', $scrapUrl);
+		  	$chapter = explode('/', $chapter[1]);
+		  	$chapter = $chapter[0];
+		}
         else {
             $chapter = str_replace($sourceUrl, '', $scrapUrl);
         }

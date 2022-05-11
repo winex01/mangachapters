@@ -31,6 +31,10 @@ class Type extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function mangas()
+    {
+        return $this->hasMany(\App\Models\Manga::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

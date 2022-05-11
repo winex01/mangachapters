@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Models\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Illuminate\Notifications\Notifiable;
 
 class Manga extends Model
 {
-    use HasSlug;
+    use HasSlug, Notifiable;
 
     use \Illuminate\Database\Eloquent\SoftDeletes;
     use \LaravelInteraction\Bookmark\Concerns\Bookmarkable;
@@ -48,6 +49,11 @@ class Manga extends Model
 
     }
 
+    public function routeNotificationForDiscord()
+    {
+        return config('appsettings.discord_manga_channel_id');
+    }
+
     /**
      * Get the options for generating the slug.
      */
@@ -79,6 +85,11 @@ class Manga extends Model
     public function sources()
     {
         return $this->hasMany(\App\Models\Source::class);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(\App\Models\Type::class);
     }
     /*
     |--------------------------------------------------------------------------

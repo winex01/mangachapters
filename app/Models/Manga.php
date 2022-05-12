@@ -144,9 +144,10 @@ class Manga extends Model
 
             $title = $this->title. '<span class="badge badge-success align-middle" title="Novel">N</span>';
         }
-     
-        return '<a href="'.linkToShow('manga', $this->id).'">'.$title.'</a>';
+        
+        return $title;
     }
+
 
     public function getChapterListsInHtmlAttribute()
     {

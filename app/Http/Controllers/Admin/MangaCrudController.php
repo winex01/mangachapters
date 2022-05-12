@@ -89,7 +89,7 @@ class MangaCrudController extends CrudController
         $this->crud->modifyColumn('title', [
             'type'     => 'closure',
             'function' => function($entry) {
-                return $entry->titleInHtml;
+                return '<a href="'.linkToShow('manga', $entry->id).'">'.$entry->titleInHtml.'</a>';
             },
             'searchLogic' => function ($query, $column, $searchTerm) {
                 $query->orWhere('title', 'like', "%$searchTerm%");

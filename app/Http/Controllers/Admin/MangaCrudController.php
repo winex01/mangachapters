@@ -121,6 +121,10 @@ class MangaCrudController extends CrudController
 
         $this->filters();
         $this->widgets();
+
+        //remove show/preview button in stack
+        $this->crud->removeButtonFromStack('show', 'line');
+
     }
 
     protected function setupShowOperation()
@@ -132,6 +136,15 @@ class MangaCrudController extends CrudController
         $this->crud->modifyColumn('photo', [
             'height' => '300px',
             'width'  => '200px',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'chapter_list',
+            'label' => 'Chapter List',
+            'type'     => 'closure',
+            'function' => function($entry) {
+                return $entry->chapterListsInHtml;
+            }
         ]);
     }
 

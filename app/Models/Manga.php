@@ -138,12 +138,36 @@ class Manga extends Model
 
     public function getTitleInHtmlAttribute()
     {   
+        $title = $this->title;
+
         if ($this->type_id == 2) {
 
-            return $this->title. '<span class="badge badge-success align-middle" title="Novel">N</span>';
+            $title = $this->title. '<span class="badge badge-success align-middle" title="Novel">N</span>';
         }
      
-        return $this->title;
+        return '<a href="'.linkToShow('manga', $this->id).'">'.$title.'</a>';
+    }
+
+    public function getChapterListsInHtmlAttribute()
+    {
+        $chapters = $this->chapters()->orderByRelease()->simplePaginate(config('appsettings.home_chapters_entries')); 
+
+        $html = '';
+        foreach ($chapters as $chapter) {
+            $link = anchorNewTab($chapter->url, trans('lang.chapter_description', [
+                'chapter' => $chapter->chapter, 
+                'release' => $chapter->release, 
+            ]));
+
+            $html .= $link;
+            $html .= '<br>'; 
+        } 
+
+        $html .= '<div class="mb-1 mt-2">';
+        $html .= $chapters->links();
+        $html .= '</div>';
+
+        return $html;
     }
     /*
     |--------------------------------------------------------------------------

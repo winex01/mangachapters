@@ -71,6 +71,10 @@ class ScanMangaChapterService
             foreach ($links as $link) {
                 $data = $this->prepareData($this->manga->id, $link->getUri(), $source->url);
 
+                if (!$data) {
+                    continue;
+                }
+
                 // manga has no chapters yet, then after saving the latest chapter then exist loop.
                 if ($currentChapter == null) {
                     $newChapters[] = modelInstance('Chapter')->create($data);
@@ -135,12 +139,24 @@ class ScanMangaChapterService
 
     private function prepareData($mangaId, $scrapUrl, $sourceUrl)
     {
+        //only allow links that has `chapter-` in readlightnovel.me website
+  		if (stringContains($scrapUrl, 'www.readlightnovel.me')) {
+			if (!stringContains($scrapUrl, 'chapter-')) {
+				return;
+			}
+		}
+
+
         if (stringContains($scrapUrl, 'chapter-')) {
             // dash
             $chapter = explode('chapter-', $scrapUrl);
             $chapter = $chapter[1];
-            preg_match('/(\d+(\.\d+)?)/',$chapter, $chapter);
-		  	$chapter = $chapter[1];
+            preg_match('/(\d+(\.\d+)?)/',$chapter, $temp);
+		  	
+		  	if (!empty($temp)) {
+				$chapter = $temp[1];	
+			}
+            
         }elseif (stringContains($scrapUrl, 'chapter_')) {
             // underscore
             $chapter = explode('chapter_', $scrapUrl);

@@ -135,16 +135,12 @@ class ScanMangaChapterService
 
     private function prepareData($mangaId, $scrapUrl, $sourceUrl)
     {
-        if (stringContains($scrapUrl, 'noveltop1.com')) {
-            $chapter = explode('chapter-', $scrapUrl);
-            $chapter = $chapter[1];
-			preg_match('/(\d+(\.\d+)?)/',$chapter, $chapter);
-		    $chapter = $chapter[1];	  
-        }
-        elseif (stringContains($scrapUrl, 'chapter-')) {
+        if (stringContains($scrapUrl, 'chapter-')) {
             // dash
             $chapter = explode('chapter-', $scrapUrl);
             $chapter = $chapter[1];
+            preg_match('/(\d+(\.\d+)?)/',$chapter, $chapter);
+		  	$chapter = $chapter[1];
         }elseif (stringContains($scrapUrl, 'chapter_')) {
             // underscore
             $chapter = explode('chapter_', $scrapUrl);

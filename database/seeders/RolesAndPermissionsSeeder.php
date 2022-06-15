@@ -140,10 +140,7 @@ class RolesAndPermissionsSeeder extends Seeder
         ],
 
         'notifications' => [
-            'notifications_list',
-            'notifications_show',
-            'notifications_delete',
-            'notifications_bulk_delete',
+            'notifications_list'
         ],
     ];
 

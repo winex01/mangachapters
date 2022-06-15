@@ -39,6 +39,17 @@ class NotificationCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->showColumns();
+
+        $this->crud->modifyColumn('read_at', [
+            'type'     => 'closure',
+            'function' => function($entry) {
+                if ($entry->read_at) {
+                    return badge('badge-success', 'Yes');
+                }
+                
+                return badge('badge-danger', 'No');
+            }
+        ]);
     }
     
 }

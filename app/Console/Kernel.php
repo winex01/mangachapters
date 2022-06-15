@@ -36,6 +36,8 @@ class Kernel extends ConsoleKernel
         if (config('appsettings.telescope_enabled')) {
             $schedule->command('telescope:prune --hours=48')->daily();
         }
+
+        $schedule->command('model:prune')->daily();
     }
 
     /**

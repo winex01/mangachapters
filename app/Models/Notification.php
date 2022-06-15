@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use App\Models\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\MassPrunable;
 
 class Notification extends Model
 {
+    use MassPrunable;
+
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
@@ -25,6 +29,13 @@ class Notification extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+
+    //* https://medium.com/code16/automatically-delete-read-database-notifications-in-laravel-59871ee3c98
+    public function prunable(): Builder
+    {
+        return static::whereNotNull('read_at');
+    }
+
 
     /*
     |--------------------------------------------------------------------------

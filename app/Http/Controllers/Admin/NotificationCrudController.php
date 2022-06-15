@@ -14,9 +14,6 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class NotificationCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
 
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
@@ -42,14 +39,6 @@ class NotificationCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->showColumns();
-
-        $this->crud->modifyColumn('type', [
-            'type'     => 'closure',
-            'function' => function($entry) {
-                $temp = str_replace('App\Notifications\\', '', $entry->type);
-                return convertColumnToHumanReadable($temp);
-            }
-        ]);
     }
     
 }

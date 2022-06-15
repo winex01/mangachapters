@@ -138,6 +138,13 @@ class RolesAndPermissionsSeeder extends Seeder
             'bookmarks_export',
             'bookmarks_bookmark_toggle',
         ],
+
+        'notifications' => [
+            'notifications_list',
+            'notifications_show',
+            'notifications_delete',
+            'notifications_bulk_delete',
+        ],
     ];
 
     /**

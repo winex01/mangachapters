@@ -14,3 +14,7 @@
 	  </ol>
 	</nav>
 @endif
+
+
+{{-- ads adstera --}}
+@include(backpack_view('inc.ads'))

@@ -381,7 +381,7 @@ if (! function_exists('booleanOptions')) {
 */
 if (! function_exists('anchorNewTab')) {
 	function anchorNewTab($url, $label, $title = null) {
-		return '<a class="'.config('appsettings.link_color').'" title="'.$title.'" href="'.url($url).'" target="_blank">'.$label.'</a>';
+		return '<a class="'.config('appsettings.link_color').'" title="'.$title.'" href="'.url($url).'">'.$label.'</a>';
 	}
 }
 
@@ -519,7 +519,7 @@ if (! function_exists('jsonToLinkImplode')) {
 	function jsonToLinkImplode($json, $obj, $separator = ',<br>') {
 		$temp = collect(json_decode($json))->map(function ($item, $key) use ($obj, $separator) {
 			$url = $item->{$obj};
-			return '<a href="'.url($url).'" target="_blank">'.$url.'</a>';
+			return '<a href="'.url($url).'">'.$url.'</a>';
 		})->toArray();
                 
 		return implode($separator, $temp);

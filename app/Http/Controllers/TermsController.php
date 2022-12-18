@@ -13,7 +13,7 @@ class TermsController extends Controller
         $title = 'Terms and conditions';
         $tempArray = [];
         $url = url()->current();
-        $img = asset('images/logo.svg');
+        $img = asset('images/WINEX2.png');
         $type = $title;
         $description = 'Welcome aboard.';
         $description .= ' Welcome to '.config('app.name').'.';

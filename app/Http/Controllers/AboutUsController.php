@@ -13,7 +13,7 @@ class AboutUsController extends Controller
         $title = 'About-Us';
         $tempArray = [];
         $url = url()->current();
-        $img = asset('images/logo.svg');
+        $img = asset('images/WINEX2.png');
         $type = $title;
         $description = 'Hi, I’m Winnie the creator of '.config('app.name').'.';
         $description .= ' The main purpose of this website is to help people like me';

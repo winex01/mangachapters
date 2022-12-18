@@ -19,7 +19,7 @@ class ContactController extends Controller
         $tempArray = [];
         $description = config('appsettings.app_slogan');
         $url = url()->current();
-        $img = asset('images/logo.svg');
+        $img = asset('images/WINEX2.png');
         $type = $title;
 
         SEOMeta::setTitle($title);

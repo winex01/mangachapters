@@ -6,8 +6,8 @@
   
   <nav class="container navbar navbar-expand-lg navbar-dark bg-dark rounded shadow-sm">
     <a class="navbar-brand" href="/">
-      <img class="mr-n1 ml-n2" src="{{ asset('images/logo.svg') }}" alt="" width="50" height="50">
-      {{ config('appsettings.app_name') }}
+      <img class="mr-n1 ml-n2" src="{{ asset('images/WINEX2.png') }}" alt="" width="150" height="73">
+      {{-- {{ config('appsettings.app_name') }} --}}
     </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">

@@ -187,11 +187,15 @@ class ScanMangaChapterService
         // support mangatown
         $chapter = str_replace('c', '', $chapter);
         
-        return [
+        $data = [
             'manga_id' => $mangaId,
             'chapter' => $chapter,
             'url' => $scrapUrl,
         ];
+
+        // dump($data);
+
+        return $data;
     }
 
 }

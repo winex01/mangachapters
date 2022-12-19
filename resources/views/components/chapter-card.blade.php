@@ -14,7 +14,8 @@
 
     
         {!! anchorNewTab($chapter->url, trans('lang.chapter_description', [
-            'chapter' => $chapter->chapter, 
+            // 'chapter' => $chapter->chapter, 
+            'chapter' => str_limit($chapter->chapter, 5), 
             'release' => $chapter->release, 
         ]) ) !!}
 

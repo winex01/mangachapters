@@ -137,7 +137,7 @@ class ScanMangaChapterService
         return $newChapters;
     }
 
-    private function prepareData($mangaId, $scrapUrl, $sourceUrl)
+    public function prepareData($mangaId, $scrapUrl, $sourceUrl)
     {
         //only allow links that has `chapter-` in readlightnovel.me website
   		if (stringContains($scrapUrl, 'www.readlightnovel.me')) {

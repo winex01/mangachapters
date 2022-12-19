@@ -151,11 +151,13 @@ class ScanMangaChapterService
             // dash
             $chapter = explode('chapter-', $scrapUrl);
             $chapter = $chapter[1];
-            preg_match('/(\d+(\.\d+)?)/',$chapter, $temp);
+            
+            // NOTE:: comment for now forgot what this for .ahahah
+            // preg_match('/(\d+(\.\d+)?)/',$chapter, $temp);
 		  	
-		  	if (!empty($temp)) {
-				$chapter = $temp[1];	
-			}
+		  	//if (!empty($temp)) {
+				// $chapter = $temp[1];	
+			// }
             
         }elseif (stringContains($scrapUrl, 'chapter_')) {
             // underscore

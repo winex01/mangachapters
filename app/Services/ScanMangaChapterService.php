@@ -137,7 +137,7 @@ class ScanMangaChapterService
         return $newChapters;
     }
 
-    private function prepareData($mangaId, $scrapUrl, $sourceUrl)
+    public function prepareData($mangaId, $scrapUrl, $sourceUrl)
     {
         //only allow links that has `chapter-` in readlightnovel.me website
   		if (stringContains($scrapUrl, 'www.readlightnovel.me')) {
@@ -151,11 +151,13 @@ class ScanMangaChapterService
             // dash
             $chapter = explode('chapter-', $scrapUrl);
             $chapter = $chapter[1];
-            preg_match('/(\d+(\.\d+)?)/',$chapter, $temp);
+            
+            // NOTE:: comment for now forgot what this for .ahahah
+            // preg_match('/(\d+(\.\d+)?)/',$chapter, $temp);
 		  	
-		  	if (!empty($temp)) {
-				$chapter = $temp[1];	
-			}
+		  	//if (!empty($temp)) {
+				// $chapter = $temp[1];	
+			// }
             
         }elseif (stringContains($scrapUrl, 'chapter_')) {
             // underscore
@@ -187,11 +189,15 @@ class ScanMangaChapterService
         // support mangatown
         $chapter = str_replace('c', '', $chapter);
         
-        return [
+        $data = [
             'manga_id' => $mangaId,
             'chapter' => $chapter,
             'url' => $scrapUrl,
         ];
+
+        // dump($data);
+
+        return $data;
     }
 
 }

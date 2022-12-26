@@ -6,7 +6,7 @@
   
   <nav class="container navbar navbar-expand-lg navbar-dark bg-dark rounded shadow-sm">
     <a class="navbar-brand" href="/">
-      <img class="mr-n1 ml-n2" src="{{ asset('images/WINEX2.png') }}" alt="" width="150" height="73">
+      <img class="mr-n1 ml-n2" src="{{ asset('images/winexhub.png') }}" alt="" width="150" height="73">
       {{-- {{ config('appsettings.app_name') }} --}}
     </a>
 

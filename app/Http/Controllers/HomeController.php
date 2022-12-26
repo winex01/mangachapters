@@ -30,7 +30,7 @@ class HomeController extends Controller
         $tempArray = [];
         $description = config('appsettings.app_slogan');
         $url = url()->current();
-        $img = asset('images/WINEX2.png');
+        $img = asset('images/winexhub.png');
         $type = $title;
 
         SEOMeta::setTitle($title);

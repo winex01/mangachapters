@@ -33,7 +33,7 @@ class Notification extends Model
     //* https://medium.com/code16/automatically-delete-read-database-notifications-in-laravel-59871ee3c98
     public function prunable(): Builder
     {
-        return static::whereNotNull('read_at')->orWhere('created_at', '<', now()->subMonths(3));
+        return static::whereNotNull('read_at')->orWhere('created_at', '<', now()->subMonths(6));
     }
 
 

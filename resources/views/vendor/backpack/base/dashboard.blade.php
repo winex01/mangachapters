@@ -80,15 +80,22 @@
                     ->simplePaginate(config('appsettings.home_chapters_entries'));
     @endphp
 
-    <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <h6 class="border-bottom border-gray pb-2 mb-0">
-            {{ trans('lang.notifications') }}
-            
-            @if (count($notifications))
-                <a class="text-muted" href="javascript:void(0)" id="mark-all-as-read">{{ trans('lang.chapter_mark_all_as_read') }}</a>
-            @endif
 
-        </h6>
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    
+    <div class="row mb-n2" style="margin-top: -43px;">
+        <x-donate-paypal></x-donate-paypal>
+    </div>
+    
+    <h6 class="border-bottom border-gray pb-2 mb-0">
+        {{ trans('lang.notifications') }}
+        
+        @if (count($notifications))
+            <a class="text-muted" href="javascript:void(0)" id="mark-all-as-read">{{ trans('lang.chapter_mark_all_as_read') }}</a>
+        @endif
+        
+    </h6>
+        
 
         @foreach ($notifications->chunk(3) as $notification)
 

@@ -86,6 +86,11 @@
     <div class="row mb-n2" style="margin-top: -43px;">
         <x-donate-paypal></x-donate-paypal>
     </div>
+
+    <div class="alert alert-info" role="alert">
+        <a href="auth/contact" class="alert-link font-weight-bold">Contact us</a>
+        if you notice broken Manga/Novel that does't receive any updates for a while. Sometimes web scrapper get blocked by the source.
+    </div>
     
     <h6 class="border-bottom border-gray pb-2 mb-0">
         {{ trans('lang.notifications') }}

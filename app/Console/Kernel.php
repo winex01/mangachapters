@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('winex:scan-chapters')->everyFifteenMinutes()->withoutOverlapping(15);
+        $schedule->command('winex:scan-chapters')->everyThirtyMinutes();//->withoutOverlapping(15);
         // $schedule->command('winex:proxy-notice')->daily()->weekly();	
 
         $schedule->command('backup:clean')->daily()->at('11:00');

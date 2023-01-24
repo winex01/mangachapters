@@ -45,9 +45,6 @@ class ScanMangaChapterService
                 break;
             }
 
-            // sleep foreach sources 1 second
-            // sleep(1);
-
             // get my current chapter, check last chapter entries of that manga_id, if no data then save only the first links
             $currentChapter = $this->manga->latestChapter;
 
@@ -103,7 +100,7 @@ class ScanMangaChapterService
                         }
                     }else {
 
-                        debug('here');
+                        // debug('here');
 
                         // not numeric
                         $duplicate = modelInstance('Chapter')

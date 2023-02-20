@@ -134,8 +134,8 @@
             @endif
         </small>
 
-    </div>
-    {{-- End Chapter Notification --}}
+</div>
+{{-- End Chapter Notification --}}
 
 @endsection
 

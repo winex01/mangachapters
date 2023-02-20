@@ -47,7 +47,7 @@ class EventServiceProvider extends ServiceProvider
         NewChapterScanned::class => [
             //* Not Queue
             SendUserNewChapterNotification::class,
-            SendDiscordNewChapterNotification::class,
+            // SendDiscordNewChapterNotification::class,
         ],
 
         NewMangaOrNovelAdded::class => [

@@ -50,9 +50,15 @@ class ScanMangaChapterService
 
             $proxy = 'http://'.$this->proxy->random();
 
-            // dump($proxy);
-            $crawler = $this->client->request('GET', $source->url, ['proxy' => $proxy]);
-            $links = $crawler->filter($source->scanFilter->filter)->links();
+            try {
+                // dump($proxy);
+                $crawler = $this->client->request('GET', $source->url, ['proxy' => $proxy]);
+                $links = $crawler->filter($source->scanFilter->filter)->links();
+
+            } catch (\Exception $e) {
+                Log::warning('INVALID SOURCE', $e);
+                continue; // if source url is error then go to the next loop/source
+            }
 
             // send logs if source is no longer working
             if (!$links || empty($links)) {

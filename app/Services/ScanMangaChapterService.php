@@ -56,7 +56,7 @@ class ScanMangaChapterService
                 $links = $crawler->filter($source->scanFilter->filter)->links();
 
             } catch (\Exception $e) {
-                Log::warning('INVALID SOURCE', $e);
+                Log::warning('INVALID SOURCE', (array)$e);
                 continue; // if source url is error then go to the next loop/source
             }
 

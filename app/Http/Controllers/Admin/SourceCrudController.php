@@ -51,6 +51,10 @@ class SourceCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+
+        // add this closure to fix error when manga of the source is deleted/soft deleted not sure
+        $this->crud->query->whereHas('manga');
+
         $this->showColumns();
         $this->showRelationshipColumn('manga_id', 'titleInHtml');
         $this->showRelationshipColumn('scan_filter_id');

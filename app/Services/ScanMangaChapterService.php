@@ -78,7 +78,7 @@ class ScanMangaChapterService
                     continue;
                 }
 
-                // manga has no chapters yet, then after saving the latest chapter then exist loop.
+                // manga has no chapters yet, then after saving the latest chapter then exit loop.
                 if ($currentChapter == null) {
                     $newChapters[] = modelInstance('Chapter')->create($data);
                     $firstEverMangaChapter = true;

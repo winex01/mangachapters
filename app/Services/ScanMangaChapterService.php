@@ -70,6 +70,8 @@ class ScanMangaChapterService
                 Log::warning('INVALID SOURCE', $tempLog);
             }
 
+
+            $tempScanChapters = [];
             // web crawled website links
             foreach ($links as $link) {
                 $data = $this->prepareData($this->manga->id, $link->getUri(), $source->url);
@@ -80,12 +82,11 @@ class ScanMangaChapterService
 
                 // manga has no chapters yet, then after saving the latest chapter then exit loop.
                 if ($currentChapter == null) {
-                    $newChapters[] = modelInstance('Chapter')->create($data);
-                    $firstEverMangaChapter = true;
+                    // $newChapters[] = modelInstance('Chapter')->create($data);
+                    $tempScanChapters[] = $data;
+                    $firstEverMangaChapter = true; // this is use if manga has multiple source and if it's his first chapter then dont scan the rest of sources
                     break;
                 }else {
-                    debug($data['chapter'] .' -- '. $currentChapter->chapter);
-
                     if (is_numeric($data['chapter']) && is_numeric($currentChapter->chapter)) {
                         if ($currentChapter->chapter < $data['chapter']) {
                             $duplicate = modelInstance('Chapter')
@@ -95,19 +96,12 @@ class ScanMangaChapterService
                                         ->first();
                             
                             if (!$duplicate) {
-                                $isNewChapter = modelInstance('Chapter')->firstOrCreate($data);
-    
-                                if ($isNewChapter->wasRecentlyCreated) {
-                                    $newChapters[] = $isNewChapter;
-                                }
+                                $tempScanChapters[] = $data;
                             }
                         }else {
                             break; // add this break so it will exit the foreach if no latest chapters found
                         }
                     }else {
-
-                        // debug('here');
-
                         // not numeric
                         $duplicate = modelInstance('Chapter')
                                         ->where('chapter', $data['chapter'])
@@ -115,18 +109,56 @@ class ScanMangaChapterService
                                         ->notInvalidLink()
                                         ->first();
                         if (!$duplicate) {
-                            $isNewChapter = modelInstance('Chapter')->firstOrCreate($data);
-
-                            if ($isNewChapter->wasRecentlyCreated) {
-                                $newChapters[] = $isNewChapter;
-                            }
+                            $tempScanChapters[] = $data;
                         }
 
                         break; // add this break so it will only insert 1 non numeric chapter. bec. non numeric chapter is seldom
                     }
                 }// end if currentChapter == null
 
+
             }// loop links
+
+
+            if (!empty($tempScanChapters)) {
+
+                // laravel collection reverse array sort
+                $tempScanChapters = collect($tempScanChapters)->reverse()->toArray();
+    
+                // below is temporary vars for this foreach
+                $tempCurrentChapter = $currentChapter->chapter;
+                $tempArrayChapters = [];
+                foreach ($tempScanChapters as $tempScan) {
+                    
+                    if (is_numeric($tempScan['chapter']) && is_numeric($tempCurrentChapter)) {
+                        if ($tempCurrentChapter < $tempScan['chapter']) {
+                            
+                            $difference = abs($tempScan['chapter'] - $tempCurrentChapter);
+                            
+                            if ($difference > 0 && $difference <= 1){
+                                $tempArrayChapters[] = $tempScan;
+                                $tempCurrentChapter = $tempScan['chapter'];
+                            }
+                        }
+                    }// end if is_numeric
+    
+                }// end foreach $tempScanChapters
+    
+    
+                // insert chapters to DB
+                foreach ($tempArrayChapters as $tempArrayChapter) {
+                    // dump($tempArrayChapter);
+    
+                    $isNewChapter = modelInstance('Chapter')->firstOrCreate($tempArrayChapter);
+    
+                    if ($isNewChapter->wasRecentlyCreated) {
+                        $newChapters[] = $isNewChapter;
+                    }
+    
+                }// foreach $tempArrayChapters
+
+            }// end !empty $tempScanChapters
+
         }// loop sources
 
 

@@ -47,6 +47,14 @@
           <a class="nav-link" href="{{ config('appsettings.social_media') }}">Social</a>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link text-primary" href="/login">Login</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-success" href="/register">Register</a>
+        </li>
+
       </ul>
 
     </div>

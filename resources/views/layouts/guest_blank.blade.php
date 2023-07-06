@@ -51,7 +51,10 @@
 
     </div>
   </nav>
-
+  
+  {{-- https://adsterra.com/ --}}
+  <script async="async" data-cfasync="false" src="//safeglimmerlongitude.com/aa9d00f330b38584760fa45180d41e9d/invoke.js"></script>
+<div id="container-aa9d00f330b38584760fa45180d41e9d"></div>
 
   <div class="my-3 p-3 bg-white rounded shadow-sm">
     @unless (auth()->check())

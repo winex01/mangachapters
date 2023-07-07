@@ -214,6 +214,11 @@ class ScanMangaChapterService
             $chapter = str_replace($sourceUrl, '', $scrapUrl);
         }
         
+        //Remove String in chapter below.
+
+        // https://www.mangageko.com/
+        $chapter = str_replace('-eng-li', '', $chapter);
+
         // filter chapter with html or html extention
         for($i = 1; $i <= 3; $i++) {
             $chapter = str_replace($i.'.html', '', $chapter);

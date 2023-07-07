@@ -125,29 +125,35 @@ class ScanMangaChapterService
                 // laravel collection reverse array sort
                 $tempScanChapters = collect($tempScanChapters)->reverse()->toArray();
     
-                // below is temporary vars for this foreach
-                $tempCurrentChapter = $currentChapter->chapter;
                 $tempArrayChapters = [];
                 foreach ($tempScanChapters as $tempScan) {
-                    
-                    if (is_numeric($tempScan['chapter']) && is_numeric($tempCurrentChapter)) {
-                        if ($tempCurrentChapter < $tempScan['chapter']) {
-                            
-                            $difference = abs($tempScan['chapter'] - $tempCurrentChapter);
-                            
-                            if ($difference > 0 && $difference <= 1){
-                                $tempArrayChapters[] = $tempScan;
-                                $tempCurrentChapter = $tempScan['chapter'];
+
+                    // if it has chapter already in database 
+                    if (!$firstEverMangaChapter) {
+
+                        $tempCurrentChapter = $currentChapter->chapter;
+                        if (is_numeric($tempScan['chapter']) && is_numeric($tempCurrentChapter)) {
+                            if ($tempCurrentChapter < $tempScan['chapter']) {
+                                
+                                $difference = abs($tempScan['chapter'] - $tempCurrentChapter);
+                                
+                                if ($difference > 0 && $difference <= 1){
+                                    $tempArrayChapters[] = $tempScan;
+                                    $tempCurrentChapter = $tempScan['chapter'];
+                                }
                             }
-                        }
-                    }// end if is_numeric
+                        }// end if is_numeric
+                    }else {
+                         // if first ever chapter to be inserted in DB
+                        $tempArrayChapters[] = $tempScan;
+                    
+                    }// end if $firstEverMangaChapter
     
                 }// end foreach $tempScanChapters
     
-    
+
                 // insert chapters to DB
                 foreach ($tempArrayChapters as $tempArrayChapter) {
-                    // dump($tempArrayChapter);
     
                     $isNewChapter = modelInstance('Chapter')->firstOrCreate($tempArrayChapter);
     

@@ -62,6 +62,7 @@ class ContactController extends Controller
             ],
             'name' => 'required|max:255',
             'message' => 'required|min:10|max:999',
+            'g-recaptcha-response' => 'recaptcha',
         ]);
 
         // send notification

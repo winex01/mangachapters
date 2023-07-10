@@ -57,10 +57,12 @@
 
   <div class="my-3 p-3 bg-white rounded shadow-sm">
     @unless (auth()->check())
-      <div class="float-right">
-        <a class="text-primary" href="/login">Login</a>
-        <a class="text-success" href="/register">Register</a>
-      </div>
+      @unless( request()->is('password/*') || request()->is('login') || request()->is('register') )
+        <div class="float-right">
+          <a class="text-primary" href="/login">Login</a>
+          <a class="text-success" href="/register">Register</a>
+        </div>
+      @endif
     @endunless
 
     @yield('guest_blank_content')

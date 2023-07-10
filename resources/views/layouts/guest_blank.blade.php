@@ -40,14 +40,6 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ config('appsettings.discord_link') }}">Discord</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="{{ config('appsettings.social_media') }}">Social</a>
-        </li>
-
-        <li class="nav-item">
           <a class="nav-link text-primary" href="/login">Login</a>
         </li>
 
@@ -61,8 +53,7 @@
   </nav>
   
   {{-- https://adsterra.com/ --}}
-  <script async="async" data-cfasync="false" src="//safeglimmerlongitude.com/aa9d00f330b38584760fa45180d41e9d/invoke.js"></script>
-<div id="container-aa9d00f330b38584760fa45180d41e9d"></div>
+  @include(backpack_view('inc.ads'))
 
   <div class="my-3 p-3 bg-white rounded shadow-sm">
     @unless (auth()->check())

@@ -1,10 +1,17 @@
-@extends(backpack_view('layouts.plain'))
+{{-- @extends(backpack_view('layouts.plain')) --}}
+@extends('layouts.guest_blank')
 
-@section('content')
+
+@push('before_styles')
+{!! ReCaptcha::htmlScriptTagJsApi() !!}
+@endpush
+
+@section('guest_blank_content')
+{{-- @section('content') --}}
     <div class="row justify-content-center">
-        <div class="col-12 col-md-8 col-lg-4">
+        <div class="col-12 col-md-8 col-lg-6">
 
-            <x-home-button></x-home-button>
+            {{-- <x-home-button></x-home-button> --}}
 
             <h3 class="text-center mb-4">{{ trans('backpack::base.register') }}</h3>
             <div class="card">
@@ -68,6 +75,16 @@
                             </div>
                         </div>
 
+                        {{-- recaptcha --}}
+                        <div class="form-group ">
+                            @if($errors->has('g-recaptcha-response'))
+                            <div>
+                                <small class="text-danger">{{ $errors->first('g-recaptcha-response') }}</small>
+                            </div>
+                            @endif
+                            {!! htmlFormSnippet() !!} 
+                        </div>
+
                         <div class="form-group">
                             <div>
                                 <button type="submit" class="btn btn-block btn-success">
@@ -85,3 +102,4 @@
         </div>
     </div>
 @endsection
+

@@ -128,7 +128,7 @@ return [
      * Default 'validation.recaptcha'
      *
      */
-    'error_message_key' => "Please Check the Box, I Added CAPTCHA Because Their’s an Idiot Keep Spamming to Login, Registering or Messaging Using Bot.",
+    'error_message_key' => "Please check the box below to proceed.",
 
     /**
      *

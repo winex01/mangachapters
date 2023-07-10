@@ -12,10 +12,5 @@
         
       </center>
       
-      {{-- ads adstera --}}
-      <div class="row">
-        @include(backpack_view('inc.ads'))
-      </div>
-    
     </div>
 @endif

@@ -88,8 +88,8 @@
     </div>
 
     <div class="alert alert-info" role="alert">
-        <a href="auth/contact" class="alert-link font-weight-bold">Contact us</a>
-        if you notice broken Manga/Novel that does't receive any updates for a while. Sometimes web scrapper get blocked by the source.
+        <a href="auth/contact" class="alert-link font-weight-bold">Contact us here!</a>
+        If your Manga is not available so we can add it.
     </div>
     
     <h6 class="border-bottom border-gray pb-2 mb-0">

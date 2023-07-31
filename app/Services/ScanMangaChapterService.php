@@ -125,13 +125,14 @@ class ScanMangaChapterService
                 // laravel collection reverse array sort
                 $tempScanChapters = collect($tempScanChapters)->reverse()->toArray();
     
+                $tempCurrentChapter = $currentChapter->chapter;
+                
                 $tempArrayChapters = [];
                 foreach ($tempScanChapters as $tempScan) {
 
                     // if it has chapter already in database 
                     if (!$firstEverMangaChapter) {
 
-                        $tempCurrentChapter = $currentChapter->chapter;
                         if (is_numeric($tempScan['chapter']) && is_numeric($tempCurrentChapter)) {
                             if ($tempCurrentChapter < $tempScan['chapter']) {
                                 

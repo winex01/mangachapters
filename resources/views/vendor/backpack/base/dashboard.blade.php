@@ -87,6 +87,12 @@
         <x-donate-paypal></x-donate-paypal>
     </div>
 
+    <div class="alert alert-danger" role="alert">
+        <a href="auth/contact" class="alert-link font-weight-bold">Notice!</a>
+        The server was attacked and down for couple of hours and we restore the Backup file from 2023-08-13. That's why some of the already marked chapters came back.
+        We apologize and thank you for understanding.
+    </div>
+
     <div class="alert alert-info" role="alert">
         <a href="auth/contact" class="alert-link font-weight-bold">Contact us here!</a>
         If your Manga is not available so we can add it.

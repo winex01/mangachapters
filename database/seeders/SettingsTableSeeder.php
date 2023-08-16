@@ -88,6 +88,15 @@ class SettingsTableSeeder extends Seeder
             'field'       => '{"name":"value","label":"Link","type":"text"}',
             'active'      => 1,
         ],
+
+        [
+            'key'         => 'appsettings_dashboard_notice',
+            'name'        => 'appsettings.dashboard_notice',
+            'description' => 'Add alert-danger notice to dashboard.',
+            'value'       => '',
+            'field'       => '{"name":"value","label":"Message","type":"text"}',
+            'active'      => 1,
+        ],
     ];
 
     /**

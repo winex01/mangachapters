@@ -85,7 +85,7 @@ class ScanChapters extends Command
                 $this->getOutput()->progressAdvance();
 
                 // sleep foreach sources 1 second
-                // sleep(1);
+                sleep(1);
             }
 
             $this->getOutput()->progressFinish();

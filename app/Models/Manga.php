@@ -77,10 +77,21 @@ class Manga extends Model
     {
         return $this->hasOne(\App\Models\Chapter::class)
                 ->notInvalidLink()
-                ->orderBy('chapter', 'desc')
+                // ->orderBy('chapter', 'desc')
+                ->orderByRaw('CONVERT(chapter, SIGNED) desc')
                 ->orderBy('created_at', 'desc');
                 // ->latest(); // * use 2 line above instead of this
     }
+
+    // public function showOnlyLatestChapters($totalChapter = 5)
+    // {
+
+    //     return $this->chapters->where('invalid_link', '!=', true)
+    //                 ->orderByRaw('CONVERT(chapter, SIGNED) desc')
+    //                 ->orderBy('created_at', 'desc')
+    //                 ->take($totalChapter);
+    // }
+
 
     public function sources()
     {

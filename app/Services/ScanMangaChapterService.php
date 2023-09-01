@@ -48,6 +48,8 @@ class ScanMangaChapterService
             // get my current chapter, check last chapter entries of that manga_id, if no data then save only the first links
             $currentChapter = $this->manga->latestChapter;
 
+            // dump($currentChapter->toArray());
+
             $proxy = 'http://'.$this->proxy->random();
 
             try {
@@ -76,6 +78,9 @@ class ScanMangaChapterService
             foreach ($links as $link) {
                 $data = $this->prepareData($this->manga->id, $link->getUri(), $source->url);
 
+                // dump($data);
+                // dump('end of $data');
+
                 if (!$data) {
                     continue;
                 }
@@ -88,7 +93,7 @@ class ScanMangaChapterService
                     break;
                 }else {
                     if (is_numeric($data['chapter']) && is_numeric($currentChapter->chapter)) {
-                        if ($currentChapter->chapter < $data['chapter']) {
+                        if ($data['chapter'] > $currentChapter->chapter) {
                             $duplicate = modelInstance('Chapter')
                                         ->where('chapter', $data['chapter'])
                                         ->where('manga_id', $data['manga_id'])
@@ -119,8 +124,11 @@ class ScanMangaChapterService
 
             }// loop links
 
+            // dump($currentChapter);
 
             if (!empty($tempScanChapters)) {
+
+                // dump($tempScanChapters);
 
                 // laravel collection reverse array sort
                 $tempScanChapters = collect($tempScanChapters)->reverse()->toArray();
@@ -131,14 +139,17 @@ class ScanMangaChapterService
                 }
                 
                 $tempArrayChapters = [];
+                
                 foreach ($tempScanChapters as $tempScan) {
+
+                    // dump($tempScan);
 
                     // if it has chapter already in database 
                     if (!$firstEverMangaChapter && $tempCurrentChapter != null) {
-
                         if (is_numeric($tempScan['chapter']) && is_numeric($tempCurrentChapter)) {
-                            if ($tempCurrentChapter < $tempScan['chapter']) {
-                                
+                            // dump('start');
+                            // dump($tempScan['chapter'] . ' > ' . $tempCurrentChapter);
+                            if ($tempScan['chapter'] > $tempCurrentChapter) {
                                 $difference = abs($tempScan['chapter'] - $tempCurrentChapter);
                                 
                                 if ($difference > 0 && $difference <= 1){
@@ -155,6 +166,7 @@ class ScanMangaChapterService
     
                 }// end foreach $tempScanChapters
     
+                // dump($tempArrayChapters);
 
                 // insert chapters to DB
                 foreach ($tempArrayChapters as $tempArrayChapter) {

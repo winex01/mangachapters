@@ -5,14 +5,23 @@
                 <tbody>
                    
                     @php
-                        $chapters = $entry->chapters->where('invalid_link', '!=', true)->sortByDesc('chapter')->take(10);
+                        $showNumberOfChapters = 10;
+
+                        $chapters = $entry->chapters
+                                        ->where('invalid_link', '!=', true)
+                                        ->sortBy([
+                                            ['created_at', 'desc'],
+                                            ['chapter', 'desc'],
+                                        ])
+                                        ->take($showNumberOfChapters);
+                        
                     @endphp
 
                     @if ($chapters->count() > 0)
                         <tr><td>{{ $entry->title }}</td></tr>
                         <tr><td>
                             <small>
-                                Show only latest 10 chapters.
+                                Show only latest {{ $showNumberOfChapters }} chapters.
                             </small>
                         </td></tr>
                     @else

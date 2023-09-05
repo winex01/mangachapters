@@ -43,16 +43,18 @@
                     @endif
                 </div>
             </div>
-        
-            {{-- recaptcha --}}
-            <div class="form-group ">
-                @if($errors->has('g-recaptcha-response'))
-                <div>
-                    <small class="text-danger">{{ $errors->first('g-recaptcha-response') }}</small>
+            
+            @if (config('appsettings.recaptcha'))
+                {{-- recaptcha --}}
+                <div class="form-group ">
+                    @if($errors->has('g-recaptcha-response'))
+                    <div>
+                        <small class="text-danger">{{ $errors->first('g-recaptcha-response') }}</small>
+                    </div>
+                    @endif
+                    {!! htmlFormSnippet() !!} 
                 </div>
-                @endif
-                {!! htmlFormSnippet() !!} 
-            </div>
+            @endif
         
             <div class="form-group">
                 <div>

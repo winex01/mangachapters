@@ -1,3 +1,6 @@
+
+@if (config('appsettings.turn_on_ads'))
+    
 {{-- adsterra.com --}}
 
 {{-- NativeBanner_1 --}}
@@ -6,3 +9,5 @@
 
 {{-- Social Bar --}}
 <script type='text/javascript' src='//pl17850124.profitablegatetocontent.com/82/f8/53/82f853c5988ecb407bae57851ec38e40.js'></script>
+
+@endif

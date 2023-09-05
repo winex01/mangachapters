@@ -86,4 +86,10 @@ return [
 
     'discord_manga_channel_id' => env('DISCORD_MANGA_CHANNEL_ID', false),
     'discord_chapter_channel_id' => env('DISCORD_CHAPTER_CHANNEL_ID', false),
+
+    'turn_on_ads' => env('TURN_ON_ADS', true),
+
+    'recaptcha' => env('RECAPTCHA', true),
+
+    'paypal' => env('PAYPAL', true),
 ];

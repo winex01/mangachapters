@@ -83,9 +83,11 @@
 
 <div class="my-3 p-3 bg-white rounded shadow-sm">
     
-    <div class="row mb-n2" style="margin-top: -43px;">
-        <x-donate-paypal></x-donate-paypal>
-    </div>
+    @if (config('appsettings.paypal'))
+        <div class="row mb-n2" style="margin-top: -43px;">
+            <x-donate-paypal></x-donate-paypal>
+        </div>
+    @endif
     
     @php
         $notice = config('settings.appsettings_dashboard_notice');

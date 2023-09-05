@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Events\NewMangaOrNovelAdded;
 use Backpack\CRUD\app\Library\Widget;
 use App\Http\Requests\MangaCreateRequest;
@@ -227,6 +228,56 @@ class MangaCrudController extends CrudController
 
 
         $this->select2FromArrayFilter('type_id', $this->fetchType()->pluck('name', 'id')->toArray());
+
+
+        if (hasAuthority('mangas_last_chapter_release_filter')) {
+            $this->lastChapterReleaseFilter();
+        }
+    }
+
+    private function lastChapterReleaseFilter()
+    {
+        $col = 'lastChapterRelease';
+        $options = [
+            1 => '1 Month Ago',
+            2 => '2 Months Ago',
+            3 => '3 Months Ago',
+            4 => '4 Months Ago',
+            5 => '5 Months Ago',
+            6 => '6 Months Ago',
+            7 => '7 Months Ago',
+            8 => '8 Months Ago',
+            9 => '9 Months Ago',
+            10 => '10 Months Ago',
+            11 => '11 Months Ago',
+            12 => '12 Months Ago',
+            13 => '13 Months Ago',
+            14 => '14 Months Ago',
+            15 => '15 Months Ago',
+            16 => '16 Months Ago',
+            17 => '17 Months Ago',
+            18 => '18 Months Ago',
+            19 => '19 Months Ago',
+            20 => '20 Months Ago',
+        ];
+
+        $this->crud->addFilter([
+            'name' => $col,
+            'type' => 'select2', 
+            'label' => convertColumnToHumanReadable($col),
+        ], 
+        $options,
+        function ($monthsAgo) { // if the filter is active
+            $monthsAgo = Carbon::now()->subMonths($monthsAgo);
+
+            $inActiveMangas = modelInstance('Manga')->whereDoesntHave('chapters', function ($query) use ($monthsAgo) {
+                $query->where('created_at', '>=', $monthsAgo);
+            })
+            ->pluck('id');
+            
+            $this->crud->query->whereIn('id', $inActiveMangas);
+
+        });
     }
 
     private function widgets()

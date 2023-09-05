@@ -90,6 +90,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'mangas_bookmark_toggle',
             'mangas_bulk_bookmark',
             'mangas_slug',
+            'mangas_last_chapter_release_filter',
         ],
 
         'sources' => [

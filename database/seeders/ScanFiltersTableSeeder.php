@@ -14,7 +14,6 @@ class ScanFiltersTableSeeder extends Seeder
      */
     public function run()
     {
-        
         // Disable the foreign key constraint
         \DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
@@ -270,9 +269,9 @@ class ScanFiltersTableSeeder extends Seeder
                 'filter' => 'ul.clstyle a',
                 'deleted_at' => NULL,
                 'created_at' => '2023-09-09 14:15:34',
-                'updated_at' => '2023-09-10 10:41:28',
+                'updated_at' => '2023-09-10 21:41:25',
                 'title_filter' => 'h1.entry-title',
-                'alternative_title_filter' => 'div.wd-full span',
+            'alternative_title_filter' => 'div.wd-full b:contains("Alternative Title") + span',
             ),
             23 => 
             array (

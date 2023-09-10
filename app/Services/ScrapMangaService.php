@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Goutte\Client;
+use Symfony\Component\HttpClient\HttpClient;
 
 /**
  * Class ScrapMangaService
@@ -15,18 +16,26 @@ class ScrapMangaService
     
     private $client;
 
+    private $crawler;
+
     public function __construct($url)
     {
         $this->url = $url;
 
-        // Create a Goutte client
-        $this->client = new Client();
+        // $this->client = new Client();
+        
+        // Disable SSL certificate validation for this request (not recommended for production)
+        $this->client = new Client(HttpClient::create(['verify_peer' => false, 'verify_host' => false]));
+    
+        // Make a request to the webpage
+        $this->crawler = $this->client->request('GET', $this->url);
+
+        
     }
 
     public function scrapeManga()
     {
-        // Make a request to the webpage
-        $crawler = $this->client->request('GET', $this->url);
+        $crawler = $this->crawler;
 
         // Extract title and description
         $title = $crawler->filter('title')->text();
@@ -47,39 +56,32 @@ class ScrapMangaService
         ];
     }
 
-    public function getTitle()
+    // TODO:: NOTE dont forget when you insert remove Alternative text some website just hardcode the word and combine it 
+    // TODO:: remove word Alternative and Updating if it's the first word in the paragraph
+            // TODO:: Alternative 
+            // TODO:: updating
+            // TODO:: Updating
+            // TODO:: [All Chapters]
+    // TODO:: check sources and change readmanganato.com filter to manganato
+    public function getText($criteria)
     {
-        // Make a request to the webpage
-        $crawler = $this->client->request('GET', $this->url);
-
-        // Define an array of search criteria
-        $searchCriteria = [
-            // mangakakalot.com
-            'ul.manga-info-text > li > h1', 
-        ];
+        $crawler = $this->crawler;
 
         // Initialize a variable to store the scraped content
         $scrapedContent = null;
 
-        // Iterate through the search criteria
-        foreach ($searchCriteria as $criteria) {
-        
-            // Use both tag name and class selector to target a specific element
-            $element = $crawler->filter($criteria);
+        // Use both tag name and class selector to target a specific element
+        $element = $crawler->filter($criteria);
 
-            // Check if the element exists
-            if ($element->count() > 0) {
-                // Scrape and use the content
-                $scrapedContent = $element->text();
-                break; // Break out of the loop after finding the first matching element
-            }
+        // Check if the element exists
+        if ($element->count() > 0) {
+            // Scrape and use the content
+            $scrapedContent = $element->text();
         }
 
         // Check if content was found
         if ($scrapedContent !== null) {
             // Content was found, do something with it
-            // echo "Scraped Content: " . $scrapedContent;
-        
             return $scrapedContent;
         } 
 

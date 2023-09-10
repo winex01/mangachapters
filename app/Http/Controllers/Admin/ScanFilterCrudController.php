@@ -77,5 +77,10 @@ class ScanFilterCrudController extends CrudController
     private function customInputs()
     {
         $this->inputs();
+
+        // rename filter to Chapter Filter to avoid confusion but only the label
+        $this->crud->modifyField('filter', [
+            'label' => 'Chapter Filter', 
+        ]);
     }
 }

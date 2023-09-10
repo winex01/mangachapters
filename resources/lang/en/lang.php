@@ -101,8 +101,10 @@ return [
     | Scan Filters Crud
     |--------------------------------------------------------------------------
     */
-    'scan_filters_name' => 'Website url / name. Eg: https://www.readmng.com/',
-    'scan_filters_filter' => 'Tag or class name. Eg: .chp_lst a',
+    'scan_filters_name' => 'Website url / name. Eg: https://www.mangakakalot.com/',
+    'scan_filters_filter' => 'Chapter Filter. Eg: .chp_lst a',
+    'scan_filters_title_filter' => 'Title Filter',
+    'scan_filters_alternative_title_filter' => 'Alternative Title Filter',
 
     /*
     |--------------------------------------------------------------------------

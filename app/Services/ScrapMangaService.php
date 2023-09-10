@@ -35,7 +35,13 @@ class ScrapMangaService
 
     public function scrapeManga()
     {
-        $domainName = getDomainFromUrl($this->url);
+        $url = $this->url;
+        $crawler = $this->crawler;
+
+        $title = null;
+        $alternativeTitle = null;
+
+        $domainName = getDomainFromUrl($url);
 
         $scanFilters = modelInstance('ScanFilter')
             ->whereNotNull('title_filter')
@@ -47,8 +53,19 @@ class ScrapMangaService
             return;
         }
 
-        $title = $this->crawler->filter($scanFilters->title_filter)->text();
-        $alternativeTitle = $this->crawler->filter($scanFilters->alternative_title_filter)->text();
+        $titleElement = $crawler->filter($scanFilters->title_filter);
+        
+        if ($titleElement->count() > 0) {
+            // Scrape and use the content
+            $title = $titleElement->text();
+        }
+        
+        $alternativeTitleElement = $crawler->filter($scanFilters->alternative_title_filter);
+        
+        if ($alternativeTitleElement->count() > 0) {
+            // Scrape and use the content
+            $alternativeTitle = $alternativeTitleElement->text();
+        }
 
         // // Download an image (e.g., the first image on the webpage)
         // $imageSrc = $crawler->filter('img')->first()->attr('src');

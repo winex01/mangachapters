@@ -23,6 +23,7 @@ class ScanFilterCreateRequest extends FormRequest
         $rules['filter'] = 'required|min:1|max:255'; // chapter filter
         $rules['title_filter'] = 'required|min:1|max:255';
         $rules['alternative_title_filter'] = 'required|min:1|max:255';
+        $rules['image_filter'] = 'required|min:1|max:255';
 
         return $rules;
     }

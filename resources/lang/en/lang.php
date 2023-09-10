@@ -105,6 +105,7 @@ return [
     'scan_filters_filter' => 'Chapter Filter. Eg: .chp_lst a',
     'scan_filters_title_filter' => 'Title Filter',
     'scan_filters_alternative_title_filter' => 'Alternative Title Filter',
+    'scan_filters_image_filter' => 'Image Filter',
 
     /*
     |--------------------------------------------------------------------------

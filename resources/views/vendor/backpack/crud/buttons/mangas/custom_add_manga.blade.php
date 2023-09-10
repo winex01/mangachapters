@@ -51,7 +51,7 @@
                 // console.log(response);
                 if (response) {
                     // Show a success notification bubble
-                    // alert(response.url)
+                    alert(response)
                     swalSuccess();
                 } else {
                     swalError();

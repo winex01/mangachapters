@@ -35,11 +35,20 @@ class ScrapMangaService
 
     public function scrapeManga()
     {
-        $crawler = $this->crawler;
+        $domainName = getDomainFromUrl($this->url);
 
-        // Extract title and description
-        $title = $crawler->filter('title')->text();
-        $description = $crawler->filter('meta[name="description"]')->attr('content');
+        $scanFilters = modelInstance('ScanFilter')
+            ->whereNotNull('title_filter')
+            ->whereNotNull('alternative_title_filter')
+            ->where('name', 'LIKE', '%' . $domainName . '%')
+            ->firstOrFail();
+
+        if (!$scanFilters) {
+            return;
+        }
+
+        $title = $this->crawler->filter($scanFilters->title_filter)->text();
+        $alternativeTitle = $this->crawler->filter($scanFilters->alternative_title_filter)->text();
 
         // // Download an image (e.g., the first image on the webpage)
         // $imageSrc = $crawler->filter('img')->first()->attr('src');
@@ -51,13 +60,14 @@ class ScrapMangaService
         // Return the scraped data
         return [
             'title' => $title,
-            'description' => $description,
+            'alternative_title' => $alternativeTitle,
             // 'image' => $imageName,
         ];
     }
 
     // TODO:: NOTE dont forget when you insert remove Alternative text some website just hardcode the word and combine it 
     // TODO:: remove word Alternative and Updating if it's the first word in the paragraph
+            // TODO:: Alternative : 
             // TODO:: Alternative 
             // TODO:: updating
             // TODO:: Updating

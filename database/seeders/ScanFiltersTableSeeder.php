@@ -15,6 +15,8 @@ class ScanFiltersTableSeeder extends Seeder
     public function run()
     {
         
+        // Disable the foreign key constraint
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         \DB::table('scan_filters')->delete();
         
@@ -285,6 +287,7 @@ class ScanFiltersTableSeeder extends Seeder
             ),
         ));
         
-        
+        // Enable the foreign key constraint
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 }

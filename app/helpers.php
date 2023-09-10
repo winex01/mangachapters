@@ -890,6 +890,20 @@ if (! function_exists('linkToShow')) {
 	}
 }
 
+if (!function_exists('getDomainFromUrl')) {
+    function getDomainFromUrl($url)
+    {
+        $parsed = parse_url($url);
+
+        if (isset($parsed['host'])) {
+            $domain = (isset($parsed['scheme']) ? $parsed['scheme'] . '://' : '') . $parsed['host'];
+            return $domain;
+        } else {
+            return "Invalid URL";
+        }
+    }
+}
+
 /*
 |--------------------------------------------------------------------------
 | Misc. or Views/html/blade files helper

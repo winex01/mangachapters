@@ -30,6 +30,7 @@ class MangaCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
     use \App\Http\Controllers\Admin\Operations\BookmarkToggleOperation;
     use \App\Http\Controllers\Admin\Operations\BulkBookmarkOperation;
+    use \App\Http\Controllers\Admin\Operations\Manga\AddMangaOperation;
     use \App\Http\Controllers\Admin\Traits\CrudExtendTrait;
 
     use \App\Http\Controllers\Admin\Traits\FilterTrait;

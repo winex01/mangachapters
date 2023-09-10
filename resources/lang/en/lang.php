@@ -70,6 +70,7 @@ return [
     'mangas_title' => '',
     'mangas_alternative_title' => 'add alternative title.',
     'mangas_slug' => 'add slug base on the given title.',
+    'mangas_add_button_operation' => 'Add',
 
     /*
     |--------------------------------------------------------------------------

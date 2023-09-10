@@ -105,7 +105,6 @@ class MangaCrudController extends CrudController
 
         
         $this->crud->modifyColumn('alternative_title', [
-            'label'    => 'Alternative Title / Author',
             'type'     => 'closure',
             'function' => function($entry) {
                 return $entry->alternativeTitleInHtml;
@@ -189,10 +188,6 @@ class MangaCrudController extends CrudController
     private function customInputs()
     {
         $this->inputs();
-
-        $this->crud->modifyField('alternative_title', [
-            'label' => 'Alternative Title / Author',
-        ]);
 
         // photo
         $this->crud->modifyField('photo', [

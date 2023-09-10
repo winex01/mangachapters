@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Operations\Manga;
 
+use App\Services\ScrapMangaService;
 use Illuminate\Support\Facades\Route;
 
 trait AddMangaOperation
@@ -49,10 +50,8 @@ trait AddMangaOperation
     {
         $this->crud->hasAccessOrFail('addManga');
         
-        $url = request()->url;
+        $temp = new ScrapMangaService(request()->url);
 
-        //TODO:: here
-
-        return true;
+        return $temp->scrapeManga();
     }
 }

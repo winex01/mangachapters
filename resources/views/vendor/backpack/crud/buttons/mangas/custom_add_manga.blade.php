@@ -51,7 +51,7 @@
                 // console.log(response);
                 if (response) {
                     // Show a success notification bubble
-                    alert(response)
+                    alert(JSON.stringify(response)); // TODO:: debugging purposes only
                     swalSuccess();
                 } else {
                     swalError();

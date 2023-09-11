@@ -46,7 +46,6 @@ class ScrapMangaService
         $scanFilters = modelInstance('ScanFilter')
             ->whereNotNull('title_filter')
             ->whereNotNull('alternative_title_filter')
-            ->whereNotNull('image_filter')
             ->where('name', 'LIKE', '%' . $domainName . '%')
             ->firstOrFail();
 

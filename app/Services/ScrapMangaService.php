@@ -3,8 +3,13 @@
 namespace App\Services;
 
 use Goutte\Client;
+use App\Models\Manga;
+use App\Models\Source;
+use App\Models\ScanFilter;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpClient\HttpClient;
 
@@ -42,7 +47,7 @@ class ScrapMangaService
         $crawler = $this->crawler;
 
         // Check if the URL already exists
-        $urlExists = modelInstance('Source')->published()->where('url', $url)->exists();
+        $urlExists = Source::published()->where('url', $url)->exists();
 
         if ($urlExists) {
             // The URL already exists in the database
@@ -57,27 +62,26 @@ class ScrapMangaService
 
         $domainName = getDomainFromUrl($url);
 
-        $scanFilters = modelInstance('ScanFilter')
-            ->whereNotNull('title_filter')
+        $scanFilter = ScanFilter::whereNotNull('title_filter')
             ->whereNotNull('alternative_title_filter')
             ->where('name', 'LIKE', '%' . $domainName . '%')
             ->first();
 
         // Source is not supported yet or invalid!
-        if (!$scanFilters) {
+        if (!$scanFilter) {
             return [
                 'invalid_url' => true
             ];
         }
 
-        $titleElement = $crawler->filter($scanFilters->title_filter);
+        $titleElement = $crawler->filter($scanFilter->title_filter);
         
         if ($titleElement->count() > 0) {
             // Scrape and use the content
             $title = $titleElement->text();
         }
         
-        $alternativeTitleElement = $crawler->filter($scanFilters->alternative_title_filter);
+        $alternativeTitleElement = $crawler->filter($scanFilter->alternative_title_filter);
         
         if ($alternativeTitleElement->count() > 0) {
             // Scrape and use the content
@@ -85,14 +89,14 @@ class ScrapMangaService
         }
 
         // If image_filter is empty, means cant be scrape then use the default-image
-        if (empty($scanFilters->image_filter)) {
+        if (empty($scanFilter->image_filter)) {
             
             $imagePath= $this->imagePath();
         
         }else {
 
             // Download an image 
-            $imageSrc = $crawler->filter($scanFilters->image_filter)->first()->attr('src');
+            $imageSrc = $crawler->filter($scanFilter->image_filter)->first()->attr('src');
             
             // Check if $imageSrc is not empty
             if (!empty($imageSrc)) {
@@ -114,25 +118,74 @@ class ScrapMangaService
                 $imageName = 'scrap_'.md5($imageName) . '.jpg'; // Generate a unique image name with the JPG extension
         
                 $imagePath = config('appsettings.manga_image_disk').'/' . config('appsettings.manga_image_destination_path').'/'.$imageName;
-        
-                // Save the image to the storage directory as JPG
-                Storage::put($imagePath, $image->stream('jpg', 90));
                 
             } else {
                 // Handle the case where $imageSrc is empty (no image found)
                 $imagePath = $this->imagePath();
             
             }
+        }
+        
+        
+        // check $title to Manga title and alternative_title 
+        $checkManga = Manga::where(function ($query) use ($title) {
+            $query->where('title', 'like', '%' . $title . '%')
+            ->orWhere('alternative_title', 'like', '%' . $title . '%');
+        })->first(); // Retrieve the first matching record
+        
+        $newManga = null;
+        if (!$checkManga) {
+            // The title was not found in either column title/alternative, then insert record into Manga 
+            // Define the data you want to insert, excluding the 'photo' attribute
+            $data = [
+                'url'               => $url,
+                'title'             => $title,
+                'alternative_title' => $alternativeTitle,
+            ];
+
+            // Create a new Manga model without triggering the mutator
+            $newManga = new Manga($data);
+            // Attempt to save the model and store the result in a variable
+            $success = $newManga->save();
+
+            
+            // Check if the insertion was successful
+            if ($success) {
+                // Insertion was successful
+                // Save the image to the storage directory as JPG
+                Storage::put($imagePath, $image->stream('jpg', 90));
+                
+                // im using raw SQL query here to update the photo and to not trigger the mutator setPhotoAttribute.
+                DB::table('mangas')
+                ->where('id', $newManga->id) 
+                ->update(['photo' => str_replace('public/', '', $imagePath)]);
+            }
         } 
 
-        $data =  [
-            'url'               => $url,
-            'title'             => $title,
-            'alternative_title' => $alternativeTitle,
-            'image_path'        => str_replace('public/', '', $imagePath),
-        ];
 
-        return $data;
+        if ($newManga !== null) {
+            // Create a new Source record 
+            $source = new Source([
+                'manga_id'       => $newManga->id,
+                'url'            => $url,
+                'scan_filter_id' => $scanFilter->id,
+                'published'      => true,
+            ]);
+            
+            $result = $source->save();
+
+            if ($result) {
+                // Run the specified Artisan command without capturing output
+                Artisan::call('winex:scan-chapters', [
+                    '--mangaId' => $newManga->id, 
+                ]);
+
+            }
+
+            return $result;
+        }
+
+        return;
     }
 
     public function getText($criteria)

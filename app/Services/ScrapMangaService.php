@@ -61,10 +61,13 @@ class ScrapMangaService
             ->whereNotNull('title_filter')
             ->whereNotNull('alternative_title_filter')
             ->where('name', 'LIKE', '%' . $domainName . '%')
-            ->firstOrFail();
+            ->first();
 
+        // Source is not supported yet or invalid!
         if (!$scanFilters) {
-            return;
+            return [
+                'invalid_url' => true
+            ];
         }
 
         $titleElement = $crawler->filter($scanFilters->title_filter);

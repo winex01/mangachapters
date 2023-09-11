@@ -60,6 +60,13 @@
                             timer: 2000,
                             showConfirmButton: false,
                         });
+                    }else if(response.invalid_url){
+                        Swal.fire({
+                            title: 'URL not supported yet or invalid!',
+                            icon: "info",
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
                     }else {
                         swalSuccess();
                     }

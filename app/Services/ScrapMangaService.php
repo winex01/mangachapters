@@ -135,14 +135,6 @@ class ScrapMangaService
         return $data;
     }
 
-    // TODO:: NOTE dont forget when you insert remove Alternative text some website just hardcode the word and combine it 
-    // TODO:: remove word Alternative and Updating if it's the first word in the paragraph
-            // TODO:: Alternative : 
-            // TODO:: Alternative 
-            // TODO:: updating
-            // TODO:: Updating
-            // TODO:: [All Chapters]
-    // TODO:: check sources and change readmanganato.com filter to manganato
     public function getText($criteria)
     {
         $crawler = $this->crawler;
@@ -173,3 +165,17 @@ class ScrapMangaService
         return 'images/photo/default-image.jpg';
     }
 }
+
+// TODO:: NOTE dont forget when you insert remove Alternative text some website just hardcode the word and combine it 
+    // TODO:: remove word Alternative and Updating if it's the first word in the paragraph
+            // TODO:: Alternative : 
+            // TODO:: Alternative 
+            // TODO:: updating
+            // TODO:: Updating
+            // TODO:: [All Chapters]
+    // TODO:: check sources and change readmanganato.com filter to manganato
+// TODO:: in production
+    // TODO:: add mangas_add_manga permission, roles and to user admin(me) dont put to normal user yet.
+    // TODO:: dont forget to run iseeder but run the schedule run backup first if anything happens.
+    // TODO:: test it try to add manga. also add manga that doesn't support manga scrap for image or source that have empty/null image_filter
+    // TODO:: then add the permission to normal user

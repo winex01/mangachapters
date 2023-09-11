@@ -123,6 +123,7 @@ class ScrapMangaService
         } 
 
         $data =  [
+            'url'               => $url,
             'title'             => $title,
             'alternative_title' => $alternativeTitle,
             'image_path'        => str_replace('public/', '', $imagePath),

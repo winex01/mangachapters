@@ -3,6 +3,9 @@
 namespace App\Services;
 
 use Goutte\Client;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpClient\HttpClient;
 
 /**
@@ -38,8 +41,19 @@ class ScrapMangaService
         $url = $this->url;
         $crawler = $this->crawler;
 
+        // Check if the URL already exists
+        $urlExists = modelInstance('Source')->published()->where('url', $url)->exists();
+
+        if ($urlExists) {
+            // The URL already exists in the database
+            return [
+                'already_exist' => true
+            ];
+        }
+
         $title = null;
         $alternativeTitle = null;
+        $imagePath = null;
 
         $domainName = getDomainFromUrl($url);
 
@@ -67,19 +81,54 @@ class ScrapMangaService
             $alternativeTitle = $alternativeTitleElement->text();
         }
 
-        // // Download an image (e.g., the first image on the webpage)
-        // $imageSrc = $crawler->filter('img')->first()->attr('src');
-        // $imageData = file_get_contents($imageSrc);
-        // $imageName = 'image_' . time() . '.jpg'; // Generate a unique image name
-        // $imagePath = storage_path('app/public/' . $imageName);
-        // file_put_contents($imagePath, $imageData);
+        // If image_filter is empty, means cant be scrape then use the default-image
+        if (empty($scanFilters->image_filter)) {
+            
+            $imagePath= $this->imagePath();
+        
+        }else {
 
-        // Return the scraped data
-        return [
-            'title' => $title,
+            // Download an image 
+            $imageSrc = $crawler->filter($scanFilters->image_filter)->first()->attr('src');
+            
+            // Check if $imageSrc is not empty
+            if (!empty($imageSrc)) {
+                // Download the image and save it using Intervention\Image
+                $image = Image::make($imageSrc);
+
+                // Define the new width and height for the image
+                $newWidth = 250; // Replace with your desired width
+                $newHeight = 300; // Replace with your desired height
+        
+                // Resize the image while maintaining its aspect ratio
+                $image->resize($newWidth, $newHeight, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+        
+                $timestamp = now()->timestamp;
+                $randomString = Str::random(10); // Generate a random string of 10 characters
+                $imageName = $timestamp .'_'. $randomString; // Unique image name
+                $imageName = 'scrap_'.md5($imageName) . '.jpg'; // Generate a unique image name with the JPG extension
+        
+                $imagePath = config('appsettings.manga_image_disk').'/' . config('appsettings.manga_image_destination_path').'/'.$imageName;
+        
+                // Save the image to the storage directory as JPG
+                Storage::put($imagePath, $image->stream('jpg', 90));
+                
+            } else {
+                // Handle the case where $imageSrc is empty (no image found)
+                $imagePath = $this->imagePath();
+            
+            }
+        } 
+
+        $data =  [
+            'title'             => $title,
             'alternative_title' => $alternativeTitle,
-            // 'image' => $imageName,
+            'image_path'        => str_replace('public/', '', $imagePath),
         ];
+
+        return $data;
     }
 
     // TODO:: NOTE dont forget when you insert remove Alternative text some website just hardcode the word and combine it 
@@ -115,4 +164,8 @@ class ScrapMangaService
         return;
     }
 
+    private function imagePath()
+    {
+        return 'images/photo/default-image.jpg';
+    }
 }

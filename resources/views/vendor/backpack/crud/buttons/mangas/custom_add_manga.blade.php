@@ -14,7 +14,6 @@
 @push('after_scripts')
 <script>
 	if (typeof addMangaEntry != 'function') {
-
         // Function to show the modal dialog
         function addMangaEntry() {
             Swal.fire({
@@ -40,19 +39,30 @@
                 }
             });
         }
+	}
 
-        // AJAX function to send data to the server using Fetch
-        function sendDataToServer(url) {
-            $.ajax({
-              type: "post",
-              url: "{{ url($crud->route) }}/addManga",
-              data: { url: url },
-              success: function (response) {
-                // console.log(response);
+    // AJAX function to send data to the server using Fetch
+    function sendDataToServer(url) {
+            
+        swalLoader('Loading...');
+
+        $.ajax({
+            type: "post",
+            url: "{{ url($crud->route) }}/addManga",
+            data: { url: url },
+            success: function (response) {
+                console.log(response);
                 if (response) {
-                    // Show a success notification bubble
-                    alert(JSON.stringify(response)); // TODO:: debugging purposes only
-                    swalSuccess();
+                    if (response.already_exist) {
+                        Swal.fire({
+                            title: 'URL Already Exist!',
+                            icon: "info",
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    }else {
+                        swalSuccess();
+                    }
                 } else {
                     swalError();
                     new Noty({
@@ -61,16 +71,13 @@
                     }).show();			          	  
                 }
                 crud.table.ajax.reload();                 
-              },
-              error: function () {
+            },
+            error: function () {
                 swalError();
-              }
-          });
-        }
-      
-	}
+            }
+        });
+    }
+
 </script>
 <script src="{{ asset('js/swal2_helper.js') }}"></script>
 @endpush
-
-

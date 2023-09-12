@@ -51,7 +51,7 @@
             url: "{{ url($crud->route) }}/addManga",
             data: { url: url },
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 if (response) {
                     if (response.already_exist) {
                         Swal.fire({

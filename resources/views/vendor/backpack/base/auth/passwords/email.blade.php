@@ -4,7 +4,7 @@
 @section('guest_blank_content')
 {{-- @section('content') --}}
 
-{{-- https://adsterra.com/ --}}
+{{-- ads --}}
 @include(backpack_view('inc.ads'))
 
     <div class="row justify-content-center">

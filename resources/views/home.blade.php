@@ -34,7 +34,7 @@
           @foreach ($chunks as $manga)
             
               <div class="chapter-card media text-muted pt-3 mb-n2 col-md-4">
-                <img style="height: 55px; width:40px;" src="{{ $manga->photo }}" class="mt-1 rounded" alt="...">
+                <img style="height: 55px; width:40px;" src="{{ mangaPhoto($manga->photo) }}" class="mt-1 rounded" alt="...">
                 <div class="flexbox ml-2 media-body small border-bottom border-gray">
                     
                     <a class="d-block text-muted font-weight-bold" href="{{ url('manghwua/'.$manga->id) }}" >

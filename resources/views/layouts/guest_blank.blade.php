@@ -52,7 +52,7 @@
     </div>
   </nav>
   
-  {{-- https://adsterra.com/ --}}
+  {{-- ads --}}
   @include(backpack_view('inc.ads'))
 
   <div class="my-3 p-3 bg-white rounded shadow-sm">

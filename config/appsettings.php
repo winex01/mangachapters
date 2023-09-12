@@ -92,4 +92,12 @@ return [
     'recaptcha' => env('RECAPTCHA', true),
 
     'paypal' => env('PAYPAL', true),
+
+    // Manga photo/image attribute in saving
+    'manga_image_attribute_name' => 'photo',
+
+    'manga_image_disk' => 'public',
+
+    'manga_image_destination_path' => 'images/photo',
+
 ];

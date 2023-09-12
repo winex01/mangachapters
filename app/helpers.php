@@ -890,11 +890,40 @@ if (! function_exists('linkToShow')) {
 	}
 }
 
+if (!function_exists('getDomainFromUrl')) {
+    function getDomainFromUrl($url)
+    {
+        $parsed = parse_url($url);
+
+		if (isset($parsed['host'])) {
+			$hostParts = explode('.', $parsed['host']);
+
+			// Check if there are at least two parts in the host (domain.tld)
+			if (count($hostParts) >= 2) {
+				// Get the last two parts of the host (domain and TLD)
+				$domain = $hostParts[count($hostParts) - 2] . '.' . $hostParts[count($hostParts) - 1];
+				return $domain;
+			} else {
+				return "Invalid URL";
+			}
+		} else {
+			return "Invalid URL";
+		}
+    }
+}
+
 /*
 |--------------------------------------------------------------------------
 | Misc. or Views/html/blade files helper
 |--------------------------------------------------------------------------
 */
+if (! function_exists('mangaPhoto')) {
+	function mangaPhoto($imagePath) {
+		return !empty($imagePath) ? asset($imagePath) : asset('images/default-image.jpg');
+	}
+}
+
+
 if (! function_exists('displayHourTimeInHtml')) {
 	function displayHourTimeInHtml($attr) {
 		if ($attr == 'invalid') {

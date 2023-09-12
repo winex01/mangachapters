@@ -118,7 +118,11 @@ class Manga extends Model
     */
     public function getPhotoAttribute($value)
     {
-        return ($value != null) ? 'storage/'.$value : $value;
+        if ($value != null) {
+            return 'storage/'.$value;
+        }
+
+        return mangaPhoto($value);
     }
 
     public function getNameAttribute()
@@ -188,11 +192,13 @@ class Manga extends Model
     */
     public function setPhotoAttribute($value)
     {
-        $attribute_name = 'photo';
+        $attribute_name = config('appsettings.manga_image_attribute_name');
         // or use your own disk, defined in config/filesystems.php
-        $disk = 'public'; 
+
+        $disk = config('appsettings.manga_image_disk'); 
+        
         // destination path relative to the disk above
-        $destination_path = 'images/photo'; 
+        $destination_path = config('appsettings.manga_image_destination_path');  
 
         $this->uploadImageToDisk($value, $attribute_name, $disk, $destination_path);
     }

@@ -8,7 +8,6 @@ use App\Events\NewChapterScanned;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpClient\HttpClient;
 
-
 class ScanMangaChapterService
 {
     protected $manga;
@@ -20,10 +19,7 @@ class ScanMangaChapterService
     public function __construct(Manga $manga)
     {
         $this->manga = $manga;
-        
-        // $this->client = new Client();
         $this->client = new Client(HttpClient::create(['verify_peer' => false, 'verify_host' => false]));
-    
         $this->proxy = new GetProxyService();
     }
 
@@ -47,8 +43,6 @@ class ScanMangaChapterService
 
             // get my current chapter, check last chapter entries of that manga_id, if no data then save only the first links
             $currentChapter = $this->manga->latestChapter;
-
-            // dump($currentChapter->toArray());
 
             $proxy = 'http://'.$this->proxy->random();
 
@@ -77,9 +71,6 @@ class ScanMangaChapterService
             // web crawled website links
             foreach ($links as $link) {
                 $data = $this->prepareData($this->manga->id, $link->getUri(), $source->url);
-
-                // dump($data);
-                // dump('end of $data');
 
                 if (!$data) {
                     continue;
@@ -124,8 +115,6 @@ class ScanMangaChapterService
 
             }// loop links
 
-            // dump($currentChapter);
-
             if (!empty($tempScanChapters)) {
 
                 // dump($tempScanChapters);
@@ -166,8 +155,6 @@ class ScanMangaChapterService
     
                 }// end foreach $tempScanChapters
     
-                // dump($tempArrayChapters);
-
                 // insert chapters to DB
                 foreach ($tempArrayChapters as $tempArrayChapter) {
     
@@ -256,8 +243,6 @@ class ScanMangaChapterService
             'chapter' => $chapter,
             'url' => $scrapUrl,
         ];
-
-        // dump($data);
 
         return $data;
     }

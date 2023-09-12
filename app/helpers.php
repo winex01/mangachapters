@@ -917,6 +917,13 @@ if (!function_exists('getDomainFromUrl')) {
 | Misc. or Views/html/blade files helper
 |--------------------------------------------------------------------------
 */
+if (! function_exists('mangaPhoto')) {
+	function mangaPhoto($imagePath) {
+		return !empty($imagePath) ? asset($imagePath) : asset('images/default-image.jpg');
+	}
+}
+
+
 if (! function_exists('displayHourTimeInHtml')) {
 	function displayHourTimeInHtml($attr) {
 		if ($attr == 'invalid') {

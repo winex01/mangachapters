@@ -1,5 +1,9 @@
 <div class="chapter-card media text-muted pt-3 mb-n2 col-md-4 alert alert-dismissible fade show" role="alert">
-    <img style="height: 55px; width:40px;" src="{{ asset($chapter->manga->photo) }}" class="mt-1 rounded" alt="...">
+    <img style="height: 55px; width:40px;" 
+        src="{{ mangaPhoto($chapter->manga->photo) }}" 
+        class="mt-1 rounded" 
+        alt="..."
+    >
     <div class="flexbox ml-2 media-body small border-bottom border-gray">
         
         @auth

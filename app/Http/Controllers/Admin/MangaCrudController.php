@@ -71,6 +71,7 @@ class MangaCrudController extends CrudController
             'type'   => 'image',
             'height' => '50px',
             'width'  => '40px',
+            'default' => 'default-image.jpg', // Provide the path to the default image
             'orderable' => false,
         ]);
 

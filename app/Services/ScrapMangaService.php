@@ -126,15 +126,13 @@ class ScrapMangaService
             }
         }
         
-        
         // check $title to Manga title and alternative_title 
-        $checkManga = Manga::where(function ($query) use ($title) {
+        $manga = Manga::where(function ($query) use ($title) {
             $query->where('title', 'like', '%' . $title . '%')
             ->orWhere('alternative_title', 'like', '%' . $title . '%');
         })->first(); // Retrieve the first matching record
         
-        $newManga = null;
-        if (!$checkManga) {
+        if (!$manga) {
             // The title was not found in either column title/alternative, then insert record into Manga 
             // Define the data you want to insert, excluding the 'photo' attribute
             $data = [
@@ -144,9 +142,9 @@ class ScrapMangaService
             ];
 
             // Create a new Manga model without triggering the mutator
-            $newManga = new Manga($data);
+            $manga = new Manga($data);
             // Attempt to save the model and store the result in a variable
-            $success = $newManga->save();
+            $success = $manga->save();
 
             
             // Check if the insertion was successful
@@ -157,16 +155,15 @@ class ScrapMangaService
                 
                 // im using raw SQL query here to update the photo and to not trigger the mutator setPhotoAttribute.
                 DB::table('mangas')
-                ->where('id', $newManga->id) 
+                ->where('id', $manga->id) 
                 ->update(['photo' => str_replace('public/', '', $imagePath)]);
             }
         } 
 
-
-        if ($newManga !== null) {
+        if ($manga !== null) {
             // Create a new Source record 
             $source = new Source([
-                'manga_id'       => $newManga->id,
+                'manga_id'       => $manga->id,
                 'url'            => $url,
                 'scan_filter_id' => $scanFilter->id,
                 'published'      => true,
@@ -177,7 +174,7 @@ class ScrapMangaService
             if ($result) {
                 // Run the specified Artisan command without capturing output
                 Artisan::call('winex:scan-chapters', [
-                    '--mangaId' => $newManga->id, 
+                    '--mangaId' => $manga->id, 
                 ]);
 
             }

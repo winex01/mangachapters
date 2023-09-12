@@ -60,6 +60,8 @@ class ScrapMangaService
         $alternativeTitle = null;
         $imagePath = null;
 
+        $imageSrc = null;
+
         $domainName = getDomainFromUrl($url);
 
         $scanFilter = ScanFilter::whereNotNull('title_filter')
@@ -148,10 +150,13 @@ class ScrapMangaService
 
             
             // Check if the insertion was successful
-            if ($success) {
-                // Insertion was successful
-                // Save the image to the storage directory as JPG
-                Storage::put($imagePath, $image->stream('jpg', 90));
+            if ($success ) {
+                
+                if ($imageSrc !== null) {
+                    // Insertion was successful
+                    // Save the image to the storage directory as JPG
+                    Storage::put($imagePath, $image->stream('jpg', 90));
+                }
                 
                 // im using raw SQL query here to update the photo and to not trigger the mutator setPhotoAttribute.
                 DB::table('mangas')

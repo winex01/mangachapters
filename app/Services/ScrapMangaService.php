@@ -222,3 +222,4 @@ class ScrapMangaService
     // TODO:: dont forget to run iseeder but run the schedule run backup first if anything happens.
     // TODO:: test it try to add manga. also add manga that doesn't support manga scrap for image or source that have empty/null image_filter
     // TODO:: then add the permission to normal user
+//TODO:: remove discord TBD

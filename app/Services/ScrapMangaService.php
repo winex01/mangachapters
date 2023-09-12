@@ -173,27 +173,28 @@ class ScrapMangaService
     {
         $element = $this->crawler->filter($filter);
         
+        
         if ($element->count() > 0) {
             // Scrape and use the content
-            return $element->text();
+            $text = $element->text();
+        
+            // Words to remove
+            $wordsToRemove = [
+                'Alternative :', 
+                'Alternative', 
+                'updating', 
+                'Updating', 
+                '[All Chapters]', 
+            ];
+
+            // Replace words with an empty string
+            $filteredText = str_replace($wordsToRemove, '', $text);
+
+
+            return $filteredText;
         }
         
         return;
     }
 
 }
-
-// TODO:: NOTE dont forget when you insert remove Alternative text some website just hardcode the word and combine it 
-    // TODO:: remove word Alternative and Updating if it's the first word in the paragraph
-            // TODO:: Alternative : 
-            // TODO:: Alternative 
-            // TODO:: updating
-            // TODO:: Updating
-            // TODO:: [All Chapters]
-    // TODO:: check sources and change readmanganato.com filter to manganato
-// TODO:: in production
-    // TODO:: add mangas_add_manga permission, roles and to user admin(me) dont put to normal user yet.
-    // TODO:: dont forget to run iseeder but run the schedule run backup first if anything happens.
-    // TODO:: test it try to add manga. also add manga that doesn't support manga scrap for image or source that have empty/null image_filter
-    // TODO:: then add the permission to normal user
-//TODO:: remove discord TBD

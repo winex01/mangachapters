@@ -52,7 +52,8 @@ class EventServiceProvider extends ServiceProvider
 
         NewMangaOrNovelAdded::class => [
             //* Not Queue
-            SendDiscordNewMangaNovelNotification::class,
+            // SendDiscordNewMangaNovelNotification::class,
+            
         ],
         
         Login::class => [

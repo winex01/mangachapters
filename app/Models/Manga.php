@@ -118,7 +118,11 @@ class Manga extends Model
     */
     public function getPhotoAttribute($value)
     {
-        return ($value != null) ? 'storage/'.$value : $value;
+        if ($value != null) {
+            return 'storage/'.$value;
+        }
+
+        return mangaPhoto($value);
     }
 
     public function getNameAttribute()

@@ -60,8 +60,6 @@ class ScrapMangaService
         $alternativeTitle = null;
         $imagePath = null;
 
-        $imageSrc = null;
-
         $domainName = getDomainFromUrl($url);
 
         $scanFilter = ScanFilter::whereNotNull('title_filter')
@@ -90,14 +88,8 @@ class ScrapMangaService
             $alternativeTitle = $alternativeTitleElement->text();
         }
 
-        // If image_filter is empty, means cant be scrape then use the default-image
-        if (empty($scanFilter->image_filter)) {
-            
-            $imagePath= $this->imagePath();
-        
-        }else {
-
-            // Download an image 
+        // Download an image 
+        if (!empty($scanFilter->image_filter)) {
             $imageSrc = $crawler->filter($scanFilter->image_filter)->first()->attr('src');
             
             // Check if $imageSrc is not empty
@@ -121,10 +113,6 @@ class ScrapMangaService
         
                 $imagePath = config('appsettings.manga_image_disk').'/' . config('appsettings.manga_image_destination_path').'/'.$imageName;
                 
-            } else {
-                // Handle the case where $imageSrc is empty (no image found)
-                $imagePath = $this->imagePath();
-            
             }
         }
         
@@ -152,16 +140,16 @@ class ScrapMangaService
             // Check if the insertion was successful
             if ($success ) {
                 
-                if ($imageSrc !== null) {
+                if ($imagePath !== null) {
                     // Insertion was successful
                     // Save the image to the storage directory as JPG
                     Storage::put($imagePath, $image->stream('jpg', 90));
-                }
                 
-                // im using raw SQL query here to update the photo and to not trigger the mutator setPhotoAttribute.
-                DB::table('mangas')
-                ->where('id', $manga->id) 
-                ->update(['photo' => str_replace('public/', '', $imagePath)]);
+                    // im using raw SQL query here to update the photo and to not trigger the mutator setPhotoAttribute.
+                    DB::table('mangas')
+                    ->where('id', $manga->id) 
+                    ->update(['photo' => str_replace('public/', '', $imagePath)]);
+                }
             }
         } 
 
@@ -187,6 +175,10 @@ class ScrapMangaService
             return $result;
         }
 
+        // TODO:: 
+        //if manga already exist, check the image again if the current manga exist in 
+        //database photo is empty or null then scan again and try to scrape current user URL image
+        
         return;
     }
 
@@ -215,10 +207,6 @@ class ScrapMangaService
         return;
     }
 
-    private function imagePath()
-    {
-        return 'images/photo/default-image.jpg';
-    }
 }
 
 // TODO:: NOTE dont forget when you insert remove Alternative text some website just hardcode the word and combine it 

@@ -126,13 +126,15 @@ class ScrapMangaService
 
             }
 
+            // TODO:: notify me, everytime someone add manga's
+
             return $result;
         }
 
         return;
     }
 
-    private function downloadImage($filter)
+    public function downloadImage($filter)
     {
         // Download an image 
         if (!empty($filter)) {
@@ -169,7 +171,7 @@ class ScrapMangaService
         return;
     }
 
-    private function getText($filter)
+    public function getText($filter)
     {
         $element = $this->crawler->filter($filter);
         

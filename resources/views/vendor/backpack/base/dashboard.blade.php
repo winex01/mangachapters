@@ -75,7 +75,26 @@
                 @endif
                     
             @elseif ($notification->type == 'App\Notifications\ContactUsNotification')
-                @dump($notification->data)
+                <table class="table">
+                    <tbody>
+                      <tr>
+                        <th scope="row">Email:</th>
+                        <td>{{ $notification->data['email'] }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Name:</th>
+                        <td>{{ $notification->data['name'] }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Message:</th>
+                        <td>{{ $notification->data['message'] }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Sent:</th>
+                        <td>{!! howLongAgo($notification->created_at) !!}</td>
+                      </tr>
+                    </tbody>
+                  </table>
             @else
                 {!! trans('lang.'.$notification->data) !!}
             @endif

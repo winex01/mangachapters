@@ -21,6 +21,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'admin_debugbar', 
             'admin_web_tinker', 
             'admin_notify_newly_registered',
+            'admin_notify_newly_created_manga',
             'admin_proxy_notice',
             'admin_telescope',
             'admin_widgets',

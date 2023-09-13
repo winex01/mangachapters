@@ -58,7 +58,7 @@
 
             @elseif ($notification->type == 'App\Notifications\AdminNewMangaNotification')
                 @php
-                    $user = modelInstance('User')->find($notification->data['id']);
+                    $user = modelInstance('User')->find($notification->data['by_user_id']);
 
                     $manga = modelInstance($notification->data['model'])->find($notification->data['id']);
                 @endphp

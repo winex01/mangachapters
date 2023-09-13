@@ -56,6 +56,24 @@
                     </p>    
                 @endif
 
+            @elseif ($notification->type == 'App\Notifications\AdminNewMangaNotification')
+                @php
+                    $user = modelInstance('User')->find($notification->data['id']);
+
+                    $manga = modelInstance($notification->data['model'])->find($notification->data['id']);
+                @endphp
+
+                @if ($user)
+                    {{ __( $user->email .'['.$user->name.']' ) }}
+                    <span class="text-info"> added manga </span>
+                    <span class="text-danger"> {{ $manga->title }} </span>
+                    {!! howLongAgo($manga->created_at) !!}.
+                @else
+                    <p class="text-muted">
+                        {{ __('User was deleted.') }}                    
+                    </p>    
+                @endif
+                    
             @elseif ($notification->type == 'App\Notifications\ContactUsNotification')
                 @dump($notification->data)
             @else

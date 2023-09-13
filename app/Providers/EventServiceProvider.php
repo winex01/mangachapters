@@ -13,9 +13,8 @@ use App\Listeners\AssignNormalUserRole;
 use App\Listeners\SendAdminNewUserNotification;
 use App\Listeners\SendUserNewChapterNotification;
 use App\Listeners\SendEmailVerificationNotification;
+use App\Listeners\SendAdminNewMangaNovelNotification;
 use App\Listeners\ResendEmailVerificationNotification;
-use App\Listeners\SendDiscordNewChapterNotification;
-use App\Listeners\SendDiscordNewMangaNovelNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -53,6 +52,7 @@ class EventServiceProvider extends ServiceProvider
         NewMangaOrNovelAdded::class => [
             //* Not Queue
             // SendDiscordNewMangaNovelNotification::class,
+            SendAdminNewMangaNovelNotification::class,
             
         ],
         

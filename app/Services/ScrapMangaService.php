@@ -8,6 +8,7 @@ use App\Models\Source;
 use App\Models\ScanFilter;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Events\NewMangaOrNovelAdded;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
@@ -92,7 +93,12 @@ class ScrapMangaService
 
             // Create a new Manga model without triggering the mutator
             $manga = new Manga($data);
-            $manga->save();
+            $success = $manga->save();
+            
+            if ($success) {
+                // alert admin
+                event(new NewMangaOrNovelAdded($manga));
+            }
         } 
 
         if ($manga !== null) {
@@ -126,7 +132,7 @@ class ScrapMangaService
 
             }
 
-            // TODO:: notify me, everytime someone add manga's
+            //TODO:: new source notifications
 
             return $result;
         }

@@ -546,6 +546,23 @@ if (! function_exists('pesoCurrency')) {
 | Date / Time Related Stuff
 |--------------------------------------------------------------------------
 */
+if (! function_exists('howLongAgo')) {
+	function howLongAgo($created_at) {	
+		$textColor = '';
+
+        if (isTimestampLessThanHoursAgo($created_at, 1)) {
+            $textColor = 'text-danger';
+        }elseif (isTimestampLessThanHoursAgo($created_at, 3)) {
+            $textColor = 'text-success';
+        }else {
+            $textColor = 'text-dark';            
+        }
+
+        return '<span class="font-weight-light '.$textColor.'">'.$created_at->diffForHumans().'</span>';
+	}
+}
+
+
 if (! function_exists('isTimestampLessThanHoursAgo')) {
 	function isTimestampLessThanHoursAgo($timestamp, $hour) {	
 		$time = Carbon::now()->subHour($hour);

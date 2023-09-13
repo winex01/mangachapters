@@ -70,17 +70,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getJoinedAttribute()
     {
-        $textColor = '';
-
-        if (isTimestampLessThanHoursAgo($this->created_at, 1)) {
-            $textColor = 'text-danger';
-        }elseif (isTimestampLessThanHoursAgo($this->created_at, 3)) {
-            $textColor = 'text-success';
-        }else {
-            $textColor = 'text-dark';            
-        }
-
-        return '<span class="font-weight-light '.$textColor.'">'.$this->created_at->diffForHumans().'</span>';
+        return howLongAgo($this->created_at);
     }
     /*
     |--------------------------------------------------------------------------

@@ -39,8 +39,6 @@ class Kernel extends ConsoleKernel
         }
 
         $schedule->command('model:prune')->daily();
-
-        // TODO:: check if notifications are being prune or clean
     }
 
     /**

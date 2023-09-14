@@ -13,6 +13,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpClient\HttpClient;
+use App\Events\NewSourceAdded;
 
 /**
  * Class ScrapMangaService
@@ -96,7 +97,7 @@ class ScrapMangaService
             $success = $manga->save();
             
             if ($success) {
-                // alert admin
+                // alert admin for new manga added
                 event(new NewMangaOrNovelAdded($manga));
             }
         } 
@@ -125,14 +126,16 @@ class ScrapMangaService
             $result = $source->save();
 
             if ($result) {
+                // alert admin for new source added
+                event(new NewSourceAdded($source)); 
+
                 // Run the specified Artisan command without capturing output
                 Artisan::call('winex:scan-chapters', [
                     '--mangaId' => $manga->id, 
                 ]);
+                
 
             }
-
-            //TODO:: new source notifications
 
             return $result;
         }

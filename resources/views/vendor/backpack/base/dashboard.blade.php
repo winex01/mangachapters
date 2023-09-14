@@ -164,11 +164,6 @@
         {!! $notice !!}
     @endif
 
-    <div class="alert alert-info" role="alert">
-        <a href="auth/contact" class="alert-link font-weight-bold">Contact us here!</a>
-        If your Manga is not available so we can add it.
-    </div>
-    
     <h6 class="border-bottom border-gray pb-2 mb-0">
         {{ trans('lang.notifications') }}
         

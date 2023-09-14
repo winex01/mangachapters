@@ -63,14 +63,42 @@
                     $manga = modelInstance($notification->data['model'])->find($notification->data['id']);
                 @endphp
 
-                @if ($user)
+                @if ($user && $manga)
                     {{ __( $user->email .'['.$user->name.']' ) }}
-                    <span class="text-info"> added manga </span>
-                    <span class="text-danger"> {{ $manga->title }} </span>
+                    <span class="text-danger"> added manga </span>
+                    <span class="text-info"> 
+                        <a href="{{ linkToShow('manga', $manga->id) }}">{{ $manga->title }}</a>
+                    </span>
                     {!! howLongAgo($manga->created_at) !!}.
                 @else
                     <p class="text-muted">
-                        {{ __('User was deleted.') }}                    
+                        {{ __('User/Manga was deleted.') }}                    
+                    </p>    
+                @endif
+            
+            @elseif ($notification->type == 'App\Notifications\AdminNewSourceNotification')
+                @php
+                    $user = modelInstance('User')->find($notification->data['by_user_id']);
+
+                    $source = modelInstance($notification->data['model'])->find($notification->data['id']);
+                @endphp
+
+                @if ($user && $source)
+                    {{ __( $user->email .'['.$user->name.']' ) }}
+                    <span class="text-danger"> added source </span>
+                    <span class="text-info"> 
+                        <a href="{{ linkToShow('source', $source->id) }}">
+                            {{ getDomainFromUrl($source->url) }}
+                        </a> 
+                    </span>
+                    <span class="text-danger"> to </span>
+                    <span class="text-info"> 
+                        <a href="{{ linkToShow('manga', $source->manga->id) }}">{{ $source->manga->title }}</a>
+                    </span>
+                    {!! howLongAgo($notification->created_at) !!}.
+                @else
+                    <p class="text-muted">
+                        {{ __('User/Source was deleted.') }}                    
                     </p>    
                 @endif
                     
@@ -96,7 +124,9 @@
                     </tbody>
                   </table>
             @else
-                {!! trans('lang.'.$notification->data) !!}
+                @if (!is_array($notification->data))
+                    {!! trans('lang.'.$notification->data) !!}
+                @endif
             @endif
 
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">

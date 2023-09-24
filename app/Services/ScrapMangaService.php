@@ -75,7 +75,12 @@ class ScrapMangaService
         $title = $this->getText($scanFilter->title_filter);
         $alternativeTitle = $this->getText($scanFilter->alternative_title_filter);
         
-        
+        // if title is empty temporarily block by the site
+        if (!$title) {
+            return [
+                'invalid_url' => true
+            ];
+        }
         
         // check $title to Manga title and alternative_title 
         $manga = Manga::where(function ($query) use ($title) {

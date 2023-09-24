@@ -3,17 +3,20 @@
 namespace App\Services;
 
 use Goutte\Client;
+use App\Models\User;
 use App\Models\Manga;
 use App\Models\Source;
 use App\Models\ScanFilter;
 use Illuminate\Support\Str;
+use App\Events\NewSourceAdded;
 use Illuminate\Support\Facades\DB;
 use App\Events\NewMangaOrNovelAdded;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\ContactUsNotification;
+use Illuminate\Support\Facades\Notification;
 use Symfony\Component\HttpClient\HttpClient;
-use App\Events\NewSourceAdded;
 
 /**
  * Class ScrapMangaService
@@ -67,6 +70,9 @@ class ScrapMangaService
 
         // Source is not supported yet or invalid!
         if (!$scanFilter) {
+
+            $this->notifyMeForInvalidUrl('invalid_url');
+
             return [
                 'invalid_url' => true
             ];
@@ -75,8 +81,13 @@ class ScrapMangaService
         $title = $this->getText($scanFilter->title_filter);
         $alternativeTitle = $this->getText($scanFilter->alternative_title_filter);
         
+        $title = null;
+
         // if title is empty temporarily block by the site
         if (!$title) {
+
+            $this->notifyMeForInvalidUrl('invalid_url');
+
             return [
                 'invalid_url' => true
             ];
@@ -211,6 +222,21 @@ class ScrapMangaService
         }
         
         return;
+    }
+
+    public function notifyMeForInvalidUrl($type)
+    {
+        $data = [
+            'email' => auth()->user()->email,
+            'name' => auth()->user()->name,
+            'message' => $type .': '.$this->url,
+        ];
+
+        debug($data);
+        
+        // send notification
+        $usersWithAdminPermission = User::permission('admin_received_contact_us')->get();
+        Notification::send($usersWithAdminPermission, new ContactUsNotification($data));
     }
 
 }

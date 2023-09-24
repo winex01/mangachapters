@@ -19,7 +19,7 @@
             Swal.fire({
                 title: 'Enter a URL',
                 input: 'url',
-                inputPlaceholder: 'https://example.com',
+                inputPlaceholder: 'https://mangasite.com/one-piece',
                 inputAttributes: {
                     autocapitalize: 'off',
                 },
@@ -28,7 +28,7 @@
                 cancelButtonText: 'Cancel',
                 inputValidator: (value) => {
                     if (!value || !value.match(/^https:\/\/\w+\.\w+/)) {
-                        return 'Please enter a valid URL (e.g., https://example.com)';
+                        return 'Please enter a valid URL (e.g., https://mangasite.com/one-piece) not the home page of the manga site.';
                     }
                 }
             }).then((result) => {

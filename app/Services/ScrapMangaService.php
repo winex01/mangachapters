@@ -71,7 +71,7 @@ class ScrapMangaService
         // Source is not supported yet or invalid!
         if (!$scanFilter) {
 
-            $this->notifyMeForInvalidUrl('invalid_url');
+            $this->notifyMeForInvalidUrl('Source is not supported');
 
             return [
                 'invalid_url' => true
@@ -81,12 +81,10 @@ class ScrapMangaService
         $title = $this->getText($scanFilter->title_filter);
         $alternativeTitle = $this->getText($scanFilter->alternative_title_filter);
         
-        $title = null;
-
         // if title is empty temporarily block by the site
         if (!$title) {
 
-            $this->notifyMeForInvalidUrl('invalid_url');
+            $this->notifyMeForInvalidUrl('Null Title');
 
             return [
                 'invalid_url' => true
@@ -232,7 +230,7 @@ class ScrapMangaService
             'message' => $type .': '.$this->url,
         ];
 
-        debug($data);
+        // debug($data);
         
         // send notification
         $usersWithAdminPermission = User::permission('admin_received_contact_us')->get();

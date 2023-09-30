@@ -26,4 +26,5 @@ Route::group([
     Route::crud('dashboard', 'DashboardCrudController');
     Route::crud('auth', 'AuthCrudController');
     Route::crud('notification', 'NotificationCrudController');
+    Route::crud('message', 'MessageCrudController');
 }); // this should be the absolute last line of this file

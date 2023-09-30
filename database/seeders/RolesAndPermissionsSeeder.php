@@ -26,6 +26,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'admin_telescope',
             'admin_widgets',
             'admin_received_contact_us',
+            'admin_reply_contact_us',
         ],
 
         'audit_trails' => [

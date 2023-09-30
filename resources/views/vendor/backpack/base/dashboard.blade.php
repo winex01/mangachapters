@@ -103,15 +103,43 @@
                 @endif
                     
             @elseif ($notification->type == 'App\Notifications\ContactUsNotification')
+                @php
+                    $authUser = null;
+                    $isAdmin = false;
+
+                    if (isset($notification->data['auth_user'])) {
+                        $authUser = modelInstance('User')
+                            ->with('permissions')
+                            ->with('roles')
+                            ->find($notification->data['auth_user']);
+                        
+                        if ($authUser->hasPermissionTo('admin_reply_contact_us')) {
+                            $isAdmin = true;
+                        } 
+                    }
+
+                    // dump($isAdmin);
+
+                @endphp
+
                 <table class="table">
                     <tbody>
-                      <tr>
-                        <th scope="row">Email:</th>
-                        <td>{{ $notification->data['email'] }}</td>
-                      </tr>
+                        
+                        @if (!$isAdmin)
+                            <tr>
+                                <th scope="row">Email:</th>
+                                <td>{{ $notification->data['email'] }}</td>
+                            </tr>
+                        @endif
+                        
                       <tr>
                         <th scope="row">Name:</th>
-                        <td>{{ $notification->data['name'] }}</td>
+                        <td>
+                            {{ $notification->data['name'] }}
+                            @if ($isAdmin)
+                                {{ __('(Administrator)') }}
+                            @endif
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">Message:</th>
@@ -121,6 +149,29 @@
                         <th scope="row">Sent:</th>
                         <td>{!! howLongAgo($notification->created_at) !!}</td>
                       </tr>
+
+                    {{-- if email provided exist in user then show row below, if not exist then the unauth contact us was used--}}
+                    @can('admin_reply_contact_us')
+                      @if ($authUser)
+                        <tr>
+                            <th scope="row">Action:</th>
+                            <td>
+                                <a 
+                                    href="javascript:void(0)" 
+                                    onclick="replyMessage(this)" 
+                                    class="btn btn-info btn-sm"
+                                    class-style="{{ $notification->data['auth_user'] }}" 
+                                >
+                                    <span class="ladda-label">
+                                        <i class="las la-reply"></i>
+                                        {{ __('Reply') }} 
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                      @endif
+                    @endcan
+
                     </tbody>
                   </table>
             @else
@@ -288,6 +339,61 @@
             }
         });
     }
+
+
+    if (typeof replyMessage != 'function') {
+        // Function to show the modal dialog
+        function replyMessage(button) {
+            const userId = $(button).attr('class-style');
+
+            Swal.fire({
+                input: 'textarea',
+                inputLabel: 'Message',
+                inputPlaceholder: 'Type your message here...',
+                inputAttributes: {
+                    'aria-label': 'Type your message here'
+                },
+                showCancelButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const message = result.value;
+                    // send message to server
+                    sendMessage(userId, message);
+                }
+            });
+        }
+	}
+
+
+    function sendMessage(userId, message) {
+            
+        $.ajax({
+            type: "post",
+            url: "{{ url('message/replyContactUs') }}",
+            data: { 
+                userId: userId,
+                message: message
+             },
+            success: function (response) {
+                console.log(response);
+                if (response) {
+                    if (response) {
+                        swalSuccess();
+                    }
+                } else {
+                    swalError();
+                    new Noty({
+                        type: "warning",
+                        text: "<strong>{!! __('Scanned Error') !!}</strong><br>{!! __('Whoops something went wrong.') !!}"
+                    }).show();			          	  
+                }
+            },
+            error: function () {
+                swalError();
+            }
+        });
+    }
+
 </script>
 @endpush
 

@@ -58,12 +58,19 @@ class ContactController extends Controller
             'email' => [
                 'required',
                 'email',
-                new Throttle('contact-form', $maxAttempts = 5, $minutes = 10),
+                new Throttle('contact-form', $maxAttempts = 5, $minutes = 10), 
             ],
             'name' => 'required|max:255',
             'message' => 'required|min:10|max:999',
             'g-recaptcha-response' => 'recaptcha',
         ]);
+
+        if (auth()->check()) {
+            $validated['auth_user'] = auth()->user()->id;
+        }
+        
+        // dont include captcha in notification
+        unset($validated['g-recaptcha-response']);
 
         // send notification
         $usersWithAdminPermission = User::permission('admin_received_contact_us')->get();

@@ -4,10 +4,14 @@ namespace App\Models;
 
 use App\Models\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\MassPrunable;
 
 class Chapter extends Model
 {
     use Notifiable;
+
+    use MassPrunable;
 
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -33,6 +37,12 @@ class Chapter extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    //* https://medium.com/code16/automatically-delete-read-database-notifications-in-laravel-59871ee3c98
+    public function prunable(): Builder
+    {
+        return static::where('created_at', '<', now()->subMonths(7));
+    }
+
     public function routeNotificationForDiscord()
     {
         return config('appsettings.discord_chapter_channel_id');

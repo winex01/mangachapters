@@ -209,13 +209,14 @@
     
     
     <p>
-            You can export your bookmarks data to Excel or PDF:
+            You can export your Manga/Manhwa/Manhua bookmarks data to Excel, PDF or Etc.:
     </p>
     
     <ol>
             <li> Navigate to Manga's | Manhwa's or click <a href="http://mangachapters.test/manga?add_scope_show_only=whereBookmarkedBy&persistent-table=true">Click Here!</a> </li>
-            <li>Select filter <b>Show Only</b> and select Bookmark at upper left in the table.</li>
+            <li>Select filter <b>Show Only</b> and select Bookmark at upper left in the table. (If you click the link above no need to do this)</li>
             <li>At the bottom right of the table there is an <b>Export</b> button. </li>
+            <li>You can also select what column to be exported, just check column at the <b>Column Export</b> at the bottom right. </li>
     </ol>
     
             <p>
@@ -224,10 +225,10 @@
                             Deadline: The server will remain operational until the end of this month.
                     </li>
                     <li>
-                            We recommend exploring Tachiyomi as an alternative website for your needs.
+                            We recommend exploring <a href="https://tachiyomi.org/">Tachiyomi</a> as an alternative website for your needs.
                     </li>
                     <li>
-                            We apologize for any disruptions this may cause and thank you for your understanding.
+                            If you have any question please <a href="http://mangachapters.test/auth/contact">contact us here</a> or email us at:manghwua@gmail.com.  Thank you for your understanding and God bless.
                     </li>
             </ul>
             </p>

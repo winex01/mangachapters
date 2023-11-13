@@ -199,6 +199,42 @@
     @endphp
 
 
+<div class="alert alert-success"role=alert> 
+
+    <p>
+    Dear users,It is with a heavy heart that I must inform you of a difficult decision we have had to make. Due to financial constraints, we regret to announce that our server will no longer be able to sustain its operations beyond the end of this month.
+            
+            We understand the impact that this may have on our tight-knit community, and we want to make this transition as smooth as possible for all of you.
+    </p>
+    
+    
+    <p>
+            You can export your Manga/Manhwa/Manhua bookmarks data to Excel, PDF or Etc.:
+    </p>
+    
+    <ol>
+            <li> Navigate to Manga's | Manhwa's or click <a href="http://mangachapters.test/manga?add_scope_show_only=whereBookmarkedBy&persistent-table=true">Click Here!</a> </li>
+            <li>Select filter <b>Show Only</b> and select Bookmark at upper left in the table. (If you click the link above no need to do this)</li>
+            <li>At the bottom right of the table there is an <b>Export</b> button. </li>
+            <li>You can also select what column to be exported, just check column at the <b>Column Export</b> at the bottom right. </li>
+    </ol>
+    
+            <p>
+            <ul>
+                    <li>
+                            Deadline: The server will remain operational until the end of this month.
+                    </li>
+                    <li>
+                            We recommend exploring <a href="https://tachiyomi.org/">Tachiyomi</a> as an alternative website for your needs.
+                    </li>
+                    <li>
+                            If you have any question please <a href="http://mangachapters.test/auth/contact">contact us here</a> or email us at:manghwua@gmail.com.  Thank you for your understanding and God bless.
+                    </li>
+            </ul>
+            </p>
+    </div>
+
+
 <div class="my-3 p-3 bg-white rounded shadow-sm">
     
     @if (config('appsettings.paypal'))

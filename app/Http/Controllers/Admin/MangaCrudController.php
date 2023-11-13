@@ -50,6 +50,8 @@ class MangaCrudController extends CrudController
 
         $this->userPermissions();
 
+        $this->exportClass = '\App\Exports\MangaExport';
+
         $this->enableDisqusComment(['list', 'show']);
 
         $this->crud->enableDetailsRow();
